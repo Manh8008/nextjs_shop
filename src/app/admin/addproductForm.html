@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <title>Admin</title>
+</head>
+
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <i class='bx bxs-smile'></i>
+            <span class="text">Admin</span>
+        </a>
+        <ul class="side-menu top">
+            <li class="active">
+                <a href="index.html">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Trang chủ</span>
+                </a>
+            </li>
+            <li>
+                <a href="product.html">
+                    <i class='bx bxs-shopping-bag-alt'></i>
+                    <span class="text">Thêm sản phẩm</span>
+                </a>
+            </li>
+            <li>
+                <a href="categories.html">
+                    <i class='bx bx-list-ul'></i>
+                    <span class="text">Danh mục</span>
+                </a>
+            </li>
+            <li>
+                <a href="member.html">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Team</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bxs-message-dots'></i>
+                    <span class="text">Message</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#">
+                    <i class='bx bxs-cog'></i>
+                    <span class="text">Cài đặt</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Đăng xuất</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <a href="#" class="nav-link">Danh mục</a>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="notification">
+                <i class='bx bxs-bell'></i>
+                <span class="num">8</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="assets/img/admin.jpg">
+            </a>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Tài khoản</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Trang chủ</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="#">Tài khoản</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="#" class="btn-download">
+                    <i class='bx bxs-cloud-download'></i>
+                    <span class="text">Download PDF</span>
+                </a>
+            </div>
+
+
+            <div class="table-data">
+                <div id="check-out">
+                    <div class="container_form-checkout">
+                        <form action="">
+                            <div class="row">
+                                <div class="col">
+                                    <h3 class="title">Thêm sản phẩm</h3>
+
+                                    <div class="inputBox">
+                                        <span>Tên sản phẩm:</span>
+                                        <input type="text" placeholder="Nguyen Huu Manh">
+                                    </div>
+                                    <div class="inputBox">
+                                        <span>Miêu tả :</span>
+                                        <textarea name="" id="" cols="42" rows="5"></textarea>
+                                    </div>
+                                    <div class="inputBox">
+                                        <span>Giá :</span>
+                                        <input type="text" placeholder="200.000đ">
+                                    </div>
+                                    <div class="inputBox">
+                                        <span>Ngày Thêm :</span>
+                                        <input type="date">
+                                    </div>
+
+                                    <div class="flex">
+                                        <div class="inputBox">
+                                            <span>Sản phẩm mới</span>
+                                            <input type="number" placeholder="1">
+                                        </div>
+                                        <div class="inputBox">
+                                            <span>Sản phẩm hot</span>
+                                            <input type="number" placeholder="0">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <h3 class="title">-----</h3>
+                                    
+                                    <div class="inputBox">
+                                        <span>Hình ảnh :</span>
+                                        <input type="file" >
+                                    </div>
+                                    <div class="inputBox">
+                                        <span>Danh mục :</span>
+                                        <select name="" id="">
+                                            <option value="">Thời trang nữ</option>
+                                            <option value="">Thời trang nam</option>
+                                            <option value="">Thời trang trẻ em</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="flex">
+                                        <div class="inputBox">
+                                            <span>Số lượng :</span>
+                                            <input type="number" placeholder="10">
+                                        </div>
+                                        <div class="inputBox">
+                                            <span>CVV :</span>
+                                            <input type="text" placeholder="1234">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <button type="submit" value="Thêm" class="submit-btn">Thêm</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

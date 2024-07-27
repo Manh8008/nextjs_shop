@@ -1,0 +1,72 @@
+/* Phản hồi cho các thiết bị có độ rộng màn hình nhỏ hơn 768px */
+@media screen and (max-width: 740px) {
+
+    .main-container {
+        background-color: #fff;
+    }
+
+    .main {
+        width: 90%;
+        margin: auto;
+    }
+
+    .product-heading {
+        font-size: 20px;
+        line-height: 32px;
+        padding: 18px 0;
+    }
+
+    .buy-now {
+        display: none !important;
+    }
+
+    #header {
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-menu {
+        margin-top: 20px;
+        justify-content: center;
+    }
+
+    .header-menu-item {
+        margin: 0 15px;
+    }
+
+    .header-login {
+        margin-top: 20px;
+    }
+
+    .header-logo-img {
+        width: 100px;
+    }
+
+    ul.products li {
+        flex-basis: calc(50% - 20px);
+        margin-bottom: 20px;
+    }
+
+    .info-ticket {
+        font-size: 10px;
+        line-height: 12px;
+    }
+}
+
+
+@media screen and (min-width: 740px) {
+    .main-container {
+        background-color: #fff;
+    }
+
+}
+
+/* Phản hồi cho các thiết bị có độ rộng màn hình nhỏ hơn 480px */
+@media screen and (max-width: 480px) {
+
+    /* Điều chỉnh chiều rộng của sản phẩm trong danh sách sản phẩm */
+    ul.products li {
+        flex-basis: 100%;
+    }
+}

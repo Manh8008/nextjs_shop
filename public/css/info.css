@@ -1,0 +1,34 @@
+.accountInfo .list-group-item {
+    font-size: 16px;
+}
+
+.accountInfo .card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.accountInfo h2 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.accountInfo .form-control {
+    background-color: #f9f9f9;
+    border: none;
+}
+
+.accountInfo .btn-primary {
+    background-color: #000;
+    border: none;
+}
+
+.accountInfo .btn-secondary {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.accountInfo .btn-secondary:hover {
+    background-color: #000;
+    color: #fff;
+}
