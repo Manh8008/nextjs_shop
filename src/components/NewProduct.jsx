@@ -1,38 +1,35 @@
-import { fetchNewProducts } from "../services";
+"use client";
+
+import { useEffect, useState } from "react";
 import { ProductCard } from "./index";
 
-const NewProduct = async () => {
-    const allNewProducts = await fetchNewProducts();
+function NewProduct() {
+    const [newProducts, setNewProducts] = useState();
 
-    const isDataEmpty =
-        !Array.isArray(allNewProducts) ||
-        allNewProducts.length < 1 ||
-        !allNewProducts;
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        const res = await fetch("http://localhost:5000/products/filter/new");
+        const result = await res.json();
+        setNewProducts(result);
+    };
 
     return (
         <div className="product-sale">
             <h2 className="product-heading">NEW ARRIVAL</h2>
 
             <ul className="products grid">
-                {!isDataEmpty ? (
-                    <>
-                        {allNewProducts.map((product) => (
-                            <li className="product-item grid__column-2">
-                                <ProductCard
-                                    key={product._id}
-                                    product={product}
-                                />
-                            </li>
-                        ))}
-                    </>
-                ) : (
-                    <div>
-                        <h2>No result</h2>
-                    </div>
-                )}
+                {newProducts &&
+                    newProducts.map((product) => (
+                        <li className="product-item grid__column-2">
+                            <ProductCard key={product._id} product={product} />
+                        </li>
+                    ))}
             </ul>
         </div>
     );
-};
+}
 
 export default NewProduct;

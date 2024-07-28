@@ -1,39 +1,33 @@
-
-import { fetchSaleProducts } from "../services";
+"use client";
+import { useEffect, useState } from "react";
 import { ProductCard } from "./index";
 
-const SaleProduct = async () => {
+function SaleProduct() {
+    const [saleProducts, setSaleProducts] = useState();
 
-    const allSaleProducts = await fetchSaleProducts();
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-    const isDataEmpty = !Array.isArray(allSaleProducts) || allSaleProducts.length < 1 || !allSaleProducts;
-
+    const fetchData = async () => {
+        const res = await fetch("http://localhost:5000/products/filter/sale");
+        const result = await res.json();
+        setSaleProducts(result);
+    };
     return (
-
         <div className="product-sale">
-            <h2 className="product-heading">
-                BEST SELLER
-            </h2>
+            <h2 className="product-heading">BEST SELLER</h2>
 
             <ul className="products">
-                {!isDataEmpty ? (
-                    <>
-                        {allSaleProducts.map(product => (
-                            <li className="product-item grid__column-2" >
-                                <ProductCard key={product._id} product={product} />
-
-                            </li>
-
-                        ))}
-                    </>
-                ) : (
-                    <div>
-                        <h2>No result</h2>
-                    </div>
-                )}
+                {saleProducts &&
+                    saleProducts.map((product) => (
+                        <li className="product-item grid__column-2">
+                            <ProductCard key={product._id} product={product} />
+                        </li>
+                    ))}
             </ul>
         </div>
-    )
+    );
 }
 
-export default SaleProduct
+export default SaleProduct;

@@ -1,13 +1,32 @@
-
 'use client'
-import React from "react";
-import { fetchSearchedProduct } from "@/services";
-import { ProductCard, FilterTop, FilterLeft } from "@/components";
+import React, { useEffect, useState } from "react";
+import { ProductCard, FilterTop, FilterLeft, Loader } from "@/components";
 
-const Search = async (params) => {
-    const allSearchedProduct = await fetchSearchedProduct(params);
+function Search({ searchParams }) {
+    const [searchProducts, setSearchProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const isDataEmpty = !Array.isArray(allSearchedProduct) || allSearchedProduct.length < 1;
+    useEffect(() => {
+        fetchData();
+    }, [searchParams.keyword]);
+
+    const fetchData = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const res = await fetch(`http://localhost:5000/products/search/${searchParams.keyword}`);
+            if (!res.ok) {
+                throw new Error("Network response was not ok");
+            }
+            const result = await res.json();
+            setSearchProducts(result);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <>
@@ -19,19 +38,25 @@ const Search = async (params) => {
                         </div>
 
                         <div className="grid__column-10">
-                            {!isDataEmpty && <FilterTop />}
+                            {searchProducts.length > 0 && <FilterTop />}
 
                             <div className="home-product grid">
-                                <h4 className="sub-title-main">KẾT QUẢ TÌM KIẾM THEO '{params.searchParams.keyword}'</h4>
-                                {isDataEmpty ? (
+                                <h4 className="sub-title-main">KẾT QUẢ TÌM KIẾM THEO '{searchParams.keyword}'</h4>
+                                {loading ? (
+                                    <Loader />
+                                ) : error ? (
+                                    <div>
+                                        <h4 className="text-error">{error}</h4>
+                                    </div>
+                                ) : searchProducts.length === 0 ? (
                                     <div>
                                         <h4 className="text-error">Không tìm thấy sản phẩm phù hợp !</h4>
                                     </div>
                                 ) : (
                                     <ul className="products grid__row">
-                                        {allSearchedProduct.map(product => (
-                                            <li className="product-item grid__column-3" >
-                                                <ProductCard key={product._id} product={product} />
+                                        {searchProducts.map(product => (
+                                            <li key={product._id} className="product-item grid__column-3">
+                                                <ProductCard product={product} />
                                             </li>
                                         ))}
                                     </ul>

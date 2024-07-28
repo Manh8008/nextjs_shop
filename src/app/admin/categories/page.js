@@ -1,4 +1,27 @@
+'use client'
+import { useState } from "react"
+import { useEffect } from "react"
+
 function Categories() {
+
+    const [categories, setCategories] = useState()
+
+
+    useEffect(() => {
+        loadCategories()
+    }, [])
+
+
+
+    const loadCategories = async () => {
+        const res = await fetch("http://localhost:5000/categories", {
+            cache: "no-store",
+        })
+        const data = await res.json()
+        setCategories(data)
+    }
+
+
     return (
         <div className="table-data">
             <div className="order">
@@ -17,70 +40,25 @@ function Categories() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <img src="assets/img/admin.jpg" />
-                                <p>01</p>
-                            </td>
-                            <td>Thời trang nữ</td>
-                            <td>01-10-2021</td>
-                            <td>
-                                <a className="edit__router" href="editForm.html">
-                                    <i className="bx bx-pen"></i>
-                                </a>
-                                <a href="" className="delete__btn">
-                                    <i className="bx bx-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="assets/img/admin.jpg" />
-                                <p>01</p>
-                            </td>
-                            <td>Thời trang nam</td>
-                            <td>01-10-2021</td>
-                            <td>
-                                <a className="edit__router" href="editForm.html">
-                                    <i className="bx bx-pen"></i>
-                                </a>
-                                <a href="" className="delete__btn">
-                                    <i className="bx bx-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="assets/img/admin.jpg" />
-                                <p>01</p>
-                            </td>
-                            <td>Thời trang trẻ em</td>
-                            <td>01-10-2021</td>
-                            <td>
-                                <a className="edit__router" href="editForm.html">
-                                    <i className="bx bx-pen"></i>
-                                </a>
-                                <a href="" className="delete__btn">
-                                    <i className="bx bx-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="assets/img/admin.jpg" />
-                                <p>01</p>
-                            </td>
-                            <td>Phụ kiện</td>
-                            <td>01-10-2021</td>
-                            <td>
-                                <a className="edit__router" href="editForm.html">
-                                    <i className="bx bx-pen"></i>
-                                </a>
-                                <a href="" className="delete__btn">
-                                    <i className="bx bx-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        {categories && categories.map((categrory) => (
+                            <tr key={categrory._id}>
+                                <td>
+                                    <img src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${categrory.image}`} />
+                                    <p>{categrory._id.slice(-4)}</p>
+                                </td>
+                                <td>{categrory.name}</td>
+                                <td>01-10-2021</td>
+                                <td>
+                                    <a className="edit__router" href="editForm.html">
+                                        <i className="bx bx-pen"></i>
+                                    </a>
+                                    <a href="" className="delete__btn">
+                                        <i className="bx bx-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        ))}
+
                     </tbody>
                 </table>
             </div>

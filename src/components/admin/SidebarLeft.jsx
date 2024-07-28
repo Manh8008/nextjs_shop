@@ -1,55 +1,71 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function SidebarLeft() {
+    const pathname = usePathname();
+
     return (
         <section id="sidebar">
-            <Link href="/admin" class="brand">
-                <i class="bx bxs-smile"></i>
-                <span class="text">Admin</span>
+            <Link href="/admin" className="brand">
+                <i className="bx bxs-smile"></i>
+                <span className="text">Admin</span>
             </Link>
-            <ul class="side-menu top">
-                <li class="active">
-                    <a href="index.html">
-                        <i class="bx bxs-dashboard"></i>
-                        <span class="text">Trang chủ</span>
-                    </a>
+            <ul className="side-menu top">
+                <li className={`${pathname === "/admin" ? "active" : ""}`}>
+                    <Link href="/admin">
+                        <i className="bx bxs-dashboard"></i>
+                        <span className="text">Dashboard</span>
+                    </Link>
                 </li>
-                <li>
+                <li
+                    className={`${
+                        pathname === "/admin/products" ? "active" : ""
+                    }`}
+                >
                     <Link href="/admin/products">
-                        <i class="bx bxs-shopping-bag-alt"></i>
-                        <span class="text">Sản phẩm</span>
+                        <i className="bx bxs-shopping-bag-alt"></i>
+                        <span className="text">Sản phẩm</span>
                     </Link>
                 </li>
-                <li>
+                <li
+                    className={`${
+                        pathname === "/admin/categories" ? "active" : ""
+                    }`}
+                >
                     <Link href="/admin/categories">
-                        <i class="bx bx-list-ul"></i>
-                        <span class="text">Danh mục</span>
+                        <i className="bx bx-list-ul"></i>
+                        <span className="text">Danh mục</span>
                     </Link>
                 </li>
-                <li>
-                    <a href="member.html">
-                        <i class="bx bxs-group"></i>
-                        <span class="text">Team</span>
-                    </a>
+                <li
+                    className={`${
+                        pathname === "/admin/members" ? "active" : ""
+                    }`}
+                >
+                    <Link href="/admin/members">
+                        <i className="bx bxs-group"></i>
+                        <span className="text">Team</span>
+                    </Link>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="bx bxs-message-dots"></i>
-                        <span class="text">Message</span>
+                        <i className="bx bxs-message-dots"></i>
+                        <span className="text">Message</span>
                     </a>
                 </li>
             </ul>
-            <ul class="side-menu">
+            <ul className="side-menu">
                 <li>
                     <a href="#">
-                        <i class="bx bxs-cog"></i>
-                        <span class="text">Cài đặt</span>
+                        <i className="bx bxs-cog"></i>
+                        <span className="text">Cài đặt</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="logout">
-                        <i class="bx bxs-log-out-circle"></i>
-                        <span class="text">Đăng xuất</span>
+                    <a href="#" className="logout">
+                        <i className="bx bxs-log-out-circle"></i>
+                        <span className="text">Đăng xuất</span>
                     </a>
                 </li>
             </ul>

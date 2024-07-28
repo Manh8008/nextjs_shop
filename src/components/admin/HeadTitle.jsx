@@ -1,24 +1,24 @@
 function HeadTitle() {
     return (
-        <div class="head-title">
-            <div class="left">
-                <ul class="breadcrumb">
+        <div className="head-title">
+            <div className="left">
+                <ul className="breadcrumb">
                     <li>
                         <a href="#">Trang chủ</a>
                     </li>
                     <li>
-                        <i class="bx bx-chevron-right"></i>
+                        <i className="bx bx-chevron-right"></i>
                     </li>
                     <li>
-                        <a class="active" href="#">
+                        <a className="active" href="#">
                             Home
                         </a>
                     </li>
                 </ul>
             </div>
-            <a href="#" class="btn-download">
-                <i class="bx bxs-cloud-download"></i>
-                <span class="text">Download PDF</span>
+            <a href="#" className="btn-download">
+                <i className="bx bxs-cloud-download"></i>
+                <span className="text">Download PDF</span>
             </a>
         </div>
     );

@@ -32,7 +32,7 @@ function Login() {
         }
 
         try {
-            const resultAction = await dispatch(loginUser({ email, password }))
+            const resultAction = dispatch(loginUser({ email, password }))
             if (loginUser.fulfilled.match(resultAction)) {
                 // Đăng nhập thành công
                 setSuccessMessage('Đăng nhập thành công')

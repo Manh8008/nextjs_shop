@@ -1,26 +1,26 @@
 function Sidebar() {
     return (
         <nav>
-            <i class="bx bx-menu"></i>
-            <a href="#" class="nav-link">
+            <i className="bx bx-menu"></i>
+            <a href="#" className="nav-link">
                 Categories
             </a>
             <form action="#">
-                <div class="form-input">
+                <div className="form-input">
                     <input type="search" placeholder="Search..." />
-                    <button type="submit" class="search-btn">
-                        <i class="bx bx-search"></i>
+                    <button type="submit" className="search-btn">
+                        <i className="bx bx-search"></i>
                     </button>
                 </div>
             </form>
             <input type="checkbox" id="switch-mode" hidden />
-            <label for="switch-mode" class="switch-mode"></label>
-            <a href="#" class="notification">
-                <i class="bx bxs-bell"></i>
-                <span class="num">8</span>
+            <label htmlFor="switch-mode" className="switch-mode"></label>
+            <a href="#" className="notification">
+                <i className="bx bxs-bell"></i>
+                <span className="num">8</span>
             </a>
-            <a href="login.html" class="profile">
-                <img src="assets/img/admin.jpg" />
+            <a href="login.html" className="profile">
+                <img src="#" />
             </a>
         </nav>
     );
