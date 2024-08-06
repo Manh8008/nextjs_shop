@@ -1,42 +1,41 @@
-"use client"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const SearchBar = () => {
-    
-    const [model, setModel] = useState('')
-    const router = useRouter()
+    const [model, setModel] = useState('');
+    const router = useRouter();
 
     const handleSearch = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         if (model === '') {
-            alert('Vui lòng nhập thông tin tìm kiếm !')
+            alert('Vui lòng nhập thông tin tìm kiếm !');
         } else {
-            updateSearchParams(model.toLowerCase())
-            setModel('')
+            updateSearchParams(model.toLowerCase());
+            setModel('');
         }
-    }
+    };
 
-    const updateSearchParams = (model) => {        
-        router.push(`/search?keyword=${model}`)
-    }
+    const updateSearchParams = (model) => {
+        router.push(`/search?keyword=${model}`);
+    };
 
     return (
         <form id="search-form" onSubmit={handleSearch}>
             <button type="submit" className="search-icon">
                 <i className="fa-solid fa-magnifying-glass"></i>
             </button>
-            <input 
-                type="text" 
-                name="keyword" 
+            <input
+                type="text"
+                name="keyword"
                 value={model}
                 onChange={(e) => setModel(e.target.value)}
-                placeholder="TÌM KIẾM SẢN PHẨM" 
-                className="search-input" 
+                placeholder="TÌM KIẾM SẢN PHẨM"
+                className="search-input"
             />
         </form>
-    )
-}
+    );
+};
 
-export default SearchBar
+export default SearchBar;

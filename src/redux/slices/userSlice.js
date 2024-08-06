@@ -50,6 +50,8 @@ const userSlice = createSlice({
                 state.error = null;
             })
             .addCase(loginUser.fulfilled, (state, { payload }) => {
+
+                console.log(payload)
                 state.loading = false;
                 state.userInfo = payload;
             })

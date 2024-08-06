@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { SearchBar } from "./index";
 import { logout } from "@/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
+import Menu from "./Menu";
 
 const Header = () => {
     const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -48,54 +49,11 @@ const Header = () => {
             <div className="grid wide">
                 <div className="header__content">
                     <div className="header__left">
-                        <ul className="header-menu m-0">
-                            <li className="header-menu-item">
-                                <Link
-                                    href="/category/nu"
-                                    className="header-menu-item-link"
-                                >
-                                    Nữ
-                                </Link>
-                            </li>
-                            <li className="header-menu-item">
-                                <Link
-                                    href="/category/nam"
-                                    className="header-menu-item-link"
-                                >
-                                    Nam
-                                </Link>
-                            </li>
-                            <li className="header-menu-item">
-                                <Link
-                                    href="/category/tre-em"
-                                    className="header-menu-item-link"
-                                >
-                                    Trẻ em
-                                </Link>
-                            </li>
-                            <li className="header-menu-item">
-                                <Link
-                                    href="/category/sale-off"
-                                    className="header-menu-item-link"
-                                >
-                                    Online sale
-                                </Link>
-                            </li>
-                            <li className="header-menu-item">
-                                <Link href="" className="header-menu-item-link">
-                                    Bộ sưu tập
-                                </Link>
-                            </li>
-                            <li className="header-menu-item">
-                                <Link href="" className="header-menu-item-link">
-                                    Về chúng tôi
-                                </Link>
-                            </li>
-                        </ul>
+                        <Menu />
                     </div>
 
                     <div className="header-logo col">
-                        <Link href={"/"}>
+                        <a href={"/"}>
                             <img
                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/logo.png`}
                                 alt="Logo"
@@ -105,7 +63,7 @@ const Header = () => {
                                 }}
                                 className="header-logo"
                             />
-                        </Link>
+                        </a>
                     </div>
 
                     <div className="header__right">
@@ -129,11 +87,21 @@ const Header = () => {
                                     </div>
                                     <ul>
                                         <li>
-                                            <Link href="/info">
+                                            <a href="/info">
                                                 <i className="fa-regular fa-user"></i>
                                                 Thông tin tài khoản
-                                            </Link>
+                                            </a>
                                         </li>
+
+                                        {userInfo?.role === "admin" && (
+                                            <li>
+                                                <a href="/admin">
+                                                    <i className="fa-solid fa-lock"></i>
+                                                    Trang quản trị
+                                                </a>
+                                            </li>
+                                        )}
+
                                         <li>
                                             <a href="#">
                                                 <i className="fa-solid fa-rotate-right"></i>
@@ -164,9 +132,9 @@ const Header = () => {
                         </div>
                         <div className="header__cart">
                             <div className="header__cart-wrap">
-                                <Link href="/cart" className="header_icon col">
+                                <a href="/cart" className="header_icon col">
                                     <i className="fa-solid fa-cart-shopping"></i>
-                                </Link>
+                                </a>
                                 <span className="header__cart-notice">
                                     {cartCount}
                                 </span>
@@ -231,12 +199,12 @@ const Header = () => {
                                             </li>
                                         ))}
                                     </ul>
-                                    <Link
+                                    <a
                                         href="checkout"
                                         className="btn--large header__cart-btn-check-out"
                                     >
                                         Thanh Toán
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                         </div>

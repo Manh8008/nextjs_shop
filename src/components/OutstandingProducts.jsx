@@ -1,28 +1,27 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import { ProductCard } from './index';
 
-function NewProduct() {
-    const [newProducts, setNewProducts] = useState();
+function OutstandingProducts() {
+    const [outstandingProducts, setOutstandingProducts] = useState();
 
     useEffect(() => {
         fetchData();
     }, []);
 
     const fetchData = async () => {
-        const res = await fetch('http://localhost:5000/products/filter/new');
+        const res = await fetch('http://localhost:5000/products/filter/outstanding');
         const result = await res.json();
-        setNewProducts(result);
+        setOutstandingProducts(result);
     };
 
     return (
         <div className="product-sale">
-            <h2 className="product-heading">NEW ARRIVAL</h2>
+            <h2 className="product-heading">outstanding</h2>
 
-            <ul className="products grid">
-                {newProducts &&
-                    newProducts.map((product) => (
+            <ul className="products">
+                {outstandingProducts &&
+                    outstandingProducts.map((product) => (
                         <li className="product-item grid__column-2" key={product._id}>
                             <ProductCard key={product._id} product={product} />
                         </li>
@@ -32,4 +31,4 @@ function NewProduct() {
     );
 }
 
-export default NewProduct;
+export default OutstandingProducts;

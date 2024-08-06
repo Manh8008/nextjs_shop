@@ -18,6 +18,17 @@ function SidebarLeft() {
                         <span className="text">Dashboard</span>
                     </Link>
                 </li>
+
+                <li
+                    className={`${
+                        pathname === "/admin/orders" ? "active" : ""
+                    }`}
+                >
+                    <Link href="/admin/orders">
+                        <i className="bx bx-abacus"></i>
+                        <span className="text">Đơn hàng</span>
+                    </Link>
+                </li>
                 <li
                     className={`${
                         pathname === "/admin/products" ? "active" : ""
@@ -48,25 +59,13 @@ function SidebarLeft() {
                         <span className="text">Team</span>
                     </Link>
                 </li>
-                <li>
-                    <a href="#">
-                        <i className="bx bxs-message-dots"></i>
-                        <span className="text">Message</span>
-                    </a>
-                </li>
             </ul>
             <ul className="side-menu">
                 <li>
-                    <a href="#">
-                        <i className="bx bxs-cog"></i>
-                        <span className="text">Cài đặt</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" className="logout">
-                        <i className="bx bxs-log-out-circle"></i>
-                        <span className="text">Đăng xuất</span>
-                    </a>
+                    <Link href="/">
+                        <i className="bx bxs-store"></i>
+                        <span className="text">Cửa hàng</span>
+                    </Link>
                 </li>
             </ul>
         </section>

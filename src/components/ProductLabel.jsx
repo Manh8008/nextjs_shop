@@ -1,16 +1,7 @@
-const ProductLabel = ({ isNew, isOnSale }) => {
+const ProductLabel = ({ condition }) => {
     return (
         <>
-            {isOnSale ? (
-                <div
-                    className="info-ticket ticket-new"
-                    style={{
-                        backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/bg_news.png)`,
-                    }}
-                >
-                    Seller
-                </div>
-            ) : isNew ? (
+            {condition == 'showNew' ? (
                 <div
                     className="info-ticket ticket-new"
                     style={{
@@ -18,6 +9,15 @@ const ProductLabel = ({ isNew, isOnSale }) => {
                     }}
                 >
                     New
+                </div>
+            ) : condition == 'showHot' ? (
+                <div
+                    className="info-ticket ticket-new"
+                    style={{
+                        backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/bg_news.png)`,
+                    }}
+                >
+                    Hot
                 </div>
             ) : null}
         </>

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useDispatch } from "react-redux"
 import { loginUser } from "../../../redux/slices/userSlice"
+import { unwrapResult } from '@reduxjs/toolkit'
 
 function Login() {
 
@@ -32,19 +33,18 @@ function Login() {
         }
 
         try {
-            const resultAction = dispatch(loginUser({ email, password }))
-            if (loginUser.fulfilled.match(resultAction)) {
-                // Đăng nhập thành công
-                setSuccessMessage('Đăng nhập thành công')
-                setErrorMessage('')
+            const resultAction = await dispatch(loginUser({ email, password }))
+            const result = unwrapResult(resultAction)
+
+            setSuccessMessage('Đăng nhập thành công')
+            setErrorMessage('')
+
+            setTimeout(() => {
                 router.push('/')
-            } else {
-                // Đăng nhập thất bại
-                setErrorMessage(resultAction.payload || 'Lỗi! Tài khoản hoặc mật khẩu chưa chính xác')
-                setSuccessMessage('')
-            }
+            }, 1500)
         } catch (error) {
-            setErrorMessage('Đã xảy ra lỗi. Vui lòng thử lại sau.')
+            // Đăng nhập thất bại
+            setErrorMessage(error.message || 'Lỗi! Tài khoản hoặc mật khẩu chưa chính xác')
             setSuccessMessage('')
         }
     }

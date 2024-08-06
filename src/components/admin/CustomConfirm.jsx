@@ -6,12 +6,13 @@ const CustomConfirm = (title, icon) => {
     return Swal.fire({
         title: title,
         icon: icon,
-        showDenyButton: true,
         showCancelButton: true,
-        confirmButtonText: "Yes",
-        denyButtonText: `No`,
+        confirmButtonText: "ĐỒNG Ý",
+        cancelButtonText: "QUAY LẠI",
         customClass: {
             title: "custom-alert-title",
+            confirmButton: "custom-confirm-button",
+            cancelButton: "custom-cancel-button",
         },
     });
 };

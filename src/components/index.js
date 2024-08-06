@@ -4,7 +4,7 @@ import ProductCard from "./ProductCard"
 import Slide from "./Slide"
 import SearchBar from "./SearchBar"
 import Footer from "./Footer"
-import SaleProduct from "./SaleProduct"
+import OutstandingProducts from "./OutstandingProducts"
 import NewProduct from "./NewProduct"
 import ProductLabel from "./ProductLabel"
 import Loader from "./Loader"
@@ -21,7 +21,7 @@ export {
     ProductCard,
     Slide,
     SearchBar,
-    SaleProduct,
+    OutstandingProducts,
     Loader,
     NewProduct,
     ProductLabel,

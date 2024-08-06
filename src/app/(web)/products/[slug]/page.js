@@ -34,7 +34,7 @@ function Detail({ params }) {
                                 <StartRating rating={product.rating} />
                             </div>
 
-                            <div className="price">{product.price.toLocaleString()}đ</div>
+                            <div className="price">{product.price && product.price.toLocaleString()}đ</div>
 
                             <div className="detail-color">
                                 <p>Màu sắc: Trắng</p>

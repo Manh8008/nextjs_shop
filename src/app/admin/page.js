@@ -1,29 +1,34 @@
+"use client";
+import Statistical from "@/components/admin/Statistical";
+import withAdminAuth from "@/middleware/withAdminAuth";
+import { useEffect, useState } from "react";
 
 function Dashboard() {
+    const [recentOrders, setRecentOrders] = useState();
+
+    useEffect(() => {
+        fetchRecentOrders();
+    }, []);
+
+    const fetchRecentOrders = async () => {
+        try {
+            const res = await fetch(`http://localhost:5000/orders/recentOrders`);
+            const data = await res.json();
+
+            setRecentOrders(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+
+
+    console.log(recentOrders)
+
     return (
         <>
             <ul className="box-info">
-                <li>
-                    <i className="bx bxs-calendar-check"></i>
-                    <span className="text">
-                        <h3>1020</h3>
-                        <p>Đơn hàng mới</p>
-                    </span>
-                </li>
-                <li>
-                    <i className="bx bxs-group"></i>
-                    <span className="text">
-                        <h3>2834</h3>
-                        <p>Khách hàng</p>
-                    </span>
-                </li>
-                <li>
-                    <i className="bx bxs-dollar-circle"></i>
-                    <span className="text">
-                        <h3>$2543</h3>
-                        <p>Tổng doanh thu</p>
-                    </span>
-                </li>
+                <Statistical />
             </ul>
             <div className="table-data">
                 <div className="order">
@@ -41,91 +46,25 @@ function Dashboard() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <img src="assets/img/admin.jpg" />
-                                    <p>Manh Nguyen</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td>
-                                    <span className="status completed">Completed</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="assets/img/admin.jpg" />
-                                    <p>Manh Nguyen</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td>
-                                    <span className="status pending">Pending</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="assets/img/admin.jpg" />
-                                    <p>Manh Nguyen</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td>
-                                    <span className="status process">Process</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="assets/img/admin.jpg" />
-                                    <p>Manh Nguyen</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td>
-                                    <span className="status pending">Pending</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="assets/img/admin.jpg" />
-                                    <p>Manh Nguyen</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td>
-                                    <span className="status completed">Completed</span>
-                                </td>
-                            </tr>
+
+                            {recentOrders && recentOrders.map((item) => (
+                                <tr key={item._id}>
+                                    <td>
+                                        <p>{item.username}</p>
+                                    </td>
+                                    <td>{new Date(item.updatedAt).toLocaleDateString()}</td>
+                                    <td><span >{item.status}</span></td>
+
+                                </tr>
+                            ))}
+
+
                         </tbody>
                     </table>
-                </div>
-                <div className="todo">
-                    <div className="head">
-                        <h3>Việc cần làm</h3>
-                        <i className="bx bx-plus"></i>
-                        <i className="bx bx-filter"></i>
-                    </div>
-                    <ul className="todo-list">
-                        <li className="completed">
-                            <p>Todo List</p>
-                            <i className="bx bx-dots-vertical-rounded"></i>
-                        </li>
-                        <li className="completed">
-                            <p>Todo List</p>
-                            <i className="bx bx-dots-vertical-rounded"></i>
-                        </li>
-                        <li className="not-completed">
-                            <p>Todo List</p>
-                            <i className="bx bx-dots-vertical-rounded"></i>
-                        </li>
-                        <li className="completed">
-                            <p>Todo List</p>
-                            <i className="bx bx-dots-vertical-rounded"></i>
-                        </li>
-                        <li className="not-completed">
-                            <p>Todo List</p>
-                            <i className="bx bx-dots-vertical-rounded"></i>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </>
     );
 }
 
-export default Dashboard;
+export default withAdminAuth(Dashboard);

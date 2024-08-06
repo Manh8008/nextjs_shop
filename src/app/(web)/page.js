@@ -1,8 +1,7 @@
-import { SaleProduct, NewProduct, Slide } from "@/components";
+import { OutstandingProducts, NewProduct, Slide } from "@/components";
 import Link from "next/link";
 
 const Home = async () => {
-
     return (
         <>
             <Slide />
@@ -16,11 +15,10 @@ const Home = async () => {
                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner-phu1.jpg`}
                                 alt="Picture of the author"
                             />
-
                         </Link>
                     </div>
 
-                    <SaleProduct />
+                    <OutstandingProducts />
                 </div>
             </div>
             <div className="site-bottom"></div>

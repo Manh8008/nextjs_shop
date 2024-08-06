@@ -2,6 +2,7 @@ import "../../../public/css/styleAdmin.css";
 import SidebarLeft from "@/components/admin/SidebarLeft";
 import SidebarTop from "@/components/admin/Sidebar";
 import HeadTitle from "@/components/admin/HeadTitle";
+import Providers from "@/redux/provider";
 export const metadata = {
     title: "Admin",
     description: "Đây là trang quản trị",
@@ -17,15 +18,19 @@ export default function RootLayout({ children }) {
             </head>
 
             <body suppressHydrationWarning={true}>
-                <SidebarLeft />
-                <section id="content">
-                    <SidebarTop />
-                    <main>
-                        <HeadTitle />
+                <Providers>
+                    <SidebarLeft />
+                    <section id="content">
+                        <SidebarTop />
+                        <main>
+                            <HeadTitle />
 
-                        {children}
-                    </main>
-                </section>
+                            {children}
+                        </main>
+                    </section>
+
+                </Providers>
+
 
             </body>
         </html>

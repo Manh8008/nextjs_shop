@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 const Register = () => {
     const router = useRouter()
     const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [username, setUsername] = useState("")
@@ -19,6 +20,7 @@ const Register = () => {
     const validateForm = () => {
         if (!username) return "Lỗi! Vui lòng nhập Họ Tên"
         if (!email) return "Lỗi! Vui lòng nhập Email"
+        if (!phone) return "Lỗi! Vui lòng nhập Số Điện thoại"
         if (!/\S+@\S+\.\S+/.test(email)) return "Lỗi! Email không hợp lệ"
         if (!password) return "Lỗi! Vui lòng nhập mật khẩu độ dài từ 7 tới 32 ký tự"
         if (password.length < 7 || password.length > 32) return "Lỗi! Vui lòng nhập mật khẩu độ dài từ 7 tới 32 ký tự"
@@ -32,7 +34,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const userData = { email, password, username, address, dateOfBirth, gender }
+        const userData = { phone, email, password, username, address, dateOfBirth, gender }
 
         const errorMessage = validateForm()
         if (errorMessage) {
@@ -163,6 +165,23 @@ const Register = () => {
                                     <span className="form-message"></span>
                                 </div>
                             </div>
+                            <div className="c-12">
+                                <div className="form-group col">
+                                    <label htmlFor="phone" className="form-label">
+                                        Số điện thoại:
+                                    </label>
+                                    <input
+                                        value={phone}
+                                        onChange={(e) => setPhone(e.target.value)}
+                                        id="phone"
+                                        name="phone"
+                                        type="text"
+                                        placeholder="Số điện thoại..."
+                                        className="form-control"
+                                    />
+                                    <span className="form-message"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -199,17 +218,17 @@ const Register = () => {
                             <span className="form-message"></span>
                         </div>
                         <div className="form-group col">
-                            <input 
+                            <input
                                 value={termsAccepted}
                                 onChange={(e) => setTermsAccepted(e.target.value)}
-                                type="checkbox" 
+                                type="checkbox"
                                 id="terms"
                                 name="terms" />
                             <label htmlFor="terms">
                                 Đồng ý với các <Link href="/terms">điều khoản</Link> của IVY
                             </label>
                         </div>
-                       
+
                         <div className="router-page-btn col">
                             <button className="form-submit" type="submit">
                                 Đăng ký
