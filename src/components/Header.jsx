@@ -1,22 +1,19 @@
-"use client";
-import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { removeFromCart } from "@/redux/slices/cartslice";
-import { useSelector, useDispatch } from "react-redux";
-import { SearchBar } from "./index";
-import { logout } from "@/redux/slices/userSlice";
-import { useRouter } from "next/navigation";
-import Menu from "./Menu";
+'use client';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { removeFromCart } from '@/redux/slices/cartslice';
+import { useSelector, useDispatch } from 'react-redux';
+import { SearchBar } from './index';
+import { logout } from '@/redux/slices/userSlice';
+import { useRouter } from 'next/navigation';
+import Menu from './Menu';
 
 const Header = () => {
     const [showAccountMenu, setShowAccountMenu] = useState(false);
     const userInfo = useSelector((state) => state.user.userInfo);
     const cartItems = useSelector((state) => state.cart.items);
-    const cartCount = cartItems.reduce(
-        (count, item) => count + Number(item.quantity),
-        0
-    );
+    const cartCount = cartItems.reduce((count, item) => count + Number(item.quantity), 0);
     const dispatch = useDispatch();
 
     const router = useRouter();
@@ -29,7 +26,7 @@ const Header = () => {
         e.preventDefault();
         dispatch(logout());
         setShowAccountMenu(false);
-        router.push("/");
+        router.push('/');
     };
 
     const handleRemoveFromCart = (productId, size) => {
@@ -40,7 +37,7 @@ const Header = () => {
         if (userInfo) {
             setShowAccountMenu(!showAccountMenu);
         } else {
-            router.push("/login");
+            router.push('/login');
         }
     };
 
@@ -53,13 +50,13 @@ const Header = () => {
                     </div>
 
                     <div className="header-logo col">
-                        <a href={"/"}>
+                        <a href={'/'}>
                             <img
                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/logo.png`}
                                 alt="Logo"
                                 style={{
                                     width: 140,
-                                    height: "auto",
+                                    height: 'auto',
                                 }}
                                 className="header-logo"
                             />
@@ -72,10 +69,7 @@ const Header = () => {
                         </div>
 
                         <div className="header__user">
-                            <div
-                                className="header_icon col"
-                                onClick={toggleAccountMenu}
-                            >
+                            <div className="header_icon col" onClick={toggleAccountMenu}>
                                 <i className="fa-regular fa-user"></i>
                             </div>
                             {showAccountMenu && (
@@ -93,7 +87,7 @@ const Header = () => {
                                             </a>
                                         </li>
 
-                                        {userInfo?.role === "admin" && (
+                                        {userInfo?.role === 'admin' && (
                                             <li>
                                                 <a href="/admin">
                                                     <i className="fa-solid fa-lock"></i>
@@ -135,19 +129,12 @@ const Header = () => {
                                 <a href="/cart" className="header_icon col">
                                     <i className="fa-solid fa-cart-shopping"></i>
                                 </a>
-                                <span className="header__cart-notice">
-                                    {cartCount}
-                                </span>
+                                <span className="header__cart-notice">{cartCount}</span>
                                 <div className="header__cart-list">
-                                    <h4 className="header__cart-heading">
-                                        Sản phẩm đã thêm
-                                    </h4>
+                                    <h4 className="header__cart-heading">Sản phẩm đã thêm</h4>
                                     <ul className="header__cart-list-item">
                                         {cartItems.map((item) => (
-                                            <li
-                                                className="header__cart-item"
-                                                key={`${item._id}-${item.size}`}
-                                            >
+                                            <li className="header__cart-item" key={`${item._id}-${item.size}`}>
                                                 <img
                                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${item.image}`}
                                                     alt=""
@@ -155,16 +142,12 @@ const Header = () => {
                                                 />
                                                 <div className="header__cart-item-info">
                                                     <div className="header__cart-item-head">
-                                                        <h5 className="header__cart-item-name">
-                                                            {item.name}
-                                                        </h5>
+                                                        <h5 className="header__cart-item-name">{item.name}</h5>
                                                         <div className="header__cart-item-price-wrap">
                                                             <span className="header__cart-item-price">
                                                                 {item.price}
                                                             </span>
-                                                            <span className="header__cart-item-multiply">
-                                                                x
-                                                            </span>
+                                                            <span className="header__cart-item-multiply">x</span>
                                                             <span className="header__cart-item-qnt">
                                                                 {item.quantity}
                                                             </span>
@@ -172,24 +155,18 @@ const Header = () => {
                                                     </div>
                                                     <div className="header__cart-item-body">
                                                         <span className="header__cart-item-des">
-                                                            Phân loại:{" "}
-                                                            {item.categorySlug}
+                                                            Phân loại: {item.categorySlug}
                                                         </span>
                                                         <span
                                                             className="header__cart-remove"
-                                                            onClick={() =>
-                                                                handleRemoveFromCart(
-                                                                    item._id,
-                                                                    item.size
-                                                                )
-                                                            }
+                                                            onClick={() => handleRemoveFromCart(item._id, item.size)}
                                                         >
                                                             Xóa
                                                         </span>
                                                     </div>
                                                     <span
                                                         style={{
-                                                            float: "left",
+                                                            float: 'left',
                                                         }}
                                                         className="header__cart-item-des"
                                                     >
@@ -199,10 +176,7 @@ const Header = () => {
                                             </li>
                                         ))}
                                     </ul>
-                                    <a
-                                        href="checkout"
-                                        className="btn--large header__cart-btn-check-out"
-                                    >
+                                    <a href="checkout" className="btn--large header__cart-btn-check-out">
                                         Thanh Toán
                                     </a>
                                 </div>

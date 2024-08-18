@@ -1,72 +1,71 @@
-"use client"
-import Link from "next/link"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+'use client';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Register = () => {
-    const router = useRouter()
-    const [email, setEmail] = useState("")
-    const [phone, setPhone] = useState("")
-    const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
-    const [username, setUsername] = useState("")
-    const [address, setAddress] = useState("")
-    const [dateOfBirth, setDateOfBirth] = useState("")
-    const [gender, setGender] = useState("")
-    const [error, setError] = useState("")
-    const [success, setSuccess] = useState("")
-    const [termsAccepted, setTermsAccepted] = useState(false)
+    const router = useRouter();
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [username, setUsername] = useState('');
+    const [address, setAddress] = useState('');
+    const [dateOfBirth, setDateOfBirth] = useState('');
+    const [gender, setGender] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [termsAccepted, setTermsAccepted] = useState(false);
 
     const validateForm = () => {
-        if (!username) return "Lỗi! Vui lòng nhập Họ Tên"
-        if (!email) return "Lỗi! Vui lòng nhập Email"
-        if (!phone) return "Lỗi! Vui lòng nhập Số Điện thoại"
-        if (!/\S+@\S+\.\S+/.test(email)) return "Lỗi! Email không hợp lệ"
-        if (!password) return "Lỗi! Vui lòng nhập mật khẩu độ dài từ 7 tới 32 ký tự"
-        if (password.length < 7 || password.length > 32) return "Lỗi! Vui lòng nhập mật khẩu độ dài từ 7 tới 32 ký tự"
-        if (password !== confirmPassword) return "Lỗi! Mật khẩu không khớp"
-        if (!dateOfBirth) return "Lỗi! Vui lòng nhập Ngày sinh nhật"
-        if (!address) return "Lỗi! Vui lòng nhập Địa chỉ"
-        if (!termsAccepted) return "Lỗi! Vui lòng đồng ý với các điều khoản của IVY moda."
-        return null
-    }
+        if (!username) return 'Lỗi! Vui lòng nhập Họ Tên';
+        if (!email) return 'Lỗi! Vui lòng nhập Email';
+        if (!phone) return 'Lỗi! Vui lòng nhập Số Điện thoại';
+        if (!/\S+@\S+\.\S+/.test(email)) return 'Lỗi! Email không hợp lệ';
+        if (!password) return 'Lỗi! Vui lòng nhập mật khẩu độ dài từ 7 tới 32 ký tự';
+        if (password.length < 7 || password.length > 32) return 'Lỗi! Vui lòng nhập mật khẩu độ dài từ 7 tới 32 ký tự';
+        if (password !== confirmPassword) return 'Lỗi! Mật khẩu không khớp';
+        if (!dateOfBirth) return 'Lỗi! Vui lòng nhập Ngày sinh nhật';
+        if (!address) return 'Lỗi! Vui lòng nhập Địa chỉ';
+        if (!termsAccepted) return 'Lỗi! Vui lòng đồng ý với các điều khoản của IVY moda.';
+        return null;
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        const userData = { phone, email, password, username, address, dateOfBirth, gender }
+        const userData = { phone, email, password, username, address, dateOfBirth, gender };
 
-        const errorMessage = validateForm()
+        const errorMessage = validateForm();
         if (errorMessage) {
-            setError(errorMessage)
-            return
+            setError(errorMessage);
+            return;
         }
 
         try {
-            const response = await fetch("http://localhost:5000/users/register", {
-                method: "POST",
-                mode: "cors",
+            const response = await fetch('http://localhost:5000/users/register', {
+                method: 'POST',
+                mode: 'cors',
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(userData),
-            })
+            });
 
-            const data = await response.json()
+            const data = await response.json();
 
-            console.log(data)
-
+            console.log(data);
 
             if (response.ok) {
-                setSuccess('Đăng kí thành công')
-                router.push(`/verify/${data.userId}`)
+                setSuccess('Đăng kí thành công');
+                router.push(`/verify/${data.userId}`);
             } else {
-                setError(data.error || "Lỗi! Email đã có người sử dụng rồi")
+                setError(data.error || 'Lỗi! Email đã có người sử dụng rồi');
             }
         } catch (error) {
-            setError("Xin vui lòng nhập đầy đủ thông tin!")
+            setError('Xin vui lòng nhập đầy đủ thông tin!');
         }
-    }
+    };
 
     return (
         <div className="main-container">
@@ -223,7 +222,8 @@ const Register = () => {
                                 onChange={(e) => setTermsAccepted(e.target.value)}
                                 type="checkbox"
                                 id="terms"
-                                name="terms" />
+                                name="terms"
+                            />
                             <label htmlFor="terms">
                                 Đồng ý với các <Link href="/terms">điều khoản</Link> của IVY
                             </label>
@@ -243,7 +243,7 @@ const Register = () => {
 
             <div className="site-bottom"></div>
         </div>
-    )
-}
+    );
+};
 
-export default Register
+export default Register;
