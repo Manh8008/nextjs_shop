@@ -1088,19 +1088,19 @@ body.swal2-toast-shown .swal2-container.swal2-bottom {
 body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown .swal2-container.swal2-bottom-right {
   inset: auto 0 0 auto;
 }
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/app/(store)/components/CustomAlert/CustomAlert.module.css ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
-.CustomAlert_title__0WbJP {
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./app/(store)/components/CustomAlert/CustomAlert.module.css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************/
+.CustomAlert_title__9qUvX {
     font-size: 16px;
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
 }
 
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./src/app/(store)/components/ErrorMessage/ErrorMessage.module.css ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
-.ErrorMessage_message__0lWyR {
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./app/(store)/components/ErrorMessage/ErrorMessage.module.css ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+.ErrorMessage_message__sWE7f {
     position: fixed;
     bottom: 10px;
     right: 10px;
@@ -1114,7 +1114,7 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
     color: var(--white-color);
 }
 
-.ErrorMessage_icon__vuz5n {
+.ErrorMessage_icon__cDg8J {
     margin-right: 8px;
 }
 

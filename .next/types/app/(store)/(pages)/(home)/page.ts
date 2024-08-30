@@ -1,8 +1,8 @@
-// File: E:\fe_fw2\duAn\frontend\src\app\(store)\(pages)\(home)\page.js
-import * as entry from '../../../../../../src/app/(store)/(pages)/(home)/page.js'
+// File: E:\fe_fw2\duAn\frontend\app\(store)\(pages)\(home)\page.js
+import * as entry from '../../../../../../app/(store)/(pages)/(home)/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
-type TEntry = typeof import('../../../../../../src/app/(store)/(pages)/(home)/page.js')
+type TEntry = typeof import('../../../../../../app/(store)/(pages)/(home)/page.js')
 
 // Check that the entry is a valid entry
 checkFields<Diff<{
