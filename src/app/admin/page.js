@@ -1,7 +1,7 @@
-"use client";
-import Statistical from "@/components/admin/Statistical";
-import withAdminAuth from "@/middleware/withAdminAuth";
-import { useEffect, useState } from "react";
+'use client';
+import Statistical from '@/app/admin/components/Statistical';
+import withAdminAuth from '@/middleware/withAdminAuth';
+import { useEffect, useState } from 'react';
 
 function Dashboard() {
     const [recentOrders, setRecentOrders] = useState();
@@ -21,9 +21,7 @@ function Dashboard() {
         }
     };
 
-
-
-    console.log(recentOrders)
+    console.log(recentOrders);
 
     return (
         <>
@@ -46,19 +44,18 @@ function Dashboard() {
                             </tr>
                         </thead>
                         <tbody>
-
-                            {recentOrders && recentOrders.map((item) => (
-                                <tr key={item._id}>
-                                    <td>
-                                        <p>{item.username}</p>
-                                    </td>
-                                    <td>{new Date(item.updatedAt).toLocaleDateString()}</td>
-                                    <td><span >{item.status}</span></td>
-
-                                </tr>
-                            ))}
-
-
+                            {recentOrders &&
+                                recentOrders.map((item) => (
+                                    <tr key={item._id}>
+                                        <td>
+                                            <p>{item.username}</p>
+                                        </td>
+                                        <td>{new Date(item.updatedAt).toLocaleDateString()}</td>
+                                        <td>
+                                            <span>{item.status}</span>
+                                        </td>
+                                    </tr>
+                                ))}
                         </tbody>
                     </table>
                 </div>

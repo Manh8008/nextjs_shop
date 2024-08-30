@@ -1,0 +1,45 @@
+.swal2-popup {
+    position: fixed !important;
+    width: 520px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+    padding-top: 60px !important;
+    padding-bottom: 80px !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.custom-confirm-button {
+    padding: 10px 22px;
+    border-radius: 16px 0px;
+    font-size: 14px;
+    line-height: 22px;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid transparent;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.custom-confirm-button:hover {
+    background-color: #fff;
+    border: 1px solid #000;
+    color: #000;
+}
+
+.custom-cancel-button {
+    padding: 10px 22px;
+    border-radius: 16px 0px;
+    line-height: 22px;
+    background-color: #fff;
+    border: 1px solid #000;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.custom-cancel-button:hover {
+    background-color: #000;
+    color: #fff;
+}
