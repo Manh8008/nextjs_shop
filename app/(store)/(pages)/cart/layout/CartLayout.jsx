@@ -2,12 +2,12 @@
 import Link from 'next/link';
 import React from 'react';
 
-import Breadcrumbs from './BreadCrumb';
+import Breadcrumb from './Breadcrumb';
 
 function CartLayout({ children, totalAmount }) {
     return (
         <div className="main-container">
-            <Breadcrumbs />
+            <Breadcrumb />
 
             <div className="cart-container">
                 <div className="cart">
