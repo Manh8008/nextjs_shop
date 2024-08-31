@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useCallback } from 'react';
 
 export const useFetchProducts = (slugOrUrl, pageSize, isSearch = false) => {
     const [products, setProducts] = useState([]);
@@ -8,50 +9,51 @@ export const useFetchProducts = (slugOrUrl, pageSize, isSearch = false) => {
     const [sortOrder, setSortOrder] = useState('default');
     const originalProducts = useRef([]);
 
-    const fetchProducts = async (page, order = sortOrder) => {
-        try {
-            let sortQuery = '';
-            if (order === 'asc' || order === 'desc') {
-                sortQuery = `&_sort&column=price&type=${order}`;
-            } else if (order === 'newest') {
-                sortQuery = `&_sort&column=createdAt&type=desc`;
-            } else if (order === 'views') {
-                sortQuery = `&_sort&column=views&type=desc`;
+    const fetchProducts = useCallback(
+        async (page, order = sortOrder) => {
+            try {
+                let sortQuery = '';
+                if (order === 'asc' || order === 'desc') {
+                    sortQuery = `&_sort&column=price&type=${order}`;
+                } else if (order === 'newest') {
+                    sortQuery = `&_sort&column=createdAt&type=desc`;
+                } else if (order === 'views') {
+                    sortQuery = `&_sort&column=views&type=desc`;
+                }
+
+                const baseUrl = isSearch
+                    ? `http://localhost:5000/products/search/${slugOrUrl}?page=${page}&limit=${pageSize}${sortQuery}`
+                    : `http://localhost:5000/products/category/${slugOrUrl}?page=${page}&limit=${pageSize}${sortQuery}`;
+
+                const response = await fetch(baseUrl);
+
+                if (!response.ok) {
+                    throw new Error('Mạng không ổn định !');
+                }
+                const data = await response.json();
+
+                if (isSearch) {
+                    setProducts(data);
+                    originalProducts.current = data;
+                    setTotalPages(1);
+                } else {
+                    setProducts(data.products);
+                    originalProducts.current = data.products;
+                    setTotalPages(data.totalPages || 1);
+                }
+
+                setIsDataEmpty(data.length === 0 || (data.products && data.products.length === 0));
+            } catch (error) {
+                console.error('Lỗi khi tìm nạp sản phẩm:', error);
+                setIsDataEmpty(true);
             }
-
-            const baseUrl = isSearch
-                ? `http://localhost:5000/products/search/${slugOrUrl}?page=${page}&limit=${pageSize}${sortQuery}`
-                : `http://localhost:5000/products/category/${slugOrUrl}?page=${page}&limit=${pageSize}${sortQuery}`;
-
-            const response = await fetch(baseUrl);
-
-            if (!response.ok) {
-                throw new Error('Mạng không ổn định !');
-            }
-            const data = await response.json();
-
-            if (isSearch) {
-                setProducts(data);
-                originalProducts.current = data;
-                setTotalPages(1);
-            } else {
-                setProducts(data.products);
-                originalProducts.current = data.products;
-                setTotalPages(data.totalPages || 1);
-            }
-
-            setIsDataEmpty(data.length === 0 || (data.products && data.products.length === 0));
-        } catch (error) {
-            console.error('Lỗi khi tìm nạp sản phẩm:', error);
-            setIsDataEmpty(true);
-        }
-    };
-
-    console.log(products);
+        },
+        [sortOrder, slugOrUrl, pageSize, isSearch],
+    );
 
     useEffect(() => {
         fetchProducts(currentPage);
-    }, [slugOrUrl, currentPage, pageSize, sortOrder, isSearch]);
+    }, [slugOrUrl, currentPage, pageSize, sortOrder, isSearch, fetchProducts]);
 
     const handleSort = (order) => {
         setSortOrder(order);

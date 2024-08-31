@@ -1,12 +1,9 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/admin/(page)/(darhboard)/page": "app/admin/(page)/(darhboard)/page.js",
   "/admin/(page)/orders/page": "app/admin/(page)/orders/page.js",
-  "/admin/(page)/orders/[id]/page": "app/admin/(page)/orders/[id]/page.js",
-  "/admin/(page)/products/page": "app/admin/(page)/products/page.js",
-  "/admin/(page)/products/update/[id]/page": "app/admin/(page)/products/update/[id]/page.js",
   "/admin/(page)/categories/page": "app/admin/(page)/categories/page.js",
   "/admin/(page)/categories/parent/[slug]/page": "app/admin/(page)/categories/parent/[slug]/page.js",
+  "/admin/(page)/orders/[id]/page": "app/admin/(page)/orders/[id]/page.js",
   "/admin/(page)/members/page": "app/admin/(page)/members/page.js",
-  "/(store)/(pages)/(home)/page": "app/(store)/(pages)/(home)/page.js"
+  "/admin/(page)/products/page": "app/admin/(page)/products/page.js"
 }

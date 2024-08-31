@@ -1,26 +1,28 @@
 'use client';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import Link from 'next/link';
 import withAdminAuth from '@/app/middleware/withAdminAuth';
 import CustomConfirm from '@/app/admin/components/CustomConfirm';
 
 function SubCategories({ params }) {
-    const [categories, setCategories] = useState();
-
+    const [categories, setCategories] = useState([]);
     const [messages, setMessages] = useState('');
+
+    const loadSubCategories = useCallback(async () => {
+        try {
+            const res = await fetch(`http://localhost:5000/categories/parent/${params.slug}`, {
+                cache: 'no-store',
+            });
+            const data = await res.json();
+            setCategories(data);
+        } catch (error) {
+            console.error('Failed to load subcategories:', error);
+        }
+    }, [params.slug]);
 
     useEffect(() => {
         loadSubCategories();
-    }, []);
-
-    const loadSubCategories = async () => {
-        const res = await fetch(`http://localhost:5000/categories/parent/${params.slug}`, {
-            cache: 'no-store',
-        });
-        const data = await res.json();
-        setCategories(data);
-    };
+    }, [loadSubCategories]);
 
     const handleDelete = async (id, event) => {
         event.preventDefault();
@@ -52,7 +54,7 @@ function SubCategories({ params }) {
                 {messages && <p className="alert alert-success">{messages}</p>}
                 <div className="head">
                     <h3>Các danh mục</h3>
-                    <Link href={'/admin/categories/add'}>Thêm danh mục</Link>
+                    <Link href="/admin/categories/add">Thêm danh mục</Link>
                     <i className="bx bx-search"></i>
                     <i className="bx bx-filter"></i>
                 </div>
@@ -66,32 +68,25 @@ function SubCategories({ params }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {categories &&
-                            categories.map((categrory) => (
-                                <tr key={categrory._id}>
-                                    <td>
-                                        <p>{categrory._id}</p>
-                                    </td>
-                                    <td>
-                                        <Link href={`/admin/categories/parent/${categrory.slug}`}>
-                                            {categrory.name}
-                                        </Link>
-                                    </td>
-
-                                    <td>{new Date(categrory.updatedAt).toLocaleDateString()}</td>
-                                    <td>
-                                        <Link
-                                            className="edit__router"
-                                            href={`/admin/categories/update/${categrory._id}`}
-                                        >
-                                            <i className="bx bx-pen"></i>
-                                        </Link>
-                                        <button onClick={(e) => handleDelete(categrory._id, e)} className="delete__btn">
-                                            <i className="bx bx-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                        {categories.map((category) => (
+                            <tr key={category._id}>
+                                <td>
+                                    <p>{category._id}</p>
+                                </td>
+                                <td>
+                                    <Link href={`/admin/categories/parent/${category.slug}`}>{category.name}</Link>
+                                </td>
+                                <td>{new Date(category.updatedAt).toLocaleDateString()}</td>
+                                <td>
+                                    <Link className="edit__router" href={`/admin/categories/update/${category._id}`}>
+                                        <i className="bx bx-pen"></i>
+                                    </Link>
+                                    <button onClick={(e) => handleDelete(category._id, e)} className="delete__btn">
+                                        <i className="bx bx-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

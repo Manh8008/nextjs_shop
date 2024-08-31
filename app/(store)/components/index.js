@@ -1,8 +1,7 @@
 import ProductCard from './ProductCard/ProductCard';
-import Slide from './Slide';
-import SearchBar from './SearchBar';
-import OutstandingProducts from './OutstandingProducts';
-import NewProduct from './NewProduct';
+import Slide from '../(pages)/(home)/components/Slide';
+import OutstandingProducts from '../(pages)/(home)/components/OutstandingProducts';
+import NewProduct from '../(pages)/(home)/components/NewProduct';
 import ProductLabel from './ProductCard/Badge/Badge';
 
-export { ProductCard, Slide, SearchBar, OutstandingProducts, NewProduct, ProductLabel };
+export { ProductCard, Slide, OutstandingProducts, NewProduct, ProductLabel };

@@ -1,4 +1,4 @@
-import '../../public/css/styleAdmin.css';
+import '../assets/css/styleAdmin.css';
 import SidebarLeft from './components/SidebarLeft';
 import SidebarTop from './components/Sidebar';
 import HeadTitle from './components/HeadTitle';

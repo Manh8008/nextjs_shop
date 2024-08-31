@@ -4,7 +4,7 @@ import { SizeSelector } from './SizeSelector';
 import { Badge } from './Badge';
 
 const ProductCard = ({ product }) => {
-    const { _id, name, image, price, condition, originalPrice, categoryId, slug } = product;
+    const { name, image, price, condition, originalPrice, categoryId, slug } = product;
     const [isOpen, setIsOpen] = useState(false);
 
     const formattedPrice = price ? price.toLocaleString('en-US') : '0';

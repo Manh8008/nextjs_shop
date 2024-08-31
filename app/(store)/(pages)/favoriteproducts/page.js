@@ -1,6 +1,7 @@
 'use client';
-import { NewProduct } from '../../components';
 import Link from 'next/link';
+import Image from 'next/image';
+import { NewProduct } from '../../components';
 
 function favoriteProducts() {
     return (
@@ -12,8 +13,9 @@ function favoriteProducts() {
                             <div className="top-action">
                                 <div className="order-sidemenu__user" style={{ paddingBottom: 20, marginTop: 30 }}>
                                     <div className="order-sidemenu__user-avatar">
-                                        <img
-                                            style={{ width: '100%' }}
+                                        <Image
+                                            width={1800}
+                                            height={480}
                                             src={
                                                 'https://pubcdn.ivymoda.com/ivy2//images/v2/assets/user-avatar-placeholder.png'
                                             }

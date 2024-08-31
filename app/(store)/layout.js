@@ -1,8 +1,8 @@
-import { MainLayout } from '../layouts/MainLayout';
+import { MainLayout } from './layouts/MainLayout';
 import Providers from '../redux/provider';
-import '../../public/css/main.css';
-import '../../public/css/grid.css';
-import '../../public/css/form.css';
+import '../assets/css/main.css';
+import '../assets/css/grid.css';
+import '../assets/css/form.css';
 
 export const metadata = {
     charSet: 'utf8',

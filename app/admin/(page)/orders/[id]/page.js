@@ -1,26 +1,28 @@
 'use client';
 import '../order.css';
-import { CustomAlert } from '../../../../(store)/components';
-import { useState, useEffect } from 'react';
+import { CustomAlert } from '@/app/(store)/components/CustomAlert';
+import { useState, useEffect, useCallback } from 'react';
 
 function OrderDetail({ params }) {
     const [order, setOrder] = useState(null);
     const [status, setStatus] = useState('');
 
-    useEffect(() => {
-        fetchOrder();
-    }, []);
-
-    const fetchOrder = async () => {
+    // Fetch order details
+    const fetchOrder = useCallback(async () => {
         try {
             const res = await fetch(`http://localhost:5000/orders/${params.id}`);
+            if (!res.ok) throw new Error('Failed to fetch order');
             const orderData = await res.json();
             setOrder(orderData);
             setStatus(orderData.status);
         } catch (err) {
             console.error('Failed to fetch order:', err);
         }
-    };
+    }, [params.id]);
+
+    useEffect(() => {
+        fetchOrder();
+    }, [fetchOrder]);
 
     const calculateTotalAmount = (cart) => {
         if (!cart) return 0;
@@ -41,16 +43,13 @@ function OrderDetail({ params }) {
                 },
                 body: JSON.stringify({ status }),
             });
-            if (res.ok) {
-                const updatedOrder = await res.json();
-                setOrder(updatedOrder);
-                CustomAlert('Trạng thái đơn hàng đã được cập nhật !', 'success');
-            } else {
-                alert('Có lỗi xảy ra khi cập nhật trạng thái đơn hàng.');
-            }
+            if (!res.ok) throw new Error('Failed to update status');
+            const updatedOrder = await res.json();
+            setOrder(updatedOrder);
+            CustomAlert({ title: 'Trạng thái đơn hàng đã được cập nhật!', icon: 'success' });
         } catch (err) {
             console.error('Failed to update status:', err);
-            alert('Có lỗi xảy ra khi cập nhật trạng thái đơn hàng.');
+            CustomAlert({ title: 'Có lỗi!', icon: 'error' });
         }
     };
 

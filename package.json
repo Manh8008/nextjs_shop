@@ -33,5 +33,9 @@
         "swr": "^2.2.5",
         "url": "^0.11.4",
         "yup": "^1.4.0"
+    },
+    "devDependencies": {
+        "eslint": "8.57.0",
+        "eslint-config-next": "14.2.7"
     }
 }
