@@ -1,66 +1,66 @@
-"use client";
-import React, { useEffect, useState, useCallback } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useRouter } from "next/navigation";
+'use client';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export const validationSchema = Yup.object({
-    name: Yup.string().required("Tên sản phẩm là bắt buộc"),
-    description: Yup.string().required("Miêu tả là bắt buộc"),
-    price: Yup.number().required("Giá là bắt buộc").positive("Giá phải lớn hơn 0"),
-    categorySlug: Yup.string().required("Danh mục là bắt buộc"),
+    name: Yup.string().required('Tên sản phẩm là bắt buộc'),
+    description: Yup.string().required('Miêu tả là bắt buộc'),
+    price: Yup.number().required('Giá là bắt buộc').positive('Giá phải lớn hơn 0'),
+    categorySlug: Yup.string().required('Danh mục là bắt buộc'),
     quantity: Yup.number()
-        .required("Số lượng là bắt buộc")
-        .positive("Số lượng phải lớn hơn 0")
-        .integer("Số lượng phải là số nguyên"),
-    image: Yup.string()
-        .required("Chọn ảnh sản phẩm là bắt buộc "),
+        .required('Số lượng là bắt buộc')
+        .positive('Số lượng phải lớn hơn 0')
+        .integer('Số lượng phải là số nguyên'),
+    image: Yup.string().required('Chọn ảnh sản phẩm là bắt buộc'),
 });
 
 function UpdateProduct({ params }) {
     const router = useRouter();
-    const [messages, setMessages] = useState("");
+    const [messages, setMessages] = useState('');
     const [categories, setCategories] = useState([]);
-    const [currentImage, setCurrentImage] = useState("");
+    const [currentImage, setCurrentImage] = useState('');
 
     const formik = useFormik({
         initialValues: {
-            name: "",
-            description: "",
-            price: "",
+            name: '',
+            description: '',
+            price: '',
             isNew: false,
             isOnSale: false,
             image: null,
-            categorySlug: "",
-            quantity: "",
+            categorySlug: '',
+            quantity: '',
         },
         validationSchema,
         onSubmit: async (values) => {
-            setMessages("");
+            setMessages('');
 
             try {
                 const form = new FormData();
                 for (const key in values) {
-                    if (key === "image" && values[key] !== null) {
+                    if (key === 'image' && values[key] !== null) {
                         form.append(key, values[key]);
-                    } else if (key !== "image") {
+                    } else if (key !== 'image') {
                         form.append(key, values[key]);
                     }
                 }
 
                 const response = await fetch(`http://localhost:5000/products/${params.id}`, {
-                    method: "PUT",
+                    method: 'PUT',
                     body: form,
                 });
 
                 if (!response.ok) {
-                    throw new Error("Mạng không ổn định");
+                    throw new Error('Mạng không ổn định');
                 }
 
                 const result = await response.json();
-                setMessages("Sửa sản phẩm thành công!");
+                setMessages('Sửa sản phẩm thành công!');
                 setTimeout(() => {
-                    router.push("/admin/products");
+                    router.push('/admin/products');
                 }, 1500);
             } catch (error) {
                 setMessages(error.message);
@@ -70,11 +70,11 @@ function UpdateProduct({ params }) {
 
     const fetchCategories = useCallback(async () => {
         try {
-            const response = await fetch("http://localhost:5000/categories");
+            const response = await fetch('http://localhost:5000/categories');
             const data = await response.json();
             setCategories(data);
         } catch (error) {
-            console.error("Error fetching categories:", error);
+            console.error('Error fetching categories:', error);
         }
     }, []);
 
@@ -97,18 +97,18 @@ function UpdateProduct({ params }) {
                 });
                 setCurrentImage(result.image);
             } catch (error) {
-                console.error("Error loading product:", error);
+                console.error('Error loading product:', error);
             }
         };
 
         loadProduct();
-    }, [fetchCategories, params.id]);
+    }, [fetchCategories, params.id, formik.setValues, formik]);
 
     const renderCategoryOptions = (categories, level = 0) => {
         return categories.map((category) => (
             <React.Fragment key={category._id}>
                 <option value={category.slug}>
-                    {"-".repeat(level)} {category.name}
+                    {'-'.repeat(level)} {category.name}
                 </option>
                 {category.subcategories && renderCategoryOptions(category.subcategories, level + 1)}
             </React.Fragment>
@@ -175,7 +175,6 @@ function UpdateProduct({ params }) {
                                         </div>
                                     ) : null}
                                 </div>
-
                             </div>
 
                             <div className="col">
@@ -194,7 +193,7 @@ function UpdateProduct({ params }) {
                                     </select>
                                     {formik.touched.categorySlug && formik.errors.categorySlug ? (
                                         <div className="error-msg">
-                                            <i className="fa-solid fa-circle-exclamation"></i>{" "}
+                                            <i className="fa-solid fa-circle-exclamation"></i>{' '}
                                             {formik.errors.categorySlug}
                                         </div>
                                     ) : null}
@@ -213,7 +212,7 @@ function UpdateProduct({ params }) {
                                     ></textarea>
                                     {formik.touched.description && formik.errors.description ? (
                                         <div className="error-msg">
-                                            <i className="fa-solid fa-circle-exclamation"></i>{" "}
+                                            <i className="fa-solid fa-circle-exclamation"></i>{' '}
                                             {formik.errors.description}
                                         </div>
                                     ) : null}
@@ -221,12 +220,11 @@ function UpdateProduct({ params }) {
 
                                 <div className="flex">
                                     <div className="inputBox">
-
                                         <input
                                             name="image"
                                             type="file"
                                             onChange={(event) => {
-                                                formik.setFieldValue("image", event.currentTarget.files[0]);
+                                                formik.setFieldValue('image', event.currentTarget.files[0]);
                                                 setCurrentImage(event.currentTarget.files[0].name);
                                             }}
                                         />
@@ -240,18 +238,17 @@ function UpdateProduct({ params }) {
                                         <span>Hình ảnh :</span>
                                         {currentImage && (
                                             <div className="current-image">
-                                                <img
+                                                <Image
+                                                    width={100}
+                                                    height={150}
                                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${currentImage}`}
                                                     alt="Hình ảnh sản phẩm hiện tại"
-                                                    style={{ width: 100, height: 150 }}
                                                 />
                                             </div>
                                         )}
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
                         <button type="submit" className="submit-btn">
                             Sửa
@@ -263,4 +260,4 @@ function UpdateProduct({ params }) {
     );
 }
 
-export default UpdateProduct
+export default UpdateProduct;

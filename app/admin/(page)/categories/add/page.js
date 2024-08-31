@@ -1,36 +1,36 @@
-'use client'
-import React, { useState, useEffect } from 'react'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import { useRouter } from 'next/navigation'
-import withAdminAuth from '@/middleware/withAdminAuth'
+'use client';
+import React, { useState, useEffect } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useRouter } from 'next/navigation';
+import withAdminAuth from '@/app/middleware/withAdminAuth';
 
 const validationSchema = Yup.object({
-    name: Yup.string().required("Tên sản phẩm là bắt buộc"),
-    description: Yup.string().required("Miêu tả là bắt buộc"),
+    name: Yup.string().required('Tên sản phẩm là bắt buộc'),
+    description: Yup.string().required('Miêu tả là bắt buộc'),
     parent: Yup.string().nullable(),
-})
+});
 
 function AddCategory() {
-    const router = useRouter()
-    const [messages, setMessages] = useState('')
-    const [categories, setCategories] = useState([])
-    const [selectedParent, setSelectedParent] = useState(null)
-    const [selectedSubcategory, setSelectedSubcategory] = useState('')
+    const router = useRouter();
+    const [messages, setMessages] = useState('');
+    const [categories, setCategories] = useState([]);
+    const [selectedParent, setSelectedParent] = useState(null);
+    const [selectedSubcategory, setSelectedSubcategory] = useState('');
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch('http://localhost:5000/categories')
-                const data = await response.json()
-                setCategories(data)
+                const response = await fetch('http://localhost:5000/categories');
+                const data = await response.json();
+                setCategories(data);
             } catch (error) {
-                console.error('Failed to fetch categories:', error)
+                console.error('Failed to fetch categories:', error);
             }
-        }
+        };
 
-        fetchCategories()
-    }, [])
+        fetchCategories();
+    }, []);
 
     const formik = useFormik({
         initialValues: {
@@ -42,50 +42,51 @@ function AddCategory() {
 
         validationSchema,
         onSubmit: async (values) => {
-            setMessages('')
+            setMessages('');
 
             try {
-                const form = new FormData()
-                form.append('name', values.name)
-                form.append('description', values.description)
-                form.append('parent', values.parent)
+                const form = new FormData();
+                form.append('name', values.name);
+                form.append('description', values.description);
+                form.append('parent', values.parent);
 
-                if (values.image) { // Chỉ thêm hình ảnh nếu có
-                    form.append('image', values.image)
+                if (values.image) {
+                    // Chỉ thêm hình ảnh nếu có
+                    form.append('image', values.image);
                 }
 
                 const response = await fetch('http://localhost:5000/categories/create', {
                     method: 'POST',
-                    body: form
-                })
+                    body: form,
+                });
 
                 if (!response.ok) {
-                    throw new Error('Mạng không ổn định')
+                    throw new Error('Mạng không ổn định');
                 }
-                const result = await response.json()
-                setMessages('Thêm sản phẩm thành công!')
+                const result = await response.json();
+                setMessages('Thêm sản phẩm thành công!');
                 setTimeout(() => {
-                    router.push("/admin/categories")
-                }, 1500)
+                    router.push('/admin/categories');
+                }, 1500);
             } catch (error) {
-                setMessages(error.message)
+                setMessages(error.message);
             }
-        }
-    })
+        },
+    });
 
     const handleParentChange = (e) => {
         const selectedParentId = e.target.value;
-        formik.setFieldValue('parent', selectedParentId)
-        const selectedParentCategory = categories.find(cat => cat._id === selectedParentId)
-        setSelectedParent(selectedParentCategory || null)
-        setSelectedSubcategory('') // Reset selected subcategory when parent changes
-    }
+        formik.setFieldValue('parent', selectedParentId);
+        const selectedParentCategory = categories.find((cat) => cat._id === selectedParentId);
+        setSelectedParent(selectedParentCategory || null);
+        setSelectedSubcategory(''); // Reset selected subcategory when parent changes
+    };
 
     const handleSubcategoryChange = (e) => {
         const selectedSubcategoryId = e.target.value;
-        formik.setFieldValue('parent', selectedSubcategoryId)
-        setSelectedSubcategory(selectedSubcategoryId)
-    }
+        formik.setFieldValue('parent', selectedSubcategoryId);
+        setSelectedSubcategory(selectedSubcategoryId);
+    };
 
     return (
         <div className="table-data">
@@ -107,7 +108,9 @@ function AddCategory() {
                                         onBlur={formik.handleBlur}
                                     />
                                     {formik.touched.name && formik.errors.name ? (
-                                        <div className="error-msg"><i className="fa-solid fa-circle-exclamation"></i> {formik.errors.name}</div>
+                                        <div className="error-msg">
+                                            <i className="fa-solid fa-circle-exclamation"></i> {formik.errors.name}
+                                        </div>
                                     ) : null}
                                 </div>
 
@@ -117,11 +120,13 @@ function AddCategory() {
                                         name="image"
                                         type="file"
                                         onChange={(event) => {
-                                            formik.setFieldValue('image', event.currentTarget.files[0])
+                                            formik.setFieldValue('image', event.currentTarget.files[0]);
                                         }}
                                     />
                                     {formik.touched.image && formik.errors.image ? (
-                                        <div className="error-msg"><i className="fa-solid fa-circle-exclamation"></i> {formik.errors.image}</div>
+                                        <div className="error-msg">
+                                            <i className="fa-solid fa-circle-exclamation"></i> {formik.errors.image}
+                                        </div>
                                     ) : null}
                                 </div>
                             </div>
@@ -134,13 +139,16 @@ function AddCategory() {
                                         name="description"
                                         cols="68"
                                         rows="5"
-                                        placeholder='Nhập miêu tả...'
+                                        placeholder="Nhập miêu tả..."
                                         value={formik.values.description}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                     ></textarea>
                                     {formik.touched.description && formik.errors.description ? (
-                                        <div className="error-msg"><i className="fa-solid fa-circle-exclamation"></i> {formik.errors.description}</div>
+                                        <div className="error-msg">
+                                            <i className="fa-solid fa-circle-exclamation"></i>{' '}
+                                            {formik.errors.description}
+                                        </div>
                                     ) : null}
                                 </div>
 
@@ -153,14 +161,16 @@ function AddCategory() {
                                         onBlur={formik.handleBlur}
                                     >
                                         <option value="">Chọn danh mục cha</option>
-                                        {categories.map(category => (
+                                        {categories.map((category) => (
                                             <option key={category._id} value={category._id}>
                                                 {category.name}
                                             </option>
                                         ))}
                                     </select>
                                     {formik.touched.parent && formik.errors.parent ? (
-                                        <div className="error-msg"><i className="fa-solid fa-circle-exclamation"></i> {formik.errors.parent}</div>
+                                        <div className="error-msg">
+                                            <i className="fa-solid fa-circle-exclamation"></i> {formik.errors.parent}
+                                        </div>
                                     ) : null}
                                 </div>
 
@@ -173,7 +183,7 @@ function AddCategory() {
                                             onChange={handleSubcategoryChange}
                                         >
                                             <option value="">Chọn danh mục con</option>
-                                            {selectedParent.subcategories.map(subcategory => (
+                                            {selectedParent.subcategories.map((subcategory) => (
                                                 <option key={subcategory._id} value={subcategory._id}>
                                                     {subcategory.name}
                                                 </option>
@@ -183,12 +193,14 @@ function AddCategory() {
                                 )}
                             </div>
                         </div>
-                        <button type="submit" className="submit-btn">Thêm</button>
+                        <button type="submit" className="submit-btn">
+                            Thêm
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default withAdminAuth(AddCategory)
+export default withAdminAuth(AddCategory);

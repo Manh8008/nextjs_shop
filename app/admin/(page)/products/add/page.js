@@ -1,65 +1,66 @@
-"use client";
-import React, { useState, useEffect, useCallback } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useRouter } from "next/navigation";
+'use client';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export const validationSchema = Yup.object({
-    name: Yup.string().required("Tên sản phẩm là bắt buộc"),
-    description: Yup.string().required("Miêu tả là bắt buộc"),
-    price: Yup.number().required("Giá là bắt buộc").positive("Giá phải lớn hơn 0"),
-    categorySlug: Yup.string().required("Danh mục là bắt buộc"),
+    name: Yup.string().required('Tên sản phẩm là bắt buộc'),
+    description: Yup.string().required('Miêu tả là bắt buộc'),
+    price: Yup.number().required('Giá là bắt buộc').positive('Giá phải lớn hơn 0'),
+    categorySlug: Yup.string().required('Danh mục là bắt buộc'),
     quantity: Yup.number()
-        .required("Số lượng là bắt buộc")
-        .positive("Số lượng phải lớn hơn 0")
-        .integer("Số lượng phải là số nguyên"),
+        .required('Số lượng là bắt buộc')
+        .positive('Số lượng phải lớn hơn 0')
+        .integer('Số lượng phải là số nguyên'),
     image: Yup.mixed()
-        .required("Hình ảnh là bắt buộc")
+        .required('Hình ảnh là bắt buộc')
         .test(
-            "fileFormat",
-            "Định dạng ảnh không hợp lệ",
-            (value) => value && ["image/jpeg", "image/png", "image/gif", "image/webp"].includes(value.type)
+            'fileFormat',
+            'Định dạng ảnh không hợp lệ',
+            (value) => value && ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(value.type),
         ),
 });
 
 function AddProduct() {
     const router = useRouter();
-    const [messages, setMessages] = useState("");
+    const [messages, setMessages] = useState('');
     const [categories, setCategories] = useState([]);
-    const [currentImage, setCurrentImage] = useState("")
+    const [currentImage, setCurrentImage] = useState('');
 
     const formik = useFormik({
         initialValues: {
-            name: "",
-            description: "",
-            price: "",
+            name: '',
+            description: '',
+            price: '',
             isNew: false,
             isOnSale: false,
             image: null,
-            categorySlug: "",
-            quantity: "",
+            categorySlug: '',
+            quantity: '',
         },
         validationSchema,
         onSubmit: async (values) => {
-            setMessages("");
+            setMessages('');
 
             try {
                 const form = new FormData();
                 for (const key in values) {
                     form.append(key, values[key]);
                 }
-                const response = await fetch("http://localhost:5000/products/create", {
-                    method: "POST",
+                const response = await fetch('http://localhost:5000/products/create', {
+                    method: 'POST',
                     body: form,
                 });
 
                 if (!response.ok) {
-                    throw new Error("Mạng không ổn định");
+                    throw new Error('Mạng không ổn định');
                 }
                 const result = await response.json();
-                setMessages("Thêm sản phẩm thành công!");
+                setMessages('Thêm sản phẩm thành công!');
                 setTimeout(() => {
-                    router.push("/admin/products");
+                    router.push('/admin/products');
                 }, 1500);
             } catch (error) {
                 setMessages(error.message);
@@ -69,11 +70,11 @@ function AddProduct() {
 
     const fetchCategories = useCallback(async () => {
         try {
-            const response = await fetch("http://localhost:5000/categories");
+            const response = await fetch('http://localhost:5000/categories');
             const data = await response.json();
             setCategories(data);
         } catch (error) {
-            console.error("Error fetching categories:", error);
+            console.error('Error fetching categories:', error);
         }
     }, []);
 
@@ -85,7 +86,7 @@ function AddProduct() {
         return categories.map((category) => (
             <React.Fragment key={category._id}>
                 <option value={category.slug}>
-                    {"-".repeat(level)} {category.name}
+                    {'-'.repeat(level)} {category.name}
                 </option>
                 {category.subcategories && renderCategoryOptions(category.subcategories, level + 1)}
             </React.Fragment>
@@ -172,7 +173,7 @@ function AddProduct() {
                                     </select>
                                     {formik.touched.categorySlug && formik.errors.categorySlug ? (
                                         <div className="error-msg">
-                                            <i className="fa-solid fa-circle-exclamation"></i>{" "}
+                                            <i className="fa-solid fa-circle-exclamation"></i>{' '}
                                             {formik.errors.categorySlug}
                                         </div>
                                     ) : null}
@@ -191,7 +192,7 @@ function AddProduct() {
                                     ></textarea>
                                     {formik.touched.description && formik.errors.description ? (
                                         <div className="error-msg">
-                                            <i className="fa-solid fa-circle-exclamation"></i>{" "}
+                                            <i className="fa-solid fa-circle-exclamation"></i>{' '}
                                             {formik.errors.description}
                                         </div>
                                     ) : null}
@@ -199,12 +200,11 @@ function AddProduct() {
 
                                 <div className="flex">
                                     <div className="inputBox">
-
                                         <input
                                             name="image"
                                             type="file"
                                             onChange={(event) => {
-                                                formik.setFieldValue("image", event.currentTarget.files[0]);
+                                                formik.setFieldValue('image', event.currentTarget.files[0]);
                                                 setCurrentImage(event.currentTarget.files[0].name);
                                             }}
                                         />
@@ -218,17 +218,16 @@ function AddProduct() {
                                         <span>Hình ảnh</span>
                                         {currentImage && (
                                             <div className="current-image">
-                                                <img
+                                                <Image
+                                                    width={100}
+                                                    height={150}
                                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${currentImage}`}
                                                     alt="Hình ảnh sản phẩm"
-                                                    style={{ width: 100, height: 150 }}
                                                 />
                                             </div>
                                         )}
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                         <button type="submit" className="submit-btn">

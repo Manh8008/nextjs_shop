@@ -34,7 +34,7 @@ function Search({ searchParams }) {
             handlePageChange={handlePageChange}
         >
             <div className="home-product grid">
-                <h4 className="sub-title-main">KẾT QUẢ TÌM KIẾM THEO '{searchParams.keyword}'</h4>
+                <h4 className="sub-title-main">KẾT QUẢ TÌM KIẾM THEO &apos;{searchParams.keyword}&apos;</h4>
                 <ul className="products grid__row">
                     {Array.isArray(products) &&
                         products.map((product) => (

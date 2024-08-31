@@ -1,10 +1,10 @@
-"use client";
-import Link from "next/link";
-import { useState, useEffect } from "react";
-
+'use client';
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const AccountInfo = () => {
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -13,7 +13,7 @@ const AccountInfo = () => {
 
                 const response = await fetch('http://localhost:5000/users/profile', {
                     headers: {
-                        'Authorization': `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 });
 
@@ -43,7 +43,15 @@ const AccountInfo = () => {
                             <div className="top-action">
                                 <div className="order-sidemenu__user" style={{ paddingBottom: 20, marginTop: 30 }}>
                                     <div className="order-sidemenu__user-avatar">
-                                        <img style={{ width: '100%' }} src={user?.avatar || "https://pubcdn.ivymoda.com/ivy2//images/v2/assets/user-avatar-placeholder.png"} alt="" />
+                                        <Image
+                                            width={500}
+                                            height={50}
+                                            src={
+                                                user?.avatar ||
+                                                'https://pubcdn.ivymoda.com/ivy2//images/v2/assets/user-avatar-placeholder.png'
+                                            }
+                                            alt=""
+                                        />
                                     </div>
                                     <div className="order-sidemenu__user-name">
                                         <p>{user?.username || 'Tên người dùng'}</p>
@@ -80,7 +88,10 @@ const AccountInfo = () => {
                                 <div className="order-block__title">
                                     <h2>TÀI KHOẢN CỦA TÔI</h2>
                                 </div>
-                                <p className="alert alert-primary">"Vì chính sách an toàn thẻ, bạn không thể thay đổi SĐT, Ngày sinh, Họ tên. Vui lòng liên hệ CSKH 0865587127 để được hỗ trợ"</p>
+                                <p className="alert alert-primary">
+                                    Vì chính sách an toàn thẻ, bạn không thể thay đổi SĐT, Ngày sinh, Họ tên. Vui lòng
+                                    liên hệ CSKH 0865587127 để được hỗ trợ
+                                </p>
                                 <div className="grid__row">
                                     <div className="c-6">
                                         <div className="form-group col">
@@ -163,10 +174,8 @@ const AccountInfo = () => {
                                                 type="text"
                                                 value={user?.address || ''}
                                                 onChange={(e) => setAddress(e.target.value)}
-
                                                 placeholder="Địa chỉ..."
                                                 className="form-control"
-
                                             />
                                             <span className="form-message"></span>
                                         </div>
@@ -179,7 +188,10 @@ const AccountInfo = () => {
                                                 </button>
                                             </div>
                                             <div className="c-6">
-                                                <Link href='/changepass' className="btn btn--large btn--outline btn-outline-hover" >
+                                                <Link
+                                                    href="/changepass"
+                                                    className="btn btn--large btn--outline btn-outline-hover"
+                                                >
                                                     Đổi mật khẩu
                                                 </Link>
                                             </div>

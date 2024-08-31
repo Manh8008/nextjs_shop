@@ -1,21 +1,23 @@
-'use client'
-import React, { useEffect, useState } from 'react'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import { useRouter } from 'next/navigation'
-import withAdminAuth from '@/middleware/withAdminAuth'
+'use client';
+import React, { useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
+import withAdminAuth from '@/app/middleware/withAdminAuth';
 
 const validationSchema = Yup.object({
-    name: Yup.string().required("Tên danh mục là bắt buộc"),
-    description: Yup.string().required("Miêu tả là bắt buộc"),
-    image: Yup.mixed().required("Hình ảnh là bắt buộc")
+    name: Yup.string().required('Tên danh mục là bắt buộc'),
+    description: Yup.string().required('Miêu tả là bắt buộc'),
+    image: Yup.mixed().required('Hình ảnh là bắt buộc'),
     // .test("fileFormat", "Định dạng ảnh không hợp lệ", value => value && ['image/jpeg', 'image/png', 'image/gif'].includes(value.type)),
-})
+});
 
 function UpdateCategory({ params }) {
-    const router = useRouter()
-    const [messages, setMessages] = useState('')
-    const [currentImage, setCurrentImage] = useState('')
+    const router = useRouter();
+    const [messages, setMessages] = useState('');
+    const [currentImage, setCurrentImage] = useState('');
 
     const formik = useFormik({
         initialValues: {
@@ -25,50 +27,49 @@ function UpdateCategory({ params }) {
         },
         validationSchema,
         onSubmit: async (values) => {
-            setMessages('')
+            setMessages('');
 
             try {
-                const form = new FormData()
+                const form = new FormData();
                 for (const key in values) {
-                    form.append(key, values[key])
+                    form.append(key, values[key]);
                 }
 
                 const response = await fetch(`http://localhost:5000/categories/${params.id}`, {
                     method: 'PUT',
-                    body: form
-                })
+                    body: form,
+                });
 
                 if (!response.ok) {
-                    throw new Error('Mạng không ổn định')
+                    throw new Error('Mạng không ổn định');
                 }
 
-                const result = await response.json()
-                setMessages('Sửa danh mục thành công!')
+                const result = await response.json();
+                setMessages('Sửa danh mục thành công!');
 
                 setTimeout(() => {
-                    router.push("/admin/categories")
-                }, 1500)
-
+                    router.push('/admin/categories');
+                }, 1500);
             } catch (error) {
-                setMessages(error.message)
+                setMessages(error.message);
             }
-        }
-    })
+        },
+    });
 
     useEffect(() => {
         const loadCategory = async () => {
-            const res = await fetch(`http://localhost:5000/categories/${params.id}/edit`)
-            const result = await res.json()
+            const res = await fetch(`http://localhost:5000/categories/${params.id}/edit`);
+            const result = await res.json();
             formik.setValues({
                 name: result.name,
                 description: result.description,
                 image: result.image,
-            })
-            setCurrentImage(result.image)
-        }
+            });
+            setCurrentImage(result.image);
+        };
 
-        loadCategory()
-    }, [params.id])
+        loadCategory();
+    }, [formik, params.id]);
 
     return (
         <div className="table-data">
@@ -90,7 +91,9 @@ function UpdateCategory({ params }) {
                                         onBlur={formik.handleBlur}
                                     />
                                     {formik.touched.name && formik.errors.name ? (
-                                        <div className="error-msg"><i className="fa-solid fa-circle-exclamation"></i> {formik.errors.name}</div>
+                                        <div className="error-msg">
+                                            <i className="fa-solid fa-circle-exclamation"></i> {formik.errors.name}
+                                        </div>
                                     ) : null}
                                 </div>
 
@@ -100,18 +103,25 @@ function UpdateCategory({ params }) {
                                         name="image"
                                         type="file"
                                         onChange={(event) => {
-                                            formik.setFieldValue('image', event.currentTarget.files[0])
+                                            formik.setFieldValue('image', event.currentTarget.files[0]);
                                         }}
                                     />
                                     {formik.touched.image && formik.errors.image ? (
-                                        <div className="error-msg"><i className="fa-solid fa-circle-exclamation"></i> {formik.errors.image}</div>
+                                        <div className="error-msg">
+                                            <i className="fa-solid fa-circle-exclamation"></i> {formik.errors.image}
+                                        </div>
                                     ) : null}
                                 </div>
 
                                 {currentImage && (
                                     <div className="inputBox">
                                         <span>Ảnh hiện tại:</span>
-                                        <img src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${currentImage}`} alt="Current Image" style={{ wight: 200 }} />
+                                        <Image
+                                            width={50}
+                                            height={50}
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${currentImage}`}
+                                            alt="Current Image"
+                                        />
                                     </div>
                                 )}
                             </div>
@@ -125,23 +135,28 @@ function UpdateCategory({ params }) {
                                         name="description"
                                         cols="68"
                                         rows="5"
-                                        placeholder='Nhập miêu tả...'
+                                        placeholder="Nhập miêu tả..."
                                         value={formik.values.description}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                     ></textarea>
                                     {formik.touched.description && formik.errors.description ? (
-                                        <div className="error-msg"><i className="fa-solid fa-circle-exclamation"></i> {formik.errors.description}</div>
+                                        <div className="error-msg">
+                                            <i className="fa-solid fa-circle-exclamation"></i>{' '}
+                                            {formik.errors.description}
+                                        </div>
                                     ) : null}
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" className="submit-btn">Sửa</button>
+                        <button type="submit" className="submit-btn">
+                            Sửa
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default withAdminAuth(UpdateCategory)
+export default withAdminAuth(UpdateCategory);

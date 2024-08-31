@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 import CustomConfirm from '../../components/CustomConfirm';
 
@@ -69,7 +70,12 @@ function Product() {
                             products.map((product) => (
                                 <tr key={product._id}>
                                     <td>
-                                        <img src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${product.image}`} />
+                                        <Image
+                                            width={36}
+                                            height={36}
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${product.image}`}
+                                            alt={product.name}
+                                        />
                                         <p>{product._id.slice(-4)}</p>
                                     </td>
                                     <td>{product.name}</td>

@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 import { removeFromCart } from '@/app/redux/slices/cartslice';
 import { logout } from '@/app/redux/slices/userSlice';
@@ -50,13 +51,11 @@ const Header = () => {
 
                     <div className="header-logo col">
                         <a href={'/'}>
-                            <img
+                            <Image
+                                width={140}
+                                height={45}
                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/logo.png`}
                                 alt="Logo"
-                                style={{
-                                    width: 140,
-                                    height: 'auto',
-                                }}
                                 className="header-logo"
                             />
                         </a>
@@ -134,7 +133,9 @@ const Header = () => {
                                     <ul className="header__cart-list-item">
                                         {cartItems.map((item) => (
                                             <li className="header__cart-item" key={`${item._id}-${item.size}`}>
-                                                <img
+                                                <Image
+                                                    width={35}
+                                                    height={42}
                                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${item.image}`}
                                                     alt=""
                                                     className="header__cart-img"

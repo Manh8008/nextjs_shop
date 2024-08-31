@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import withAdminAuth from '@/app/middleware/withAdminAuth';
 import CustomConfirm from '../../components/CustomConfirm';
 
@@ -72,7 +73,12 @@ function Categories() {
                             categories.map((categrory) => (
                                 <tr key={categrory._id}>
                                     <td>
-                                        <img src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${categrory.image}`} />
+                                        <Image
+                                            width={500}
+                                            height={36}
+                                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${categrory.image}`}
+                                            alt={categrory.name}
+                                        />
                                         <p>{categrory._id.slice(-4)}</p>
                                     </td>
                                     <td>

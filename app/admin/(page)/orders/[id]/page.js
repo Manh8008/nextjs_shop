@@ -1,7 +1,8 @@
 'use client';
+import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import '../order.css';
 import { CustomAlert } from '@/app/(store)/components/CustomAlert';
-import { useState, useEffect, useCallback } from 'react';
 
 function OrderDetail({ params }) {
     const [order, setOrder] = useState(null);
@@ -87,7 +88,9 @@ function OrderDetail({ params }) {
                                     <tr key={product._id} className="order-table-row">
                                         <td className="order-table-cell">{index + 1}</td>
                                         <td className="order-table-cell">
-                                            <img
+                                            <Image
+                                                width={36}
+                                                height={36}
                                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${product.image}`}
                                                 alt={product.name}
                                                 className="order-product-image"

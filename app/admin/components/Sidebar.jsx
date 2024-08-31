@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 function Sidebar() {
     return (
         <nav>
@@ -15,13 +17,10 @@ function Sidebar() {
             </form>
             <input type="checkbox" id="switch-mode" hidden />
             <label htmlFor="switch-mode" className="switch-mode"></label>
-            <a href="#" className="notification">
+            <Link href="#" className="notification">
                 <i className="bx bxs-bell"></i>
                 <span className="num">8</span>
-            </a>
-            <a href="login.html" className="profile">
-                <img src="#" />
-            </a>
+            </Link>
         </nav>
     );
 }

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { SizeSelector } from './SizeSelector';
 import { Badge } from './Badge';
 
@@ -13,7 +14,12 @@ const ProductCard = ({ product }) => {
         <div className="product-item-card">
             <div className="product-top">
                 <a href={`/products/${slug}`} className="product-thumb">
-                    <img src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${image}`} />
+                    <Image
+                        width={500}
+                        height={260}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${image}`}
+                        alt={name}
+                    />
                 </a>
                 <Badge condition={condition} />
             </div>

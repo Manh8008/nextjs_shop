@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const Slide = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -59,32 +60,26 @@ const Slide = () => {
                     <div className="col-12">
                         <div className="slider">
                             <div className="slide">
-                                <img
+                                <Image
+                                    width={1770}
+                                    height={500}
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slide1.jpg`}
-                                    style={{
-                                        width: '100%',
-                                        height: 'auto',
-                                    }}
                                     alt="Picture of the author"
                                 />
                             </div>
                             <div className="slide">
-                                <img
+                                <Image
+                                    width={1770}
+                                    height={500}
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slide2.jpg`}
-                                    style={{
-                                        width: '100%',
-                                        height: 'auto',
-                                    }}
                                     alt="Picture of the author"
                                 />
                             </div>
                             <div className="slide">
-                                <img
+                                <Image
+                                    width={1770}
+                                    height={500}
                                     src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slide3.jpg`}
-                                    style={{
-                                        width: '100%',
-                                        height: 'auto',
-                                    }}
                                     alt="Picture of the author"
                                 />
                             </div>
