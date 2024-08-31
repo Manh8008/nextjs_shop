@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 
 import { removeFromCart, updateCartItemQuantity } from '../../../redux/slices/cartslice';
-import { CartLayout } from './layout';
+import CartLayout from './layout';
 
 function Cart() {
     const dispatch = useDispatch();

@@ -1,1 +1,1 @@
-export { default as CartLayout } from './Cartlayout';
+export { default } from './CartLayout';
