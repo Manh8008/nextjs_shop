@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import images from '@/app/assets/images';
 
 const AccountInfo = () => {
     const [user, setUser] = useState(null);
@@ -34,6 +35,8 @@ const AccountInfo = () => {
         fetchUserProfile();
     }, []);
 
+    console.log();
+
     return (
         <div className="main-container">
             <div className="register-form grid wide">
@@ -44,13 +47,10 @@ const AccountInfo = () => {
                                 <div className="order-sidemenu__user" style={{ paddingBottom: 20, marginTop: 30 }}>
                                     <div className="order-sidemenu__user-avatar">
                                         <Image
-                                            width={500}
+                                            width={50}
                                             height={50}
-                                            src={
-                                                user?.avatar ||
-                                                'https://pubcdn.ivymoda.com/ivy2//images/v2/assets/user-avatar-placeholder.png'
-                                            }
-                                            alt=""
+                                            src={user?.avatar || images.noImage}
+                                            alt={user?.username}
                                         />
                                     </div>
                                     <div className="order-sidemenu__user-name">
@@ -60,7 +60,7 @@ const AccountInfo = () => {
                             </div>
                             <ul>
                                 <li>
-                                    <Link href="/info">
+                                    <Link href="/accountInfo">
                                         <i className="fa-regular fa-user"></i>Thông tin tài khoản
                                     </Link>
                                 </li>
@@ -189,7 +189,7 @@ const AccountInfo = () => {
                                             </div>
                                             <div className="c-6">
                                                 <Link
-                                                    href="/changepass"
+                                                    href="/changepassword"
                                                     className="btn btn--large btn--outline btn-outline-hover"
                                                 >
                                                     Đổi mật khẩu

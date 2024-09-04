@@ -1,55 +1,53 @@
-'use client'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+'use client';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const ChangePassWord = () => {
-
-    const router = useRouter()
-    const [oldPassword, setOldPassword] = useState('')
-    const [newPassword, setNewPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [error, setError] = useState('')
-    const [success, setSuccess] = useState('')
-
+    const router = useRouter();
+    const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-    
+        e.preventDefault();
+
         if (newPassword !== confirmPassword) {
-            setError('Mật khẩu mới không khớp!')
-            return
+            setError('Mật khẩu mới không khớp!');
+            return;
         }
-    
+
         try {
-            const token = JSON.parse(localStorage.getItem('userInfo')).token
+            const token = JSON.parse(localStorage.getItem('userInfo')).token;
             const response = await fetch('http://localhost:5000/users/changePassword', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `${token}`
+                    Authorization: `${token}`,
                 },
                 body: JSON.stringify({
                     oldPassword,
-                    newPassword
-                })
-            })
-    
-            const data = await response.json()
-    
+                    newPassword,
+                }),
+            });
+
+            const data = await response.json();
+
             if (response.ok) {
-                setSuccess(data.message)
-                setError('')
-                router.push('/info')
+                setSuccess(data.message);
+                setError('');
+                router.push('/info');
             } else {
-                setError(data.error)
-                setSuccess('')
+                setError(data.error);
+                setSuccess('');
             }
         } catch (error) {
-            console.error('Fetch Error:', error)
-            setError('Có lỗi xảy ra. Vui lòng thử lại!')
+            console.error('Fetch Error:', error);
+            setError('Có lỗi xảy ra. Vui lòng thử lại!');
         }
-    }
-    
+    };
+
     return (
         <div className="main-container">
             <div className="form-container">
@@ -60,7 +58,9 @@ const ChangePassWord = () => {
                     {success && <p className="alert alert-success">{success}</p>}
 
                     <div className="form-group">
-                        <label htmlFor="oldPassword" className="form-label">Mật khẩu hiện tại</label>
+                        <label htmlFor="oldPassword" className="form-label">
+                            Mật khẩu hiện tại
+                        </label>
                         <input
                             id="oldPassword"
                             name="oldPassword"
@@ -73,7 +73,9 @@ const ChangePassWord = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="newPassword" className="form-label">Mật khẩu mới</label>
+                        <label htmlFor="newPassword" className="form-label">
+                            Mật khẩu mới
+                        </label>
                         <input
                             id="newPassword"
                             name="newPassword"
@@ -86,7 +88,9 @@ const ChangePassWord = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="confirmPassword" className="form-label">Nhập lại mật khẩu mới</label>
+                        <label htmlFor="confirmPassword" className="form-label">
+                            Nhập lại mật khẩu mới
+                        </label>
                         <input
                             id="confirmPassword"
                             name="confirmPassword"
@@ -105,9 +109,9 @@ const ChangePassWord = () => {
                     </div>
                 </form>
             </div>
-            <div className="site-bottom"></div> 
+            <div className="site-bottom"></div>
         </div>
-    )
-}
+    );
+};
 
-export default ChangePassWord
+export default ChangePassWord;

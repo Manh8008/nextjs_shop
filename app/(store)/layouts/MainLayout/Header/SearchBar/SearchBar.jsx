@@ -1,6 +1,12 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import classNames from 'classnames/bind';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import styles from '../Header.module.scss';
+
+const cx = classNames.bind(styles);
 
 const SearchBar = () => {
     const [model, setModel] = useState('');
@@ -26,9 +32,9 @@ const SearchBar = () => {
     };
 
     return (
-        <form id="search-form" onSubmit={handleSearch}>
-            <button type="submit" className="search-icon">
-                <i className="fa-solid fa-magnifying-glass"></i>
+        <form className={cx('search-form')} onSubmit={handleSearch}>
+            <button type="submit" className={cx('search-icon')}>
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
             <input
                 type="text"
@@ -36,7 +42,7 @@ const SearchBar = () => {
                 value={model}
                 onChange={handleChange}
                 placeholder="TÌM KIẾM SẢN PHẨM"
-                className="search-input"
+                className={cx('search-input')}
             />
         </form>
     );

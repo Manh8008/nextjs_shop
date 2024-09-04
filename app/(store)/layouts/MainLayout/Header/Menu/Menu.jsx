@@ -1,6 +1,11 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import classNames from 'classnames/bind';
+import styles from './Menu.module.scss';
+
+const cx = classNames.bind(styles);
+
 function Menu() {
     const [categories, setCategories] = useState();
 
@@ -20,19 +25,19 @@ function Menu() {
     }, []);
 
     return (
-        <ul className="header-menu m-0">
+        <ul className={cx('menu', 'm-0')}>
             {categories &&
                 categories.map((category) => (
-                    <li className="header-menu-item parent-element" key={category._id}>
-                        <Link href={`/category/${category.slug}`} className="header-menu-item-link">
+                    <li className={cx('menu-item')} key={category._id}>
+                        <Link href={`/category/${category.slug}`} className={cx('menu-item-link')}>
                             {category.name}
                         </Link>
                         {category.subcategories && category.subcategories.length > 0 && (
-                            <ul className="sub-menu">
-                                <div className="cat-sub-menu">
+                            <ul className={cx('sub-menu')}>
+                                <div className={cx('cat-sub-menu')}>
                                     <div>
                                         <Link
-                                            className="cat-sub-menu-link"
+                                            className={cx('cat-sub-menu-link')}
                                             href="https://ivymoda.com/danh-muc/hang-nu-moi-ve"
                                             style={{ color: '#FF0000' }}
                                         >
@@ -62,10 +67,10 @@ function Menu() {
                                         </a>
                                     </div>
                                 </div>
-                                <div className="list-submenu d-flex">
+                                <div className={cx('list-submenu', 'd-flex')}>
                                     {category.subcategories &&
                                         category.subcategories.map((subCategory) => (
-                                            <div className="item-list-submenu" key={subCategory._id}>
+                                            <div className={cx('item-list-submenu')} key={subCategory._id}>
                                                 <h3>
                                                     <Link href={`/category/${subCategory.slug}`}>
                                                         {subCategory.name}
@@ -89,18 +94,18 @@ function Menu() {
                     </li>
                 ))}
 
-            <li className="header-menu-item">
-                <a href="/category/sale-off" className="header-menu-item-link">
+            <li className={cx('menu-item')}>
+                <a href="/category/sale-off" className={cx('menu-item-link')}>
                     Online sale
                 </a>
             </li>
-            <li className="header-menu-item">
-                <a href="#" className="header-menu-item-link">
+            <li className={cx('menu-item')}>
+                <a href="#" className={cx('menu-item-link')}>
                     Bộ sưu tập
                 </a>
             </li>
-            <li className="header-menu-item">
-                <a href="#" className="header-menu-item-link">
+            <li className={cx('menu-item')}>
+                <a href="#" className={cx('menu-item-link')}>
                     Về chúng tôi
                 </a>
             </li>

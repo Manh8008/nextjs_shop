@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import classNames from 'classnames/bind';
 import 'sweetalert2/src/sweetalert2.scss';
-import styles from './CustomAlert.module.css';
+import styles from './CustomAlert.module.scss';
 
 const cx = classNames.bind(styles);
 

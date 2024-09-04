@@ -1,15 +1,18 @@
 import { OutstandingProducts, NewProduct, Slide } from './components';
 import Image from 'next/image';
 import Link from 'next/link';
+import classNames from 'classnames';
+import styles from './Home.module.scss';
+
+const cx = classNames.bind(styles);
 
 function Home() {
     return (
         <>
             <Slide />
-            <div className="main-container">
+            <div className="wrapper">
                 <div className="grid wide">
                     <NewProduct />
-
                     <div className="banner-extra">
                         <Link href="" className="banner-extra-link">
                             <Image

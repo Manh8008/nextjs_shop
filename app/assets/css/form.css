@@ -1,12 +1,4 @@
 /* Container styles */
-.main-container {
-    width: 100%;
-    padding: 20px;
-    margin-top: 60px;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-}
 
 .register-form {
     width: 100%;
