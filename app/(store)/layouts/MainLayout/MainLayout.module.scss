@@ -1,6 +1,6 @@
 .wrapper {
     width: 100%;
-    padding: 20px;
+    padding-top: 80px;
     justify-content: center;
     align-items: center;
     background-color: #fff;
@@ -8,4 +8,10 @@
 
 .site-bottom {
     border-bottom: 1px solid #d1d2d4;
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        padding: 24px 0 0 0;
+    }
 }

@@ -1,7 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import classNames from 'classnames/bind';
 import { ProductCard } from '../../../components/index';
+import styles from '../Home.module.scss';
+import gridStyles from '@/app/assets/styles/grid.module.scss';
+const cx = classNames.bind(styles);
+const gx = classNames.bind(gridStyles);
 
 function NewProduct() {
     const [newProducts, setNewProducts] = useState();
@@ -17,18 +22,14 @@ function NewProduct() {
     };
 
     return (
-        <div className="product-sale">
-            <h2 className="product-heading">NEW ARRIVAL</h2>
-
-            <ul className="products grid">
-                {newProducts &&
-                    newProducts.map((product) => (
-                        <li className="product-item grid__column-2" key={product._id}>
-                            <ProductCard key={product._id} product={product} />
-                        </li>
-                    ))}
-            </ul>
-        </div>
+        <>
+            {newProducts &&
+                newProducts.map((product) => (
+                    <li className={cx('product-item', gx('m-6 grid__column-2 '))} key={product._id}>
+                        <ProductCard key={product._id} product={product} />
+                    </li>
+                ))}
+        </>
     );
 }
 

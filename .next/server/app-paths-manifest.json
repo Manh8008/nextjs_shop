@@ -1,7 +1,7 @@
 {
   "/(store)/(pages)/(home)/page": "app/(store)/(pages)/(home)/page.js",
-  "/(store)/(pages)/login/page": "app/(store)/(pages)/login/page.js",
-  "/(store)/(pages)/(productDetail)/products/[productSlug]/page": "app/(store)/(pages)/(productDetail)/products/[productSlug]/page.js",
+  "/(store)/(pages)/checkout/page": "app/(store)/(pages)/checkout/page.js",
   "/(store)/(pages)/category/[categorySlug]/page": "app/(store)/(pages)/category/[categorySlug]/page.js",
-  "/(store)/(pages)/search/page": "app/(store)/(pages)/search/page.js"
+  "/(store)/(pages)/(productDetail)/products/[productSlug]/page": "app/(store)/(pages)/(productDetail)/products/[productSlug]/page.js",
+  "/(store)/(pages)/cart/page": "app/(store)/(pages)/cart/page.js"
 }

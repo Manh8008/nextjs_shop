@@ -1,27 +1,32 @@
-const Badge = ({ condition }) => {
+import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
+import images from '@/app/assets/images'; // Đảm bảo đường dẫn đúng
+import styles from '../ProductCard.module.scss';
+
+const cx = classNames.bind(styles);
+
+function Badge({ condition }) {
+    const badgeContent = condition === 'showNew' ? 'New' : condition === 'showHot' ? 'Hot' : null;
+    const badgeClass = condition === 'showNew' ? 'ticket' : condition === 'showHot' ? 'ticket' : '';
+
     return (
         <>
-            {condition == 'showNew' ? (
+            {badgeContent && (
                 <div
-                    className="info-ticket ticket-new"
+                    className={cx('info-ticket', badgeClass)}
                     style={{
-                        backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/bg_news.png)`,
+                        backgroundImage: `url(${images.bgNew.default.src})`,
                     }}
                 >
-                    New
+                    {badgeContent}
                 </div>
-            ) : condition == 'showHot' ? (
-                <div
-                    className="info-ticket ticket-new"
-                    style={{
-                        backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/bg_news.png)`,
-                    }}
-                >
-                    Hot
-                </div>
-            ) : null}
+            )}
         </>
     );
+}
+
+Badge.propTypes = {
+    condition: PropTypes.oneOf(['showNew', 'showHot']).isRequired,
 };
 
 export default Badge;

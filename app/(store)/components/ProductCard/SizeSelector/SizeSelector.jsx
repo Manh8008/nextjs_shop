@@ -1,8 +1,15 @@
 'use client';
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import classNames from 'classnames/bind';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
+
 import { addToCart } from '../../../../redux/slices/cartslice';
 import { CustomAlert } from '../../CustomAlert';
+import styles from '../ProductCard.module.scss';
+
+const cx = classNames.bind(styles);
 
 const SizeSelector = ({ product, isOpen, setIsOpen }) => {
     const dispatch = useDispatch();
@@ -25,33 +32,25 @@ const SizeSelector = ({ product, isOpen, setIsOpen }) => {
 
     return (
         <>
-            <div className="add-to-cart" onClick={handleClick}>
-                <a href="">
-                    <i className="add-to-cart-icon fa-solid fa-bag-shopping"></i>
+            <div className={cx('add-cart-btn')} onClick={handleClick}>
+                <a href="" className={cx('add-to-icon')}>
+                    <FontAwesomeIcon icon={faBagShopping} />
                 </a>
             </div>
 
-            <div className={`list-size ${isOpen ? 'open' : ''}`}>
+            <div className={cx('size-wrapper', { open: isOpen })}>
                 <ul>
                     <li>
-                        <button className="btn btn-large" onClick={() => handleAddToCart('S')}>
-                            s
-                        </button>
+                        <button onClick={() => handleAddToCart('S')}>s</button>
                     </li>
                     <li>
-                        <button className="btn btn-large" onClick={() => handleAddToCart('M')}>
-                            m
-                        </button>
+                        <button onClick={() => handleAddToCart('M')}>m</button>
                     </li>
                     <li>
-                        <button className="btn btn-large" onClick={() => handleAddToCart('L')}>
-                            l
-                        </button>
+                        <button onClick={() => handleAddToCart('L')}>l</button>
                     </li>
                     <li>
-                        <button className="btn btn-large" onClick={() => handleAddToCart('XL')}>
-                            xl
-                        </button>
+                        <button onClick={() => handleAddToCart('XL')}>xl</button>
                     </li>
                 </ul>
             </div>

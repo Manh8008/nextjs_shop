@@ -1,0 +1,117 @@
+.wrapper {
+    margin-top: 24px;
+    width: 100%;
+}
+
+.footer {
+    background-color: #fff;
+
+    .footer-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .footer-col {
+        width: 22.85%;
+        padding: 0 15px;
+
+        h4 {
+            font-size: 18px;
+            color: var(--black-color);
+            text-transform: capitalize;
+            margin-bottom: 35px;
+            font-weight: 500;
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: -10px;
+                background-color: #e91e63;
+                height: 2px;
+                width: 50px;
+            }
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            li {
+                margin-bottom: 10px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                a {
+                    font-size: 16px;
+                    text-transform: capitalize;
+                    color: var(--text-color);
+                    text-decoration: none;
+                    font-weight: 300;
+                    display: block;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        color: var(--text-color);
+                        padding-left: 8px;
+                    }
+                }
+            }
+        }
+
+        .social-links {
+            a {
+                display: inline-block;
+                height: 40px;
+                width: 40px;
+                color: var(--text-color);
+                background-color: rgba(255, 255, 255, 0.2);
+                margin: 0 10px 10px 0;
+                text-align: center;
+                line-height: 40px;
+                border-radius: 50%;
+                transition: all 0.5s ease;
+
+                &:hover {
+                    color: #24262b;
+                    background-color: #ffffff;
+                }
+            }
+        }
+    }
+
+    .coppy-right {
+        border-top: 1px solid #d1d2d4;
+        padding: 24px 0;
+        font-size: 16px;
+        line-height: 20px;
+        color: #57585a;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    @media (max-width: 767px) {
+        .footer {
+            margin-left: 0;
+        }
+
+        .footer-col {
+            width: 50%;
+            margin-bottom: 30px;
+        }
+    }
+
+    @media (max-width: 574px) {
+        .footer {
+            margin-left: 0;
+        }
+
+        .footer-col {
+            width: 100%;
+        }
+    }
+}

@@ -146,15 +146,5 @@
 
 .btn-check-out {
     float: right;
-    background-color: $black;
     margin: 0 12px 12px 0;
-    color: $white;
-    min-width: 124px;
-    text-decoration: none;
-
-    &:hover {
-        background-color: $white;
-        border: 1px solid $black;
-        color: $black;
-    }
 }

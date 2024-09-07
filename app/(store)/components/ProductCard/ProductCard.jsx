@@ -1,8 +1,13 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import classNames from 'classnames/bind';
 import { SizeSelector } from './SizeSelector';
 import { Badge } from './Badge';
+import styles from './ProductCard.module.scss';
+
+const cx = classNames.bind(styles);
 
 const ProductCard = ({ product }) => {
     const { name, image, price, condition, originalPrice, categoryId, slug } = product;
@@ -11,27 +16,28 @@ const ProductCard = ({ product }) => {
     const formattedPrice = price ? price.toLocaleString('en-US') : '0';
 
     return (
-        <div className="product-item-card">
-            <div className="product-top">
-                <a href={`/products/${slug}`} className="product-thumb">
+        <div className={cx('product-item-card')}>
+            <div className={cx('product-top')}>
+                <Link href={`/products/${slug}`} className={cx('product-thumb')}>
                     <Image
+                        className={cx('product-image')}
                         width={500}
                         height={260}
                         src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${image}`}
                         alt={name}
                     />
-                </a>
+                </Link>
                 <Badge condition={condition} />
             </div>
 
-            <div className="product-info">
-                <a href="#" className="product-cat">
+            <div className={cx('product-info')}>
+                <a href="#" className={cx('product-cat')}>
                     {categoryId}
                 </a>
-                <a href="#" className="product-name">
+                <a href="#" className={cx('product-name')}>
                     {name}
                 </a>
-                <div className="product-price">
+                <div className={cx('product-price')}>
                     <ins>{formattedPrice}đ</ins>
                     <del>
                         <span>{originalPrice && originalPrice.toLocaleString('en-US')} đ</span>

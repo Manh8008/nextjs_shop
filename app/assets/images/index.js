@@ -1,5 +1,7 @@
 const images = {
-    noImage: require('@/app/assets/images/no-image.png'),
+    noImage: require('./no-image.png'),
+    bgSale: require('./bg_sale.webp'),
+    bgNew: require('./bg_news.png'),
 };
 
 export default images;

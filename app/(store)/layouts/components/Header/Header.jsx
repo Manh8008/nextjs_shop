@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import SearchBar from './SearchBar';
 import Menu from './Menu/Menu';
@@ -9,16 +10,18 @@ import CartHeader from './CartHeader';
 import UserHeader from './UserHeader';
 import styles from './Header.module.scss';
 import gridStyles from '@/app/assets/styles/grid.module.scss';
+import { faBarChart, faBars } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 const gx = classNames.bind(gridStyles);
 
 const Header = () => {
     return (
-        <header className={cx('wrapper', gx('row'), gx('no-gutters'))}>
+        <div className={cx('wrapper')}>
             <div className={gx('grid', 'wide')}>
                 <div className={cx('content')}>
                     <div className={cx('left')}>
+                        <FontAwesomeIcon icon={faBars} className={cx('mobile-menu l-0')} />
                         <Menu />
                     </div>
 
@@ -39,13 +42,15 @@ const Header = () => {
                             <SearchBar />
                         </div>
 
-                        <UserHeader />
+                        <div className={gx('m-0')}>
+                            <UserHeader />
+                        </div>
 
                         <CartHeader />
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
     );
 };
 

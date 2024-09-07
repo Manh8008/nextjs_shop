@@ -1,33 +1,36 @@
-import { OutstandingProducts, NewProduct, Slide } from './components';
-import Image from 'next/image';
-import Link from 'next/link';
-import classNames from 'classnames';
-import styles from './Home.module.scss';
+import classNames from 'classnames/bind';
 
+import { OutstandingProducts, NewProduct, Slide, Banner } from './components';
+import styles from './Home.module.scss';
+import gridStyles from '@/app/assets/styles/grid.module.scss';
+const gx = classNames.bind(gridStyles);
 const cx = classNames.bind(styles);
 
 function Home() {
     return (
         <>
             <Slide />
-            <div className="wrapper">
-                <div className="grid wide">
-                    <NewProduct />
-                    <div className="banner-extra">
-                        <Link href="" className="banner-extra-link">
-                            <Image
-                                width={1770}
-                                height={480}
-                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/banner-phu1.jpg`}
-                                alt="banner.."
-                            />
-                        </Link>
+            <div className={gx('grid wide')}>
+                <div className={cx('wrapper')}>
+                    <div className={cx('product')}>
+                        <h2 className={cx('product-heading')}>NEW ARRIVAL</h2>
+                        <ul className={cx('product-list', gx('row'))}>
+                            <NewProduct />
+                        </ul>
                     </div>
 
-                    <OutstandingProducts />
+                    <div className={gx('grid')}>
+                        <Banner />
+                    </div>
+
+                    <div className={cx('product')}>
+                        <h2 className={cx('product-heading')}>Outstanding</h2>
+                        <ul className={cx('product-list', gx('row'))}>
+                            <OutstandingProducts />
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div className="site-bottom"></div>
         </>
     );
 }

@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart } from '@/app/redux/slices/cartslice';
 import styles from './CartHeader.module.scss';
 import gridStyles from '@/app/assets/styles/grid.module.scss';
+import Button from '@/app/(store)/components/Button';
+import Link from 'next/link';
 
 const cx = classNames.bind(styles);
 const gx = classNames.bind(gridStyles);
@@ -24,9 +26,9 @@ function CartHeader() {
     return (
         <div className={cx('cart')}>
             <div className={cx('cart-wrap')}>
-                <a href="/cart" className={gx('col')}>
+                <Link href="/cart" className={gx('col')}>
                     <FontAwesomeIcon icon={faCartShopping} />
-                </a>
+                </Link>
                 <span className={cx('notice')}>{cartCount}</span>
                 <div className={cx('cart-list')}>
                     <h4 className={cx('cart-heading')}>Sản phẩm đã thêm</h4>
@@ -70,9 +72,9 @@ function CartHeader() {
                             </li>
                         ))}
                     </ul>
-                    <a href="checkout" className={cx('btn--large', 'btn-check-out')}>
+                    <Button primary small href="/checkout" className={cx('btn-check-out')}>
                         Thanh Toán
-                    </a>
+                    </Button>
                 </div>
             </div>
         </div>

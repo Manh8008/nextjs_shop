@@ -1,13 +1,19 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import classNames from 'classnames/bind';
+import gridStyles from '@/app/assets/styles/grid.module.scss';
+import styles from '../Home.module.scss';
+
+const gx = classNames.bind(gridStyles);
+const cx = classNames.bind(styles);
 
 const Slide = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
+        const slides = document.querySelectorAll(`.${cx('slide')}`);
+        const dots = document.querySelectorAll(`.${cx('dot')}`);
         const totalSlides = slides.length;
 
         const showSlide = (index) => {
@@ -29,11 +35,11 @@ const Slide = () => {
                 slide.style.transform = transformValue;
                 slide.style.width = widthValue;
 
-                dots[i].classList.toggle('active-dot', isCurrent);
+                dots[i].classList.toggle(cx('active-dot'), isCurrent);
             });
 
             const translateValue = -newIndex * 100 + '%';
-            document.querySelector('.slider').style.transform = 'translateX(' + translateValue + ')';
+            document.querySelector(`.${cx('slider')}`).style.transform = 'translateX(' + translateValue + ')';
         };
 
         showSlide(currentIndex);
@@ -54,46 +60,44 @@ const Slide = () => {
     };
 
     return (
-        <>
-            <div className="grid wide m-0">
-                <div className="slider-container">
-                    <div className="col-12">
-                        <div className="slider">
-                            <div className="slide">
-                                <Image
-                                    width={1770}
-                                    height={500}
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slide1.jpg`}
-                                    alt="Picture of the author"
-                                />
-                            </div>
-                            <div className="slide">
-                                <Image
-                                    width={1770}
-                                    height={500}
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slide2.jpg`}
-                                    alt="Picture of the author"
-                                />
-                            </div>
-                            <div className="slide">
-                                <Image
-                                    width={1770}
-                                    height={500}
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slide3.jpg`}
-                                    alt="Picture of the author"
-                                />
-                            </div>
+        <div className={gx('grid', 'wide', 'm-0')}>
+            <div className={cx('slider-container')}>
+                <div className={gx('c-12')}>
+                    <div className={cx('slider')}>
+                        <div className={cx('slide')}>
+                            <Image
+                                width={1770}
+                                height={500}
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slide1.jpg`}
+                                alt="Slide 1"
+                            />
                         </div>
+                        <div className={cx('slide')}>
+                            <Image
+                                width={1770}
+                                height={500}
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slide2.jpg`}
+                                alt="Slide 2"
+                            />
+                        </div>
+                        <div className={cx('slide')}>
+                            <Image
+                                width={1770}
+                                height={500}
+                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/slide3.jpg`}
+                                alt="Slide 3"
+                            />
+                        </div>
+                    </div>
 
-                        <div className="dot-container">
-                            <span className="dot" onClick={() => handleDotClick(0)}></span>
-                            <span className="dot" onClick={() => handleDotClick(1)}></span>
-                            <span className="dot" onClick={() => handleDotClick(2)}></span>
-                        </div>
+                    <div className={cx('dot-container')}>
+                        <span className={cx('dot')} onClick={() => handleDotClick(0)}></span>
+                        <span className={cx('dot')} onClick={() => handleDotClick(1)}></span>
+                        <span className={cx('dot')} onClick={() => handleDotClick(2)}></span>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

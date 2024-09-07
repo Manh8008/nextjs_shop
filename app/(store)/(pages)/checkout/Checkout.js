@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { CustomAlert } from '../../components/CustomAlert';
 import { clearCart } from '../../../redux/slices/cartslice';
 import { useDispatch } from 'react-redux';
+import Button from '../../components/Button';
 
 const Checkout = () => {
     const router = useRouter();
@@ -283,9 +284,9 @@ const Checkout = () => {
                         </div>
 
                         <div className="col">
-                            <button className="form-submit" type="submit">
+                            <Button primary small>
                                 Hoàn thành
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </form>
