@@ -1,11 +1,18 @@
 'use client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useMemo } from 'react';
 import Image from 'next/image';
+import classNames from 'classnames/bind';
 
 import { removeFromCart, updateCartItemQuantity } from '../../../redux/slices/cartslice';
 import CartLayout from './layout';
+import gridStyles from '@/app/assets/styles/grid.module.scss';
+import styles from './Cart.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
+const gx = classNames.bind(gridStyles);
+const cx = classNames.bind(styles);
 
 function Cart() {
     const dispatch = useDispatch();
@@ -29,7 +36,7 @@ function Cart() {
         dispatch(updateCartItemQuantity({ _id: item._id, quantity: item.quantity + 1, size: item.size }));
     };
 
-    const handleChangeQuantity = (e) => {
+    const handleChangeQuantity = (e, item) => {
         dispatch(
             updateCartItemQuantity({
                 _id: item._id,
@@ -46,60 +53,70 @@ function Cart() {
 
     return (
         <CartLayout totalAmount={totalAmount}>
-            {memoizedCartItems.map((item) => (
-                <div className="cart-product" key={item._id}>
-                    <a href="" className="cart-product-img">
-                        <Image
-                            width={500}
-                            height={98}
-                            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${item.image}`}
-                            alt={item.name}
-                        />
-                    </a>
-                    <div className="cart-product-info">
-                        <div className="cart-product-wapper">
-                            <a href="" className="cart-product-name">
-                                {item.name}
+            <div className={cx('cart-list', gx('row'))}>
+                <div className={gx('c-12')}>
+                    {memoizedCartItems.map((item) => (
+                        <div className={cx('cart-item')} key={item._id}>
+                            <a href="" className={cx('cart-img')}>
+                                <Image
+                                    width={150}
+                                    height={215}
+                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/${item.image}`}
+                                    alt={item.name}
+                                />
                             </a>
-                            <a href="" className="cart-product-size">
-                                Size: {item.size}
-                            </a>
-                            <button onClick={() => handleRemoveFromCart(item._id, item.size)} style={{ color: 'red' }}>
-                                Xóa
-                            </button>
-                        </div>
-                        <div className="cart-product-price grid-cart">
-                            <span className="cart-price">{item.price.toLocaleString()} VND</span>
-                        </div>
+                            <div className={cx('cart-content')}>
+                                <div className={cx('cart-info')}>
+                                    <a href="" className={cx('cart-info-title')}>
+                                        {item.name}
+                                    </a>
+                                    <a href="" className={cx('cart-info-size')}>
+                                        Size: {item.size}
+                                    </a>
+                                </div>
+                                <div className={cx('cart-product-price')}>
+                                    <span>{item.price.toLocaleString()} VND</span>
+                                </div>
 
-                        <div className="cart-product-quantity grid-cart">
-                            <a
-                                onClick={() => handleDecreaseQuantity(item)}
-                                className="price-quantity price-quantity-minus"
-                            >
-                                -
-                            </a>
-                            <input
-                                className="price-quantity-input"
-                                min="1"
-                                type="number"
-                                value={item.quantity}
-                                onChange={handleChangeQuantity}
-                            />
-                            <a
-                                onClick={() => handleIncreaseQuantity(item)}
-                                className="price-quantity price-quantity-plus"
-                            >
-                                +
-                            </a>
-                        </div>
+                                <div className={cx('cart-product-quantity')}>
+                                    <input
+                                        className={cx('price-quantity-input')}
+                                        min="1"
+                                        type="number"
+                                        value={item.quantity}
+                                        onChange={(e) => handleChangeQuantity(e, item)}
+                                    />
 
-                        <div className="cart-product-price grid-cart">
-                            <span className="cart-price">{(item.price * item.quantity).toLocaleString()} VND</span>
+                                    <div
+                                        onClick={() => handleDecreaseQuantity(item)}
+                                        className={cx('price-quantity', 'quantity-minus')}
+                                    >
+                                        -
+                                    </div>
+
+                                    <div
+                                        onClick={() => handleIncreaseQuantity(item)}
+                                        className={cx('price-quantity', 'quantity-plus')}
+                                    >
+                                        +
+                                    </div>
+                                </div>
+
+                                <div className={cx('cart-product-price')}>
+                                    <span>{(item.price * item.quantity).toLocaleString()} VND</span>
+                                </div>
+
+                                <div
+                                    className={cx('cart-delete')}
+                                    onClick={() => handleRemoveFromCart(item._id, item.size)}
+                                >
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    ))}
                 </div>
-            ))}
+            </div>
         </CartLayout>
     );
 }

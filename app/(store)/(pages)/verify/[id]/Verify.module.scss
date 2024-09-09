@@ -1,0 +1,25 @@
+.wrapper {
+    margin-top: 24px;
+    min-height: 100vh;
+    width: 46%;
+    margin-left: calc((100% - 46%) / 2);
+    margin-right: calc((100% - 46%) / 2);
+}
+
+.title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    padding: 24px 0 0 0;
+    margin-bottom: 0;
+    color: #221f20;
+}
+
+.desc {
+    text-align: center;
+}
+
+.button {
+    margin-top: 8px;
+}

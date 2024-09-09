@@ -41,7 +41,7 @@ function UserHeader() {
 
     return (
         <div className={cx('header__user')}>
-            <div className={gx('col')} onClick={toggleAccountMenu}>
+            <div className={cx('user-icon', gx('col'))} onClick={toggleAccountMenu}>
                 <FontAwesomeIcon icon={faUser} />
             </div>
             {showAccountMenu && (

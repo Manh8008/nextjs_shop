@@ -2,7 +2,16 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import classNames from 'classnames/bind';
+
+import styles from './AccountInfo.module.scss';
+import gridStyles from '@/app/assets/styles/grid.module.scss';
 import images from '@/app/assets/images';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+
+const gx = classNames.bind(gridStyles);
+const cx = classNames.bind(styles);
 
 const AccountInfo = () => {
     const [user, setUser] = useState(null);
@@ -24,8 +33,6 @@ const AccountInfo = () => {
 
                 const data = await response.json();
 
-                console.log('User Data:', data);
-
                 setUser(data);
             } catch (error) {
                 console.error('Fetch error:', error);
@@ -35,17 +42,15 @@ const AccountInfo = () => {
         fetchUserProfile();
     }, []);
 
-    console.log();
-
     return (
-        <div className="main-container">
-            <div className="register-form grid wide">
-                <div className="grid__row">
-                    <div className="c-2">
-                        <div className="sub-action">
-                            <div className="top-action">
-                                <div className="order-sidemenu__user" style={{ paddingBottom: 20, marginTop: 30 }}>
-                                    <div className="order-sidemenu__user-avatar">
+        <div className={cx('account-info-wrapper')}>
+            <div className={gx('grid', 'wide')}>
+                <div className={gx('row')}>
+                    <div className={gx('c-2')}>
+                        <div className={cx('account-sidebar')}>
+                            <div className={cx('account-header')}>
+                                <div className={cx('account-user')} style={{ paddingBottom: 20, marginTop: 30 }}>
+                                    <div className={cx('account-avatar')}>
                                         <Image
                                             width={50}
                                             height={50}
@@ -53,28 +58,28 @@ const AccountInfo = () => {
                                             alt={user?.username}
                                         />
                                     </div>
-                                    <div className="order-sidemenu__user-name">
+                                    <div className={cx('account-username')}>
                                         <p>{user?.username || 'Tên người dùng'}</p>
                                     </div>
                                 </div>
                             </div>
-                            <ul>
-                                <li>
+                            <ul className={cx('account-menu')}>
+                                <li className={cx('account-menu-item')}>
                                     <Link href="/accountInfo">
                                         <i className="fa-regular fa-user"></i>Thông tin tài khoản
                                     </Link>
                                 </li>
-                                <li>
+                                <li className={cx('account-menu-item')}>
                                     <a href="#">
                                         <i className="fa-solid fa-rotate-right"></i>Quản lý đơn hàng
                                     </a>
                                 </li>
-                                <li>
+                                <li className={cx('account-menu-item')}>
                                     <a href="#">
                                         <i className="fa-solid fa-location-dot"></i>Sổ địa chỉ
                                     </a>
                                 </li>
-                                <li>
+                                <li className={cx('account-menu-item')}>
                                     <a href="#">
                                         <i className="fa-regular fa-heart"></i>Sản phẩm yêu thích
                                     </a>
@@ -82,76 +87,72 @@ const AccountInfo = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="c-10">
-                        <form className="form grid__row" id="form-1">
-                            <div className="c-12">
-                                <div className="order-block__title">
+                    <div className={gx('c-10')}>
+                        <form className={cx('account-form', gx('grid__row'))} id="form-1">
+                            <div className={gx('c-12')}>
+                                <div className={cx('form-header')}>
                                     <h2>TÀI KHOẢN CỦA TÔI</h2>
                                 </div>
                                 <p className="alert alert-primary">
                                     Vì chính sách an toàn thẻ, bạn không thể thay đổi SĐT, Ngày sinh, Họ tên. Vui lòng
                                     liên hệ CSKH 0865587127 để được hỗ trợ
                                 </p>
-                                <div className="grid__row">
-                                    <div className="c-6">
-                                        <div className="form-group col">
-                                            <label htmlFor="username" className="form-label">
+                                <div className={gx('grid__row')}>
+                                    <div className={gx('c-6')}>
+                                        <div className={cx('form-group', 'col')}>
+                                            <label htmlFor="username" className={cx('form-label')}>
                                                 Tên tài khoản:
                                             </label>
-                                            <input
+                                            <Input
                                                 id="username"
                                                 name="username"
-                                                type="text"
-                                                defaultValue={user?.username || ''}
                                                 placeholder="Họ tên..."
-                                                className="form-control"
+                                                value={user?.username || ''}
                                                 disabled
                                             />
-                                            <span className="form-message"></span>
                                         </div>
                                     </div>
-                                    <div className="c-6">
-                                        <div className="form-group col">
-                                            <label htmlFor="email" className="form-label">
+                                    <div className={gx('c-6')}>
+                                        <div className={cx('form-group', 'col')}>
+                                            <label htmlFor="email" className={cx('form-label')}>
                                                 Email:
                                             </label>
-                                            <input
+                                            <Input
                                                 id="email"
                                                 name="email"
                                                 type="text"
-                                                defaultValue={user?.email || ''}
+                                                value={user?.email || ''}
                                                 placeholder="Email..."
-                                                className="form-control"
+                                                disabled
                                             />
-                                            <span className="form-message"></span>
+                                            <span className={cx('form-message')}></span>
                                         </div>
                                     </div>
-                                    <div className="c-6">
-                                        <div className="form-group col">
-                                            <label htmlFor="dateOfBirth" className="form-label">
+                                    <div className={gx('c-6')}>
+                                        <div className={cx('form-group', 'col')}>
+                                            <label htmlFor="dateOfBirth" className={cx('form-label')}>
                                                 Ngày sinh:
                                             </label>
-                                            <input
+                                            <Input
                                                 id="dateOfBirth"
                                                 name="dateOfBirth"
                                                 type="text"
                                                 defaultValue={user?.dateOfBirth || ''}
-                                                className="form-control"
                                                 disabled
                                             />
-                                            <span className="form-message"></span>
+                                            <span className={cx('form-message')}></span>
                                         </div>
                                     </div>
-                                    <div className="c-6">
-                                        <div className="form-group col">
-                                            <label htmlFor="gender" className="form-label">
+                                    <div className={gx('c-6')}>
+                                        <div className={cx('form-group', 'col')}>
+                                            <label htmlFor="gender" className={cx('form-label')}>
                                                 Giới tính:
                                             </label>
 
                                             <select
                                                 id="gender"
                                                 name="gender"
-                                                className="form-control"
+                                                className={cx('form-control')}
                                                 value={user?.gender || ''}
                                                 onChange={(e) => setGender(e.target.value)}
                                             >
@@ -160,42 +161,15 @@ const AccountInfo = () => {
                                                 <option value="female">Nữ</option>
                                                 <option value="other">Khác</option>
                                             </select>
-                                            <span className="form-message"></span>
+                                            <span className={cx('form-message')}></span>
                                         </div>
                                     </div>
-                                    <div className="c-12">
-                                        <div className="form-group col">
-                                            <label htmlFor="address" className="form-label">
-                                                Địa chỉ:
-                                            </label>
-                                            <input
-                                                id="address"
-                                                name="address"
-                                                type="text"
-                                                value={user?.address || ''}
-                                                onChange={(e) => setAddress(e.target.value)}
-                                                placeholder="Địa chỉ..."
-                                                className="form-control"
-                                            />
-                                            <span className="form-message"></span>
-                                        </div>
-                                    </div>
-                                    <div className="c-5" style={{ marginLeft: 23 }}>
-                                        <div className="grid__row">
-                                            <div className="c-6">
-                                                <button className="btn btn--large" type="submit">
-                                                    Cập nhật
-                                                </button>
-                                            </div>
-                                            <div className="c-6">
-                                                <Link
-                                                    href="/changepassword"
-                                                    className="btn btn--large btn--outline btn-outline-hover"
-                                                >
-                                                    Đổi mật khẩu
-                                                </Link>
-                                            </div>
-                                        </div>
+
+                                    <div className={gx('c-5')}>
+                                        <Button primary>Cập nhật</Button>
+                                        <Button href={'/changepassword'} outline>
+                                            Đổi mật khẩu
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
@@ -203,8 +177,6 @@ const AccountInfo = () => {
                     </div>
                 </div>
             </div>
-
-            <div className="site-bottom"></div>
         </div>
     );
 };
