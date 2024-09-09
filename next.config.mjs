@@ -4,7 +4,7 @@ const nextConfig = {
         BACKEND_URL: process.env.BACKEND_URL || 'https://nodejs-app-inky.vercel.app',
     },
     images: {
-        domains: ['localhost'],
+        domains: ['localhost', 'nodejs-app-inky.vercel.app'],
     },
 };
 
