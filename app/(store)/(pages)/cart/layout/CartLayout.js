@@ -1,16 +1,16 @@
-'use client';
-import Button from '@/app/(store)/components/Button';
-import Link from 'next/link';
-import React from 'react';
-import classNames from 'classnames/bind';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+'use client'
+import Button from '@/components/ui/Button'
+import Link from 'next/link'
+import React from 'react'
+import classNames from 'classnames/bind'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
-import styles from './CartLayout.Module.scss';
-import gridStyles from '@/app/assets/styles/grid.module.scss';
-const gx = classNames.bind(gridStyles);
+import styles from './CartLayout.Module.scss'
+import gridStyles from '@/assets/styles/grid.module.scss'
+const gx = classNames.bind(gridStyles)
 
-const cx = classNames.bind(styles); // Bind the styles
+const cx = classNames.bind(styles)
 
 function CartLayout({ children, totalAmount }) {
     return (
@@ -54,7 +54,7 @@ function CartLayout({ children, totalAmount }) {
                                         <p>
                                             {totalAmount.toLocaleString('vi-VN', {
                                                 style: 'currency',
-                                                currency: 'VND',
+                                                currency: 'VND'
                                             })}
                                         </p>
                                     </div>
@@ -68,7 +68,7 @@ function CartLayout({ children, totalAmount }) {
                                             <b>
                                                 {totalAmount.toLocaleString('vi-VN', {
                                                     style: 'currency',
-                                                    currency: 'VND',
+                                                    currency: 'VND'
                                                 })}
                                             </b>
                                         </p>
@@ -84,7 +84,7 @@ function CartLayout({ children, totalAmount }) {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default CartLayout;
+export default CartLayout

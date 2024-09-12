@@ -1,15 +1,63 @@
 .wrapper {
     width: 100%;
     padding-top: 24px;
-
     .detail {
         text-align: left;
     }
+}
 
-    .image {
-        width: 100%;
-        object-fit: cover;
+.gallery {
+    display: flex;
+}
+
+.gallery-big {
+    flex: 0 0 83%;
+    max-width: 83%;
+    height: 100%;
+    max-height: 991px;
+}
+
+.image {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.gallery-small {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .prev-btn-wrap {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        cursor: pointer;
+        transform: translateX(-50%) rotate(180deg);
+        z-index: 10;
     }
+
+    .next-btn-wrap {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        cursor: pointer;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+
+    .btn-icon {
+        padding-bottom: 30px;
+    }
+}
+
+.swiper-container {
+    margin-left: 8px;
 }
 
 .content {
@@ -20,12 +68,21 @@
         font-size: 30px;
         line-height: 32px;
         color: #221f20;
-        padding: 0 0 35px 0;
         text-transform: uppercase;
     }
 
+    .sub-info {
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        font-size: 16px;
+        line-height: 24px;
+        color: #6c6d70;
+    }
+
     .price {
-        margin-top: 30px;
+        margin-top: 24px;
         font-weight: 600;
         font-size: 24px;
         line-height: 32px;
@@ -34,11 +91,14 @@
 
     .detail-color {
         margin-top: 24px;
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 30px;
-        color: #221f20;
-        margin-bottom: 0;
+
+        & p {
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 30px;
+            color: #221f20;
+            margin-bottom: 0;
+        }
     }
 
     .size-selector {
@@ -46,25 +106,79 @@
     }
 }
 
-.quantity-container {
-    margin: 20px 0;
+.quantity {
+    margin: 24px 0;
+    display: flex;
+    align-items: center;
 
-    & input {
-        margin-left: 12px;
-        padding: 5px 0;
-        outline: none;
-        width: 60px;
+    & p {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.2;
+        vertical-align: baseline;
+        margin-bottom: 0;
+        color: #6c6d70;
     }
 }
 
-.detail_sub-info {
-    margin-top: 16px;
+.cart-product-quantity {
+    margin-left: 12px;
+    width: 144px;
+    position: relative;
+    height: 48px;
+
+    input {
+        text-align: center;
+        position: absolute;
+        border: 1px solid #e7e8e9;
+        width: 92%;
+        left: 11px;
+        height: 100%;
+        border-radius: 16px 0px;
+        padding: 0px 44px 0 51px;
+        color: #221f20;
+    }
+}
+
+.price-quantity {
+    position: absolute;
+    top: 0;
+    background: #ffffff;
+    border: 1px solid #e7e8e9;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
-    white-space: nowrap;
-    font-size: 16px;
-    line-height: 24px;
-    color: #6c6d70;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.quantity-minus,
+.quantity-plus {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #e7e8e9;
+    border-radius: 16px 0px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 28px;
+    font-weight: 200;
+    vertical-align: middle;
+}
+
+.quantity-minus {
+    left: 0;
+}
+
+.quantity-plus {
+    right: 0;
 }
 
 .detail-color {
@@ -78,21 +192,25 @@
 }
 
 .size-selector {
+    display: flex;
+
     label {
+        width: 48px;
+        height: 32px;
+        margin-right: 12px;
         display: inline-block;
-        font-size: 14px;
-        padding: 2px 14px;
-        margin-right: 10px;
-        border: 1px solid #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
-        border-radius: 5px;
+        border: 1px solid #e7e8e9;
     }
 }
 
 .size-selector {
     input[type='radio']:checked + label {
-        background-color: var(--black-color);
-        color: #fff;
+        border: 1px solid #221f20;
+        color: #221f20;
     }
 }
 

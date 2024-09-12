@@ -1,7 +1,7 @@
 'use client';
 import { ProductCard } from '../../components';
-import { ProductsLayout } from '../../layouts/ProductsLayout';
-import { useFetchProducts } from '@/app/hooks/useFetchProducts';
+import { ProductsLayout } from '../category/[categorySlug]/productsLayout';
+import { useFetchProducts } from '@/hooks/useFetchProducts';
 
 function Search({ searchParams }) {
     const { products, isDataEmpty, currentPage, totalPages, handleSort, handlePageChange, handleFilter } =

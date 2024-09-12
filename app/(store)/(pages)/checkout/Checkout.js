@@ -1,145 +1,145 @@
-'use client';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
-import { CustomAlert } from '../../components/CustomAlert';
-import { clearCart } from '../../../redux/slices/cartslice';
-import { useDispatch } from 'react-redux';
-import Button from '../../components/Button';
+'use client'
+import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+
+import { ToastSuccess, Button } from '@/components/ui'
+import { clearCart } from '@/redux/slices/cartslice'
 
 const Checkout = () => {
-    const router = useRouter();
+    const router = useRouter()
 
-    const [phone, setPhone] = useState('');
-    const [username, setUsername] = useState('');
-    const [address, setAddress] = useState('');
-    const [error, setError] = useState('');
-    const [totalAmount, setTotalAmount] = useState(0);
-    const [paymentMethod, setPaymentMethod] = useState('');
+    const [phone, setPhone] = useState('')
+    const [username, setUsername] = useState('')
+    const [address, setAddress] = useState('')
+    const [error, setError] = useState('')
+    const [totalAmount, setTotalAmount] = useState(0)
+    const [paymentMethod, setPaymentMethod] = useState('')
 
-    const cart = useSelector((state) => state.cart.items);
-    const [user, setUser] = useState(null);
+    const cart = useSelector((state) => state.cart.items)
+    const [user, setUser] = useState(null)
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const token = JSON.parse(localStorage.getItem('userInfo')).token;
+                const token = JSON.parse(localStorage.getItem('userInfo')).token
 
                 const response = await fetch('http://localhost:5000/users/profile', {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                        Authorization: `Bearer ${token}`
+                    }
+                })
 
                 if (!response.ok) {
-                    throw new Error('Lỗi xảy ra khi lấy thông tin người dùng');
+                    throw new Error('Lỗi xảy ra khi lấy thông tin người dùng')
                 }
 
-                const data = await response.json();
+                const data = await response.json()
 
-                setUser(data);
-                setUsername(data.username || '');
-                setPhone(data.phone || '');
-                setAddress(data.address || '');
+                setUser(data)
+                setUsername(data.username || '')
+                setPhone(data.phone || '')
+                setAddress(data.address || '')
             } catch (error) {
-                console.error('Fetch error:', error);
+                console.error('Fetch error:', error)
             }
-        };
+        }
 
-        fetchUserProfile();
-    }, []);
+        fetchUserProfile()
+    }, [])
 
     const handlePaymentMethodChange = (e) => {
-        setPaymentMethod(e.target.value);
-    };
+        setPaymentMethod(e.target.value)
+    }
 
     useEffect(() => {
         const calculateTotalAmount = () => {
-            let total = 0;
+            let total = 0
             cart.forEach((item) => {
-                total += item.price * item.quantity;
-            });
-            setTotalAmount(total);
-        };
-
-        calculateTotalAmount();
-    }, [cart]);
-
-    const validateForm = () => {
-        if (!username) return 'Lỗi! Vui lòng nhập Họ Tên';
-        if (!phone) return 'Lỗi! Vui lòng nhập Số Điện Thoại';
-        if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/g.test(phone)) return 'Lỗi! Số điện thoại không hợp lệ';
-        if (!address) return 'Lỗi! Vui lòng nhập Địa chỉ';
-        return null;
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const userData = { phone, username, address, totalAmount, cart, paymentMethod };
-
-        if (cart.length === 0) {
-            setError('Bạn cần có ít nhất một sản phẩm trong giỏ hàng!');
-            return;
+                total += item.price * item.quantity
+            })
+            setTotalAmount(total)
         }
 
-        const errorMessage = validateForm();
+        calculateTotalAmount()
+    }, [cart])
+
+    const validateForm = () => {
+        if (!username) return 'Lỗi! Vui lòng nhập Họ Tên'
+        if (!phone) return 'Lỗi! Vui lòng nhập Số Điện Thoại'
+        if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/g.test(phone)) return 'Lỗi! Số điện thoại không hợp lệ'
+        if (!address) return 'Lỗi! Vui lòng nhập Địa chỉ'
+        return null
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        const userData = { phone, username, address, totalAmount, cart, paymentMethod }
+
+        if (cart.length === 0) {
+            setError('Bạn cần có ít nhất một sản phẩm trong giỏ hàng!')
+            return
+        }
+
+        const errorMessage = validateForm()
         if (errorMessage) {
-            setError(errorMessage);
-            return;
+            setError(errorMessage)
+            return
         }
 
         try {
             const response = await fetch('http://localhost:5000/orders/create', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(userData),
-            });
+                body: JSON.stringify(userData)
+            })
 
-            const data = await response.json();
+            const data = await response.json()
 
             if (response.ok) {
-                const orderId = data._id;
+                const orderId = data._id
 
                 if (paymentMethod === '0') {
                     const momoResponse = await fetch('http://localhost:5000/payments/createPayment', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
+                            'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
                             amount: totalAmount + 38000,
                             orderInfo: `${orderId}`,
-                            orderId: orderId,
-                        }),
-                    });
+                            orderId: orderId
+                        })
+                    })
 
-                    const momoData = await momoResponse.json();
+                    const momoData = await momoResponse.json()
 
                     if (momoResponse.ok) {
-                        window.location.href = momoData.payUrl;
+                        window.location.href = momoData.payUrl
                     } else {
-                        setError(momoData.error || 'Lỗi khi tạo yêu cầu thanh toán MoMo');
+                        setError(momoData.error || 'Lỗi khi tạo yêu cầu thanh toán MoMo')
                     }
                 } else {
-                    CustomAlert({ title: 'Đặt hàng thành công!', icon: 'success' });
-                    dispatch(clearCart());
+                    ToastSuccess({ title: 'Đặt hàng thành công!', icon: 'success' })
+                    dispatch(clearCart())
                     setTimeout(() => {
-                        router.push('/');
-                    }, 1500);
+                        router.push('/')
+                    }, 1500)
                 }
             } else {
-                setError(data.error || 'Lỗi! Có lỗi xảy ra');
+                setError(data.error || 'Lỗi! Có lỗi xảy ra')
             }
         } catch (error) {
-            setError('Xin vui lòng nhập đầy đủ thông tin!');
+            setError('Xin vui lòng nhập đầy đủ thông tin!')
         }
-    };
+    }
 
     return (
         <div className="main-container">
@@ -252,7 +252,7 @@ const Checkout = () => {
                                         <p>
                                             {totalAmount.toLocaleString('vi-VN', {
                                                 style: 'currency',
-                                                currency: 'VND',
+                                                currency: 'VND'
                                             })}
                                         </p>
                                     </div>
@@ -261,7 +261,7 @@ const Checkout = () => {
                                         <p>
                                             {totalAmount.toLocaleString('vi-VN', {
                                                 style: 'currency',
-                                                currency: 'VND',
+                                                currency: 'VND'
                                             })}
                                         </p>
                                     </div>
@@ -274,7 +274,7 @@ const Checkout = () => {
                                         <p>
                                             {(totalAmount + 38000).toLocaleString('vi-VN', {
                                                 style: 'currency',
-                                                currency: 'VND',
+                                                currency: 'VND'
                                             })}
                                         </p>
                                     </div>
@@ -294,7 +294,7 @@ const Checkout = () => {
 
             <div className="site-bottom"></div>
         </div>
-    );
-};
+    )
+}
 
-export default Checkout;
+export default Checkout

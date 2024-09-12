@@ -1,0 +1,59 @@
+//Btn add cart
+.add-cart-btn a {
+    position: absolute;
+    bottom: 3px;
+    right: 0;
+    background: #221f20;
+    border-radius: 8px 0;
+    width: 29px;
+    height: 29px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    font-size: 13px;
+
+    &:hover {
+        border: 1px solid var(--dark);
+        background-color: #fff;
+        color: var(--dark);
+    }
+}
+
+.size-wrapper {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e7e8e9;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -ms-transition: all 0.3s ease-in-out 0s;
+
+    &.open {
+        opacity: 1;
+        visibility: visible;
+        bottom: 35px;
+    }
+}
+
+.size-wrapper ul li button {
+    outline: 0;
+    background: transparent;
+    border: 0;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #221f20;
+    display: block;
+    font-family: 'Montserrat';
+    cursor: pointer;
+    text-transform: uppercase;
+    margin: 0 auto;
+    padding: 6px 38px;
+}

@@ -1,12 +1,13 @@
-import '../assets/css/styleAdmin.css';
-import SidebarLeft from './components/SidebarLeft';
-import SidebarTop from './components/Sidebar';
-import HeadTitle from './components/HeadTitle';
-import Providers from '../redux/provider';
+import SidebarLeft from '@/components/admin/SidebarLeft'
+import SidebarTop from '@/components/admin/Sidebar'
+import HeadTitle from '@/components/admin/HeadTitle'
+import Providers from '@/redux/provider'
+import '@/assets/css/styleAdmin.css'
+
 export const metadata = {
     title: 'Admin',
-    description: 'Đây là trang quản trị',
-};
+    description: 'Đây là trang quản trị'
+}
 
 export default function RootLayout({ children }) {
     return (
@@ -33,5 +34,5 @@ export default function RootLayout({ children }) {
                 </Providers>
             </body>
         </html>
-    );
+    )
 }
