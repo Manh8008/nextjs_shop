@@ -1,54 +1,52 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import classNames from 'classnames/bind';
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import classNames from 'classnames/bind'
 
-import Input from '@/app/(store)/components/Input';
-import Button from '@/app/(store)/components/Button';
-import gridStyles from '@/assets/styles/grid.module.scss';
-import styles from './Verify.module.scss';
+import { Input, Button } from '@/components/ui'
+import styles from './Verify.module.scss'
 
-const cx = classNames.bind(styles);
-const gx = classNames.bind(gridStyles);
+const cx = classNames.bind(styles)
+const gx = classNames.bind(gridStyles)
 
 const Verify = ({ params }) => {
-    const router = useRouter();
-    const [verificationCode, setVerificationCode] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const router = useRouter()
+    const [verificationCode, setVerificationCode] = useState('')
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        const userId = params.id;
+        e.preventDefault()
+        const userId = params.id
 
         try {
             const response = await fetch(`http://localhost:5000/users/verifyCode/${userId}`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ verificationCode: verificationCode }),
-            });
+                body: JSON.stringify({ verificationCode: verificationCode })
+            })
 
-            const data = await response.json();
+            const data = await response.json()
 
             if (verificationCode === '') {
-                setError('Lỗi! Vui lòng nhập mã xác thực.');
+                setError('Lỗi! Vui lòng nhập mã xác thực.')
             }
 
             if (response.ok) {
-                setSuccess('Xác thực thành công! Bạn có thể đăng nhập ngay bây giờ.');
+                setSuccess('Xác thực thành công! Bạn có thể đăng nhập ngay bây giờ.')
                 setTimeout(() => {
-                    router.push('/login');
-                }, 1500);
+                    router.push('/login')
+                }, 1500)
             } else {
-                setError(data.error || 'Lỗi! Xác thực không thành công.');
+                setError(data.error || 'Lỗi! Xác thực không thành công.')
             }
         } catch (error) {
-            setError('Xin vui lòng kiểm tra kết nối của bạn!');
+            setError('Xin vui lòng kiểm tra kết nối của bạn!')
         }
-    };
+    }
 
     return (
         <div className={cx('wrapper')}>
@@ -74,7 +72,7 @@ const Verify = ({ params }) => {
                 </div>
             </form>
         </div>
-    );
-};
+    )
+}
 
-export default Verify;
+export default Verify

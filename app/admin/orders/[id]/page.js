@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import '../order.css'
-import { ToastSuccess } from '@/app/(store)/components/ToastSuccess'
+import { ToastSuccess } from '@/components/ui'
 
 function OrderDetail({ params }) {
     const [order, setOrder] = useState(null)
