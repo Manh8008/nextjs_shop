@@ -1,6 +1,0 @@
-{
-  "/(store)/(pages)/(home)/page": "app/(store)/(pages)/(home)/page.js",
-  "/(store)/(pages)/search/page": "app/(store)/(pages)/search/page.js",
-  "/(store)/(auth)/login/page": "app/(store)/(auth)/login/page.js",
-  "/(store)/(pages)/favoriteproducts/page": "app/(store)/(pages)/favoriteproducts/page.js"
-}

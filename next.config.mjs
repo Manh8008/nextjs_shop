@@ -2,7 +2,9 @@
 const nextConfig = {
     env: {
         BACKEND_URL:
-            process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://nodejs-app-inky.vercel.app'
+            process.env.NODE_ENV === 'development'
+                ? 'http://localhost:5000'
+                : 'http://manhxanh.id.vn' || 'https://nodejs-app-inky.vercel.app'
     },
     images: {
         remotePatterns: [
@@ -10,6 +12,11 @@ const nextConfig = {
                 protocol: 'http',
                 hostname: 'localhost',
                 port: '5000',
+                pathname: '/**'
+            },
+            {
+                protocol: 'http',
+                hostname: 'manhxanh.id.vn',
                 pathname: '/**'
             },
             {
