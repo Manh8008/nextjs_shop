@@ -11,6 +11,7 @@ import images from '@/assets/images'
 
 const gx = classNames.bind(gridStyles)
 const cx = classNames.bind(styles)
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 const AccountInfo = () => {
     const [user, setUser] = useState(null)
@@ -20,7 +21,7 @@ const AccountInfo = () => {
             try {
                 const token = JSON.parse(localStorage.getItem('userInfo')).token
 
-                const response = await fetch('http://localhost:5000/users/profile', {
+                const response = await fetch(`${backendUrl}/users/profile`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

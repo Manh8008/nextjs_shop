@@ -1,9 +1,9 @@
-'use client';
-import React, { useState, useEffect, useCallback } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+'use client'
+import React, { useState, useEffect, useCallback } from 'react'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 export const validationSchema = Yup.object({
     name: Yup.string().required('Tên sản phẩm là bắt buộc'),
@@ -19,15 +19,16 @@ export const validationSchema = Yup.object({
         .test(
             'fileFormat',
             'Định dạng ảnh không hợp lệ',
-            (value) => value && ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(value.type),
-        ),
-});
+            (value) => value && ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(value.type)
+        )
+})
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function AddProduct() {
-    const router = useRouter();
-    const [messages, setMessages] = useState('');
-    const [categories, setCategories] = useState([]);
-    const [currentImage, setCurrentImage] = useState('');
+    const router = useRouter()
+    const [messages, setMessages] = useState('')
+    const [categories, setCategories] = useState([])
+    const [currentImage, setCurrentImage] = useState('')
 
     const formik = useFormik({
         initialValues: {
@@ -38,49 +39,49 @@ function AddProduct() {
             isOnSale: false,
             image: null,
             categorySlug: '',
-            quantity: '',
+            quantity: ''
         },
         validationSchema,
         onSubmit: async (values) => {
-            setMessages('');
+            setMessages('')
 
             try {
-                const form = new FormData();
+                const form = new FormData()
                 for (const key in values) {
-                    form.append(key, values[key]);
+                    form.append(key, values[key])
                 }
-                const response = await fetch('http://localhost:5000/products/create', {
+                const response = await fetch(`${backendUrl}/products/create`, {
                     method: 'POST',
-                    body: form,
-                });
+                    body: form
+                })
 
                 if (!response.ok) {
-                    throw new Error('Mạng không ổn định');
+                    throw new Error('Mạng không ổn định')
                 }
-                const result = await response.json();
-                setMessages('Thêm sản phẩm thành công!');
+                const result = await response.json()
+                setMessages('Thêm sản phẩm thành công!')
                 setTimeout(() => {
-                    router.push('/admin/products');
-                }, 1500);
+                    router.push('/admin/products')
+                }, 1500)
             } catch (error) {
-                setMessages(error.message);
+                setMessages(error.message)
             }
-        },
-    });
+        }
+    })
 
     const fetchCategories = useCallback(async () => {
         try {
-            const response = await fetch('http://localhost:5000/categories');
-            const data = await response.json();
-            setCategories(data);
+            const response = await fetch(`${backendUrl}/categories`)
+            const data = await response.json()
+            setCategories(data)
         } catch (error) {
-            console.error('Error fetching categories:', error);
+            console.error('Error fetching categories:', error)
         }
-    }, []);
+    }, [])
 
     useEffect(() => {
-        fetchCategories();
-    }, [fetchCategories]);
+        fetchCategories()
+    }, [fetchCategories])
 
     const renderCategoryOptions = (categories, level = 0) => {
         return categories.map((category) => (
@@ -90,8 +91,8 @@ function AddProduct() {
                 </option>
                 {category.subcategories && renderCategoryOptions(category.subcategories, level + 1)}
             </React.Fragment>
-        ));
-    };
+        ))
+    }
 
     return (
         <div className="table-data">
@@ -204,8 +205,8 @@ function AddProduct() {
                                             name="image"
                                             type="file"
                                             onChange={(event) => {
-                                                formik.setFieldValue('image', event.currentTarget.files[0]);
-                                                setCurrentImage(event.currentTarget.files[0].name);
+                                                formik.setFieldValue('image', event.currentTarget.files[0])
+                                                setCurrentImage(event.currentTarget.files[0].name)
                                             }}
                                         />
                                         {formik.touched.image && formik.errors.image ? (
@@ -237,7 +238,7 @@ function AddProduct() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default AddProduct;
+export default AddProduct

@@ -1,54 +1,55 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+'use client'
+import React, { useEffect, useState } from 'react'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 function Members({ params }) {
-    const [currentRole, setCurrentRole] = useState('');
-    const [messages, setMessages] = useState('');
+    const [currentRole, setCurrentRole] = useState('')
+    const [messages, setMessages] = useState('')
 
     // Fetch user data when component mounts
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/users/${params.id}`);
-                const data = await response.json();
-                setCurrentRole(data.role);
+                const response = await fetch(`${backendUrl}/users/${params.id}`)
+                const data = await response.json()
+                setCurrentRole(data.role)
             } catch (error) {
-                console.error('Error fetching user data:', error);
+                console.error('Error fetching user data:', error)
             }
-        };
-        fetchData();
-    }, [params.id]);
+        }
+        fetchData()
+    }, [params.id])
 
     // Formik setup
     const formik = useFormik({
         initialValues: {
-            role: currentRole || '',
+            role: currentRole || ''
         },
         validationSchema: Yup.object({
-            role: Yup.string().required('Quyền hạn là bắt buộc'),
+            role: Yup.string().required('Quyền hạn là bắt buộc')
         }),
         onSubmit: async (values) => {
             try {
-                const response = await fetch(`http://localhost:5000/users/${params.id}`, {
+                const response = await fetch(`${backendUrl}/users/${params.id}`, {
                     method: 'PUT',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(values),
-                });
+                    body: JSON.stringify(values)
+                })
 
                 if (response.ok) {
-                    setMessages('Cập nhật quyền hạn thành công');
+                    setMessages('Cập nhật quyền hạn thành công')
                 } else {
-                    setMessages('Lỗi cập nhật quyền hạn');
+                    setMessages('Lỗi cập nhật quyền hạn')
                 }
             } catch (error) {
-                console.error('Error updating user role:', error);
+                console.error('Error updating user role:', error)
             }
-        },
-    });
+        }
+    })
 
     return (
         <div className="table-data">
@@ -84,7 +85,7 @@ function Members({ params }) {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default Members;
+export default Members

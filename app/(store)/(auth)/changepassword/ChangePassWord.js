@@ -1,52 +1,54 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+'use client'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 const ChangePassWord = () => {
-    const router = useRouter();
-    const [oldPassword, setOldPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const router = useRouter()
+    const [oldPassword, setOldPassword] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         if (newPassword !== confirmPassword) {
-            setError('Mật khẩu mới không khớp!');
-            return;
+            setError('Mật khẩu mới không khớp!')
+            return
         }
 
         try {
-            const token = JSON.parse(localStorage.getItem('userInfo')).token;
-            const response = await fetch('http://localhost:5000/users/changePassword', {
+            const token = JSON.parse(localStorage.getItem('userInfo')).token
+            const response = await fetch(`${backendUrl}/users/changePassword`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `${token}`,
+                    Authorization: `${token}`
                 },
                 body: JSON.stringify({
                     oldPassword,
-                    newPassword,
-                }),
-            });
+                    newPassword
+                })
+            })
 
-            const data = await response.json();
+            const data = await response.json()
 
             if (response.ok) {
-                setSuccess(data.message);
-                setError('');
-                router.push('/info');
+                setSuccess(data.message)
+                setError('')
+                router.push('/info')
             } else {
-                setError(data.error);
-                setSuccess('');
+                setError(data.error)
+                setSuccess('')
             }
         } catch (error) {
-            console.error('Fetch Error:', error);
-            setError('Có lỗi xảy ra. Vui lòng thử lại!');
+            console.error('Fetch Error:', error)
+            setError('Có lỗi xảy ra. Vui lòng thử lại!')
         }
-    };
+    }
 
     return (
         <div className="main-container">
@@ -111,7 +113,7 @@ const ChangePassWord = () => {
             </div>
             <div className="site-bottom"></div>
         </div>
-    );
-};
+    )
+}
 
-export default ChangePassWord;
+export default ChangePassWord

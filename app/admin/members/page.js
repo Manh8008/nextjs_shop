@@ -1,39 +1,41 @@
-'use client';
-import withAdminAuth from '@/middleware/withAdminAuth';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
+'use client'
+import withAdminAuth from '@/middleware/withAdminAuth'
+import Link from 'next/link'
+import { useState, useEffect } from 'react'
+
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function Member() {
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState([])
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('http://localhost:5000/users');
-                const data = await response.json();
-                setUsers(data);
+                const response = await fetch(`${backendUrl}/users`)
+                const data = await response.json()
+                setUsers(data)
             } catch (error) {
-                console.error('Error fetching users:', error);
+                console.error('Error fetching users:', error)
             }
-        };
+        }
 
-        fetchUsers();
-    }, []);
+        fetchUsers()
+    }, [])
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/users/${id}`, {
-                method: 'DELETE',
-            });
+            const response = await fetch(`${backendUrl}/users/${id}`, {
+                method: 'DELETE'
+            })
             if (response.ok) {
-                setUsers(users.filter((user) => user._id !== id));
+                setUsers(users.filter((user) => user._id !== id))
             } else {
-                console.error('Error deleting user:', await response.text());
+                console.error('Error deleting user:', await response.text())
             }
         } catch (error) {
-            console.error('Error deleting user:', error);
+            console.error('Error deleting user:', error)
         }
-    };
+    }
 
     return (
         <div className="table-data">
@@ -72,7 +74,7 @@ function Member() {
                 </table>
             </div>
         </div>
-    );
+    )
 }
 
-export default withAdminAuth(Member);
+export default withAdminAuth(Member)

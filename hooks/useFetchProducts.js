@@ -1,76 +1,78 @@
-import { useState, useEffect, useRef } from 'react';
-import { useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react'
+import { useCallback } from 'react'
+
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 export const useFetchProducts = (slugOrUrl, pageSize, isSearch = false) => {
-    const [products, setProducts] = useState([]);
-    const [isDataEmpty, setIsDataEmpty] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [sortOrder, setSortOrder] = useState('default');
-    const originalProducts = useRef([]);
+    const [products, setProducts] = useState([])
+    const [isDataEmpty, setIsDataEmpty] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const [sortOrder, setSortOrder] = useState('default')
+    const originalProducts = useRef([])
 
     const fetchProducts = useCallback(
         async (page, order = sortOrder) => {
             try {
-                let sortQuery = '';
+                let sortQuery = ''
                 if (order === 'asc' || order === 'desc') {
-                    sortQuery = `&_sort&column=price&type=${order}`;
+                    sortQuery = `&_sort&column=price&type=${order}`
                 } else if (order === 'newest') {
-                    sortQuery = `&_sort&column=createdAt&type=desc`;
+                    sortQuery = `&_sort&column=createdAt&type=desc`
                 } else if (order === 'views') {
-                    sortQuery = `&_sort&column=views&type=desc`;
+                    sortQuery = `&_sort&column=views&type=desc`
                 }
 
                 const baseUrl = isSearch
-                    ? `http://localhost:5000/products/search/${slugOrUrl}?page=${page}&limit=${pageSize}${sortQuery}`
-                    : `http://localhost:5000/products/category/${slugOrUrl}?page=${page}&limit=${pageSize}${sortQuery}`;
+                    ? `${backendUrl}/products/search/${slugOrUrl}?page=${page}&limit=${pageSize}${sortQuery}`
+                    : `${backendUrl}/products/category/${slugOrUrl}?page=${page}&limit=${pageSize}${sortQuery}`
 
-                const response = await fetch(baseUrl);
+                const response = await fetch(baseUrl)
 
                 if (!response.ok) {
-                    throw new Error('Mạng không ổn định !');
+                    throw new Error('Mạng không ổn định !')
                 }
-                const data = await response.json();
+                const data = await response.json()
 
                 if (isSearch) {
-                    setProducts(data);
-                    originalProducts.current = data;
-                    setTotalPages(1);
+                    setProducts(data)
+                    originalProducts.current = data
+                    setTotalPages(1)
                 } else {
-                    setProducts(data.products);
-                    originalProducts.current = data.products;
-                    setTotalPages(data.totalPages || 1);
+                    setProducts(data.products)
+                    originalProducts.current = data.products
+                    setTotalPages(data.totalPages || 1)
                 }
 
-                setIsDataEmpty(data.length === 0 || (data.products && data.products.length === 0));
+                setIsDataEmpty(data.length === 0 || (data.products && data.products.length === 0))
             } catch (error) {
-                console.error('Lỗi khi tìm nạp sản phẩm:', error);
-                setIsDataEmpty(true);
+                console.error('Lỗi khi tìm nạp sản phẩm:', error)
+                setIsDataEmpty(true)
             }
         },
-        [sortOrder, slugOrUrl, pageSize, isSearch],
-    );
+        [sortOrder, slugOrUrl, pageSize, isSearch]
+    )
 
     useEffect(() => {
-        fetchProducts(currentPage);
-    }, [slugOrUrl, currentPage, pageSize, sortOrder, isSearch, fetchProducts]);
+        fetchProducts(currentPage)
+    }, [slugOrUrl, currentPage, pageSize, sortOrder, isSearch, fetchProducts])
 
     const handleSort = (order) => {
-        setSortOrder(order);
-        fetchProducts(currentPage, order);
-    };
+        setSortOrder(order)
+        fetchProducts(currentPage, order)
+    }
 
     const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
+        setCurrentPage(page)
+    }
 
     const handleFilter = (minPrice, maxPrice) => {
         const filtered = originalProducts.current.filter(
-            (product) => product.price >= minPrice && product.price <= maxPrice,
-        );
-        setProducts(filtered);
-        setIsDataEmpty(filtered.length === 0);
-    };
+            (product) => product.price >= minPrice && product.price <= maxPrice
+        )
+        setProducts(filtered)
+        setIsDataEmpty(filtered.length === 0)
+    }
 
     return {
         products,
@@ -79,6 +81,6 @@ export const useFetchProducts = (slugOrUrl, pageSize, isSearch = false) => {
         totalPages,
         handleSort,
         handlePageChange,
-        handleFilter,
-    };
-};
+        handleFilter
+    }
+}

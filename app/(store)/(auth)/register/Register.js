@@ -10,6 +10,7 @@ import { Input, Button } from '@/components/ui'
 
 const cx = classNames.bind(styles)
 const gx = classNames.bind(gridStyles)
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 const Register = () => {
     const router = useRouter()
@@ -51,7 +52,7 @@ const Register = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/users/register', {
+            const response = await fetch(`${backendUrl}/users/register`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {

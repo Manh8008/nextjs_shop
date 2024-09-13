@@ -1,9 +1,9 @@
-'use client';
-import React, { useEffect, useState, useCallback } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+'use client'
+import React, { useEffect, useState, useCallback } from 'react'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 export const validationSchema = Yup.object({
     name: Yup.string().required('Tên sản phẩm là bắt buộc'),
@@ -14,14 +14,16 @@ export const validationSchema = Yup.object({
         .required('Số lượng là bắt buộc')
         .positive('Số lượng phải lớn hơn 0')
         .integer('Số lượng phải là số nguyên'),
-    image: Yup.string().required('Chọn ảnh sản phẩm là bắt buộc'),
-});
+    image: Yup.string().required('Chọn ảnh sản phẩm là bắt buộc')
+})
+
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function UpdateProduct({ params }) {
-    const router = useRouter();
-    const [messages, setMessages] = useState('');
-    const [categories, setCategories] = useState([]);
-    const [currentImage, setCurrentImage] = useState('');
+    const router = useRouter()
+    const [messages, setMessages] = useState('')
+    const [categories, setCategories] = useState([])
+    const [currentImage, setCurrentImage] = useState('')
 
     const formik = useFormik({
         initialValues: {
@@ -32,59 +34,59 @@ function UpdateProduct({ params }) {
             isOnSale: false,
             image: null,
             categorySlug: '',
-            quantity: '',
+            quantity: ''
         },
         validationSchema,
         onSubmit: async (values) => {
-            setMessages('');
+            setMessages('')
 
             try {
-                const form = new FormData();
+                const form = new FormData()
                 for (const key in values) {
                     if (key === 'image' && values[key] !== null) {
-                        form.append(key, values[key]);
+                        form.append(key, values[key])
                     } else if (key !== 'image') {
-                        form.append(key, values[key]);
+                        form.append(key, values[key])
                     }
                 }
 
-                const response = await fetch(`http://localhost:5000/products/${params.id}`, {
+                const response = await fetch(`${backendUrl}/products/${params.id}`, {
                     method: 'PUT',
-                    body: form,
-                });
+                    body: form
+                })
 
                 if (!response.ok) {
-                    throw new Error('Mạng không ổn định');
+                    throw new Error('Mạng không ổn định')
                 }
 
-                const result = await response.json();
-                setMessages('Sửa sản phẩm thành công!');
+                const result = await response.json()
+                setMessages('Sửa sản phẩm thành công!')
                 setTimeout(() => {
-                    router.push('/admin/products');
-                }, 1500);
+                    router.push('/admin/products')
+                }, 1500)
             } catch (error) {
-                setMessages(error.message);
+                setMessages(error.message)
             }
-        },
-    });
+        }
+    })
 
     const fetchCategories = useCallback(async () => {
         try {
-            const response = await fetch('http://localhost:5000/categories');
-            const data = await response.json();
-            setCategories(data);
+            const response = await fetch(`${backendUrl}/categories`)
+            const data = await response.json()
+            setCategories(data)
         } catch (error) {
-            console.error('Error fetching categories:', error);
+            console.error('Error fetching categories:', error)
         }
-    }, []);
+    }, [])
 
     useEffect(() => {
-        fetchCategories();
+        fetchCategories()
 
         const loadProduct = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/products/${params.id}/edit`);
-                const result = await res.json();
+                const res = await fetch(`${backendUrl}/products/${params.id}/edit`)
+                const result = await res.json()
                 formik.setValues({
                     name: result.name,
                     description: result.description,
@@ -93,16 +95,16 @@ function UpdateProduct({ params }) {
                     isOnSale: result.isOnSale,
                     categorySlug: result.categorySlug,
                     quantity: result.quantity,
-                    image: result.image,
-                });
-                setCurrentImage(result.image);
+                    image: result.image
+                })
+                setCurrentImage(result.image)
             } catch (error) {
-                console.error('Error loading product:', error);
+                console.error('Error loading product:', error)
             }
-        };
+        }
 
-        loadProduct();
-    }, [fetchCategories, params.id, formik.setValues, formik]);
+        loadProduct()
+    }, [fetchCategories, params.id, formik.setValues, formik])
 
     const renderCategoryOptions = (categories, level = 0) => {
         return categories.map((category) => (
@@ -112,8 +114,8 @@ function UpdateProduct({ params }) {
                 </option>
                 {category.subcategories && renderCategoryOptions(category.subcategories, level + 1)}
             </React.Fragment>
-        ));
-    };
+        ))
+    }
 
     return (
         <div className="table-data">
@@ -224,8 +226,8 @@ function UpdateProduct({ params }) {
                                             name="image"
                                             type="file"
                                             onChange={(event) => {
-                                                formik.setFieldValue('image', event.currentTarget.files[0]);
-                                                setCurrentImage(event.currentTarget.files[0].name);
+                                                formik.setFieldValue('image', event.currentTarget.files[0])
+                                                setCurrentImage(event.currentTarget.files[0].name)
                                             }}
                                         />
                                         {formik.touched.image && formik.errors.image ? (
@@ -257,7 +259,7 @@ function UpdateProduct({ params }) {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default UpdateProduct;
+export default UpdateProduct

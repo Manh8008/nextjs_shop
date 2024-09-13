@@ -1,92 +1,94 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { useRouter } from 'next/navigation';
-import withAdminAuth from '@/middleware/withAdminAuth';
+'use client'
+import React, { useState, useEffect } from 'react'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { useRouter } from 'next/navigation'
+import withAdminAuth from '@/middleware/withAdminAuth'
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Tên sản phẩm là bắt buộc'),
     description: Yup.string().required('Miêu tả là bắt buộc'),
-    parent: Yup.string().nullable(),
-});
+    parent: Yup.string().nullable()
+})
+
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function AddCategory() {
-    const router = useRouter();
-    const [messages, setMessages] = useState('');
-    const [categories, setCategories] = useState([]);
-    const [selectedParent, setSelectedParent] = useState(null);
-    const [selectedSubcategory, setSelectedSubcategory] = useState('');
+    const router = useRouter()
+    const [messages, setMessages] = useState('')
+    const [categories, setCategories] = useState([])
+    const [selectedParent, setSelectedParent] = useState(null)
+    const [selectedSubcategory, setSelectedSubcategory] = useState('')
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch('http://localhost:5000/categories');
-                const data = await response.json();
-                setCategories(data);
+                const response = await fetch(`${backendUrl}/categories`)
+                const data = await response.json()
+                setCategories(data)
             } catch (error) {
-                console.error('Failed to fetch categories:', error);
+                console.error('Failed to fetch categories:', error)
             }
-        };
+        }
 
-        fetchCategories();
-    }, []);
+        fetchCategories()
+    }, [])
 
     const formik = useFormik({
         initialValues: {
             name: '',
             description: '',
             image: null,
-            parent: '',
+            parent: ''
         },
 
         validationSchema,
         onSubmit: async (values) => {
-            setMessages('');
+            setMessages('')
 
             try {
-                const form = new FormData();
-                form.append('name', values.name);
-                form.append('description', values.description);
-                form.append('parent', values.parent);
+                const form = new FormData()
+                form.append('name', values.name)
+                form.append('description', values.description)
+                form.append('parent', values.parent)
 
                 if (values.image) {
                     // Chỉ thêm hình ảnh nếu có
-                    form.append('image', values.image);
+                    form.append('image', values.image)
                 }
 
-                const response = await fetch('http://localhost:5000/categories/create', {
+                const response = await fetch(`${backendUrl}/categories/create`, {
                     method: 'POST',
-                    body: form,
-                });
+                    body: form
+                })
 
                 if (!response.ok) {
-                    throw new Error('Mạng không ổn định');
+                    throw new Error('Mạng không ổn định')
                 }
-                const result = await response.json();
-                setMessages('Thêm sản phẩm thành công!');
+                const result = await response.json()
+                setMessages('Thêm sản phẩm thành công!')
                 setTimeout(() => {
-                    router.push('/admin/categories');
-                }, 1500);
+                    router.push('/admin/categories')
+                }, 1500)
             } catch (error) {
-                setMessages(error.message);
+                setMessages(error.message)
             }
-        },
-    });
+        }
+    })
 
     const handleParentChange = (e) => {
-        const selectedParentId = e.target.value;
-        formik.setFieldValue('parent', selectedParentId);
-        const selectedParentCategory = categories.find((cat) => cat._id === selectedParentId);
-        setSelectedParent(selectedParentCategory || null);
-        setSelectedSubcategory(''); // Reset selected subcategory when parent changes
-    };
+        const selectedParentId = e.target.value
+        formik.setFieldValue('parent', selectedParentId)
+        const selectedParentCategory = categories.find((cat) => cat._id === selectedParentId)
+        setSelectedParent(selectedParentCategory || null)
+        setSelectedSubcategory('')
+    }
 
     const handleSubcategoryChange = (e) => {
-        const selectedSubcategoryId = e.target.value;
-        formik.setFieldValue('parent', selectedSubcategoryId);
-        setSelectedSubcategory(selectedSubcategoryId);
-    };
+        const selectedSubcategoryId = e.target.value
+        formik.setFieldValue('parent', selectedSubcategoryId)
+        setSelectedSubcategory(selectedSubcategoryId)
+    }
 
     return (
         <div className="table-data">
@@ -120,7 +122,7 @@ function AddCategory() {
                                         name="image"
                                         type="file"
                                         onChange={(event) => {
-                                            formik.setFieldValue('image', event.currentTarget.files[0]);
+                                            formik.setFieldValue('image', event.currentTarget.files[0])
                                         }}
                                     />
                                     {formik.touched.image && formik.errors.image ? (
@@ -200,7 +202,7 @@ function AddCategory() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default withAdminAuth(AddCategory);
+export default withAdminAuth(AddCategory)

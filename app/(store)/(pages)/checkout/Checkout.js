@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 
 import { ToastSuccess, Button } from '@/components/ui'
 import { clearCart } from '@/redux/slices/cartslice'
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 const Checkout = () => {
     const router = useRouter()
@@ -28,7 +29,7 @@ const Checkout = () => {
             try {
                 const token = JSON.parse(localStorage.getItem('userInfo')).token
 
-                const response = await fetch('http://localhost:5000/users/profile', {
+                const response = await fetch(`${backendUrl}/users/profile`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -93,7 +94,7 @@ const Checkout = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/orders/create', {
+            const response = await fetch(`${backendUrl}/orders/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -107,7 +108,7 @@ const Checkout = () => {
                 const orderId = data._id
 
                 if (paymentMethod === '0') {
-                    const momoResponse = await fetch('http://localhost:5000/payments/createPayment', {
+                    const momoResponse = await fetch(`${backendUrl}/payments/createPayment`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

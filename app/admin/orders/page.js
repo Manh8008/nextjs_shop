@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import './order.css'
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function Order() {
     const [orders, setOrders] = useState([])
@@ -13,7 +14,7 @@ function Order() {
 
     const fetchOrders = async () => {
         try {
-            const res = await fetch('http://localhost:5000/orders')
+            const res = await fetch(`${backendUrl}/orders`)
             const orders = await res.json()
             setOrders(orders)
         } catch (err) {
@@ -68,8 +69,8 @@ function Order() {
             <div className="order">
                 <div className="head">
                     <h3>Recent orders</h3>
-                    <i className='bx bx-search'></i>
-                    <i className='bx bx-filter'></i>
+                    <i className="bx bx-search"></i>
+                    <i className="bx bx-filter"></i>
                 </div>
                 <table>
                     <thead>
@@ -82,14 +83,18 @@ function Order() {
                     </thead>
                     <tbody>
                         {orders.length > 0 ? (
-                            orders.map(order => (
+                            orders.map((order) => (
                                 <tr key={order._id}>
                                     <td>
                                         <Link href={`/admin/orders/${order._id}`}>{order._id}</Link>
                                     </td>
-                                    <td>{(calculateTotalAmount(order.cart)).toLocaleString("en-US")} đ</td>
+                                    <td>{calculateTotalAmount(order.cart).toLocaleString('en-US')} đ</td>
                                     <td>{new Date(order.updatedAt).toLocaleDateString()}</td>
-                                    <td><span className={getStatusClassName(order.status)}>{getStatusText(order.status)}</span></td>
+                                    <td>
+                                        <span className={getStatusClassName(order.status)}>
+                                            {getStatusText(order.status)}
+                                        </span>
+                                    </td>
                                 </tr>
                             ))
                         ) : (

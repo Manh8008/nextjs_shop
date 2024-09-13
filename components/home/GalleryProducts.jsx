@@ -6,6 +6,7 @@ import styles from './HomeChild.module.scss'
 import gridStyles from '@/assets/styles/grid.module.scss'
 const gx = classNames.bind(gridStyles)
 const cx = classNames.bind(styles)
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function GalleryProducts() {
     const [GalleryProducts, setGalleryProducts] = useState()
@@ -15,7 +16,7 @@ function GalleryProducts() {
     }, [])
 
     const fetchData = async () => {
-        const res = await fetch('http://localhost:5000/products/filter/outstanding')
+        const res = await fetch(`${backendUrl}/products/filter/outstanding`)
         const result = await res.json()
         setGalleryProducts(result)
     }

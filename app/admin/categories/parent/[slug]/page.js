@@ -1,52 +1,53 @@
-'use client';
-import { useCallback, useState, useEffect } from 'react';
-import Link from 'next/link';
-import withAdminAuth from '@/middleware/withAdminAuth';
-import CustomConfirm from '@/components/admin/CustomConfirm';
+'use client'
+import { useCallback, useState, useEffect } from 'react'
+import Link from 'next/link'
+import withAdminAuth from '@/middleware/withAdminAuth'
+import CustomConfirm from '@/components/admin/CustomConfirm'
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function SubCategories({ params }) {
-    const [categories, setCategories] = useState([]);
-    const [messages, setMessages] = useState('');
+    const [categories, setCategories] = useState([])
+    const [messages, setMessages] = useState('')
 
     const loadSubCategories = useCallback(async () => {
         try {
-            const res = await fetch(`http://localhost:5000/categories/parent/${params.slug}`, {
-                cache: 'no-store',
-            });
-            const data = await res.json();
-            setCategories(data);
+            const res = await fetch(`${backendUrl}/categories/parent/${params.slug}`, {
+                cache: 'no-store'
+            })
+            const data = await res.json()
+            setCategories(data)
         } catch (error) {
-            console.error('Failed to load subcategories:', error);
+            console.error('Failed to load subcategories:', error)
         }
-    }, [params.slug]);
+    }, [params.slug])
 
     useEffect(() => {
-        loadSubCategories();
-    }, [loadSubCategories]);
+        loadSubCategories()
+    }, [loadSubCategories])
 
     const handleDelete = async (id, event) => {
-        event.preventDefault();
+        event.preventDefault()
 
-        const result = await CustomConfirm('Bạn có chắc chắn muốn xóa danh mục này không?', 'question');
+        const result = await CustomConfirm('Bạn có chắc chắn muốn xóa danh mục này không?', 'question')
         if (!result.isConfirmed) {
-            return;
+            return
         }
 
         try {
-            const res = await fetch(`http://localhost:5000/categories/${id}`, {
-                method: 'DELETE',
-            });
+            const res = await fetch(`${backendUrl}/categories/${id}`, {
+                method: 'DELETE'
+            })
 
             if (res.ok) {
-                setCategories(categories.filter((category) => category._id !== id));
-                setMessages('Xóa danh mục thành công');
+                setCategories(categories.filter((category) => category._id !== id))
+                setMessages('Xóa danh mục thành công')
             } else {
-                throw new Error('Xóa danh mục thất bại');
+                throw new Error('Xóa danh mục thất bại')
             }
         } catch (error) {
-            setMessages(error.message);
+            setMessages(error.message)
         }
-    };
+    }
 
     return (
         <div className="table-data">
@@ -91,7 +92,7 @@ function SubCategories({ params }) {
                 </table>
             </div>
         </div>
-    );
+    )
 }
 
-export default withAdminAuth(SubCategories);
+export default withAdminAuth(SubCategories)

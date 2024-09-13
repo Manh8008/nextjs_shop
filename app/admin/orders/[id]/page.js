@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import '../order.css'
 import { ToastSuccess } from '@/components/ui'
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function OrderDetail({ params }) {
     const [order, setOrder] = useState(null)
@@ -11,7 +12,7 @@ function OrderDetail({ params }) {
     // Fetch order details
     const fetchOrder = useCallback(async () => {
         try {
-            const res = await fetch(`http://localhost:5000/orders/${params.id}`)
+            const res = await fetch(`${backendUrl}/orders/${params.id}`)
             if (!res.ok) throw new Error('Failed to fetch order')
             const orderData = await res.json()
             setOrder(orderData)
@@ -37,7 +38,7 @@ function OrderDetail({ params }) {
     const handleStatusUpdate = async (event) => {
         event.preventDefault()
         try {
-            const res = await fetch(`http://localhost:5000/orders/${params.id}`, {
+            const res = await fetch(`${backendUrl}/orders/${params.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

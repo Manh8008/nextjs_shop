@@ -6,6 +6,8 @@ import Image from 'next/image'
 import withAdminAuth from '@/middleware/withAdminAuth'
 import CustomConfirm from '@/components/admin'
 
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
+
 function Categories() {
     const [categories, setCategories] = useState()
 
@@ -16,7 +18,7 @@ function Categories() {
     }, [])
 
     const loadCategories = async () => {
-        const res = await fetch('http://localhost:5000/categories', {
+        const res = await fetch(`${backendUrl}/categories`, {
             cache: 'no-store'
         })
         const data = await res.json()
@@ -34,7 +36,7 @@ function Categories() {
         }
 
         try {
-            const res = await fetch(`http://localhost:5000/categories/${id}`, {
+            const res = await fetch(`${backendUrl}/categories/${id}`, {
                 method: 'DELETE'
             })
 

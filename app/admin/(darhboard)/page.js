@@ -2,6 +2,7 @@
 import Statistical from '@/components/admin'
 import withAdminAuth from '@/middleware/withAdminAuth'
 import { useEffect, useState } from 'react'
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function Dashboard() {
     const [recentOrders, setRecentOrders] = useState()
@@ -12,7 +13,7 @@ function Dashboard() {
 
     const fetchRecentOrders = async () => {
         try {
-            const res = await fetch(`http://localhost:5000/orders/recentOrders`)
+            const res = await fetch(`${backendUrl}/orders/recentOrders`)
             const data = await res.json()
 
             setRecentOrders(data)

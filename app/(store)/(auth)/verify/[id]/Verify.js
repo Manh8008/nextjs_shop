@@ -9,6 +9,7 @@ import styles from './Verify.module.scss'
 
 const cx = classNames.bind(styles)
 const gx = classNames.bind(gridStyles)
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 const Verify = ({ params }) => {
     const router = useRouter()
@@ -21,7 +22,7 @@ const Verify = ({ params }) => {
         const userId = params.id
 
         try {
-            const response = await fetch(`http://localhost:5000/users/verifyCode/${userId}`, {
+            const response = await fetch(`${backendUrl}/users/verifyCode/${userId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

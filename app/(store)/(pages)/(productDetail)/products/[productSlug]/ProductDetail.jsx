@@ -13,9 +13,10 @@ import gridStyles from '@/assets/styles/grid.module.scss'
 
 const gx = classNames.bind(gridStyles)
 const cx = classNames.bind(styles)
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function Detail({ params }) {
-    const { data: product, error, loading } = useFetch(`http://localhost:5000/products/${params.productSlug}`)
+    const { data: product, error, loading } = useFetch(`${backendUrl}/products/${params.productSlug}`)
     const { quantity, setQuantity, setSize, errorMessage, handleAddToCart } = useAddCart(product)
 
     const handleIncreaseQuantity = () => setQuantity(quantity + 1)

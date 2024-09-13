@@ -5,6 +5,8 @@ import Image from 'next/image'
 
 import CustomConfirm from '@/components/admin/CustomConfirm'
 
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
+
 function Product() {
     const [products, setProducts] = useState()
     const [messages, setMessages] = useState('')
@@ -14,7 +16,7 @@ function Product() {
     }, [])
 
     const loadProducts = async () => {
-        const res = await fetch('http://localhost:5000/products', {
+        const res = await fetch(`${backendUrl}/products`, {
             cache: 'no-store'
         })
         const data = await res.json()
@@ -30,7 +32,7 @@ function Product() {
         }
 
         try {
-            const res = await fetch(`http://localhost:5000/products/${id}`, {
+            const res = await fetch(`${backendUrl}/products/${id}`, {
                 method: 'DELETE'
             })
 

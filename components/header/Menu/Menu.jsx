@@ -1,28 +1,29 @@
-'use client';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import classNames from 'classnames/bind';
-import styles from './Menu.module.scss';
+'use client'
+import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import classNames from 'classnames/bind'
+import styles from './Menu.module.scss'
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind(styles)
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function Menu() {
-    const [categories, setCategories] = useState();
+    const [categories, setCategories] = useState()
 
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch('http://localhost:5000/categories');
-                const data = await response.json();
+                const response = await fetch(`${backendUrl}/categories`)
+                const data = await response.json()
 
-                setCategories(data);
+                setCategories(data)
             } catch (error) {
-                console.error('Failed to fetch categories', error);
+                console.error('Failed to fetch categories', error)
             }
-        };
+        }
 
-        fetchCategories();
-    }, []);
+        fetchCategories()
+    }, [])
 
     return (
         <ul className={cx('menu', 'm-0')}>
@@ -110,7 +111,7 @@ function Menu() {
                 </a>
             </li>
         </ul>
-    );
+    )
 }
 
-export default Menu;
+export default Menu
