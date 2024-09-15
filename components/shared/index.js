@@ -1,3 +1,5 @@
 export { default as Header } from './Header'
 export { default as Footer } from './Footer'
-export { default as NoResult } from './NoResult/NoResult'
+export { default as CartSummary } from './CartSummary'
+export { default as CartList } from './CartList'
+export { default as NoResult } from './NoResult'

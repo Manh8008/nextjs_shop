@@ -1,8 +1,8 @@
-import classNames from 'classnames/bind';
-import styles from './MainLayout.module.scss';
-import { Header, Footer } from '@/components/shared';
+import classNames from 'classnames/bind'
+import styles from './MainLayout.module.scss'
+import { Header, Footer } from '@/components/shared'
 
-const cx = classNames.bind(styles);
+const cx = classNames.bind(styles)
 
 function MainLayout({ children }) {
     return (
@@ -15,7 +15,7 @@ function MainLayout({ children }) {
                 <Footer />
             </div>
         </>
-    );
+    )
 }
 
-export default MainLayout;
+export default MainLayout

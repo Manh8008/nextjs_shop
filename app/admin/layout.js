@@ -2,7 +2,7 @@ import SidebarLeft from '@/components/admin/SidebarLeft'
 import SidebarTop from '@/components/admin/Sidebar'
 import HeadTitle from '@/components/admin/HeadTitle'
 import Providers from '@/redux/provider'
-import '@/assets/css/styleAdmin.css'
+import './adminGlobalStyle.scss'
 
 export const metadata = {
     title: 'Admin',

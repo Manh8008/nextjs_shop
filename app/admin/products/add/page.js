@@ -35,7 +35,7 @@ function AddProduct() {
             name: '',
             description: '',
             price: '',
-            isNew: false,
+            isProductNew: false,
             isOnSale: false,
             image: null,
             categorySlug: '',

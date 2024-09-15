@@ -1,8 +1,9 @@
 import { MainLayout } from '@/layouts/MainLayout'
 import Providers from '@/redux/provider'
 import '@/assets/styles/variable.scss'
-import '@/assets/css/main.css'
-import '@/assets/css/grid.css'
+import '@/assets/styles/grid.scss'
+import './globalStyle.scss'
+import 'rc-slider/assets/index.css'
 
 export const metadata = {
     charSet: 'utf8',

@@ -25,7 +25,7 @@ function GalleryProducts() {
         <>
             {GalleryProducts &&
                 GalleryProducts.map((product) => (
-                    <li className={cx('product-item', gx('m-6 grid__column-2 '))} key={product._id}>
+                    <li className={cx('product-item', gx('m-6', 'grid__column-2'))} key={product._id}>
                         <GalleryProductCard key={product._id} product={product} />
                     </li>
                 ))}

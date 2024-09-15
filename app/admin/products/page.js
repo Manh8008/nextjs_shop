@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-import CustomConfirm from '@/components/admin/CustomConfirm'
+import CustomConfirm from '@/components/admin/CustomConfirm/CustomConfirm'
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 

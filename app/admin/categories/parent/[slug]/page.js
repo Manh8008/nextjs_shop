@@ -2,7 +2,7 @@
 import { useCallback, useState, useEffect } from 'react'
 import Link from 'next/link'
 import withAdminAuth from '@/middleware/withAdminAuth'
-import CustomConfirm from '@/components/admin/CustomConfirm'
+import CustomConfirm from '@/components/admin/CustomConfirm/CustomConfirm'
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function SubCategories({ params }) {

@@ -1,7 +1,8 @@
 'use client'
-import Statistical from '@/components/admin'
-import withAdminAuth from '@/middleware/withAdminAuth'
 import { useEffect, useState } from 'react'
+import { Statistical } from '@/components/admin'
+import withAdminAuth from '@/middleware/withAdminAuth'
+
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
 function Dashboard() {
@@ -21,8 +22,6 @@ function Dashboard() {
             console.error(err)
         }
     }
-
-    console.log(recentOrders)
 
     return (
         <>

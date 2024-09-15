@@ -61,6 +61,11 @@
     }
 }
 
+.fullWidth {
+    width: calc(100% - 30px);
+    margin-left: 15px;
+}
+
 .outline {
     border-color: $black;
     color: $black;

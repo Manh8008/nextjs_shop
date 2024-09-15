@@ -18,15 +18,16 @@ const Header = () => {
             <div className={gx('grid', 'wide')}>
                 <div className={cx('content')}>
                     <div className={cx('left')}>
-                        <FontAwesomeIcon icon={faBars} className={cx('mobile-menu l-0')} />
+                        <FontAwesomeIcon icon={faBars} className={cx('mobile-menu', gx('l-0'))} />
                         <Menu />
                     </div>
 
-                    <div className={gx('col')}>
+                    <div>
                         <Link href={'/'}>
                             <Image
                                 width={140}
                                 height={45}
+                                quality={100}
                                 src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}/logo.png`}
                                 alt="Logo"
                                 className={cx('logo')}

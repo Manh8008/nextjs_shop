@@ -27,7 +27,7 @@ function NewProduct() {
         <>
             {newProducts &&
                 newProducts.map((product) => (
-                    <li className={cx('product-item', gx('m-6 grid__column-2 '))} key={product._id}>
+                    <li className={cx('product-item', gx('m-6', 'grid__column-2'))} key={product._id}>
                         <ProductCard key={product._id} product={product} />
                     </li>
                 ))}
