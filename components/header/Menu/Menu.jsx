@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import styles from './Menu.module.scss'
-
+import gridStyles from '@/assets/styles/grid.module.scss'
+const gx = classNames.bind(gridStyles)
 const cx = classNames.bind(styles)
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'
 
@@ -26,7 +27,7 @@ function Menu() {
     }, [])
 
     return (
-        <ul className={cx('menu', 'm-0')}>
+        <ul className={cx('menu', gx('m-0'))}>
             {categories &&
                 categories.map((category) => (
                     <li className={cx('menu-item')} key={category._id}>

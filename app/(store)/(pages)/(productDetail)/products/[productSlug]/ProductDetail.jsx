@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import classNames from 'classnames/bind'
 
-import { Button, ToastError } from '@/components/ui'
+import { Button, LoadingSkeleton, ToastError } from '@/components/ui'
 import useFetch from '@/hooks/useFetch'
 import useAddCart from '@/hooks/useAddCart'
 import styles from './ProductDetail.module.scss'
@@ -27,7 +27,7 @@ function Detail({ params }) {
     }
 
     if (error) return <div>Failed to load</div>
-    if (loading) return <h2>Loading...</h2>
+    if (loading) return <LoadingSkeleton />
 
     return (
         <>

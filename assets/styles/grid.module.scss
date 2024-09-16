@@ -9,6 +9,24 @@
     }
 }
 
+.grid__column-2 {
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 20%;
+}
+
+.grid__column-3 {
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 25%;
+}
+
+.grid__column-10 {
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 79%;
+}
+
 .grid__row {
     display: flex;
     flex-wrap: wrap;

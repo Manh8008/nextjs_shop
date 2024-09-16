@@ -27,11 +27,15 @@ function Search({ searchParams }) {
                             currentPage={currentPage}
                             totalPages={totalPages}
                         />
-                        <div className="home-product grid">
+                        <div className="home-product grid" style={{ paddingTop: 18 }}>
                             <ul className="products grid__row">
                                 {products.products &&
                                     products.products.map((product) => (
-                                        <li className="product-item grid__column-3" key={product._id}>
+                                        <li
+                                            className="product-item grid__column-3"
+                                            key={product._id}
+                                            style={{ paddingBottom: 12 }}
+                                        >
                                             <ProductCard product={product} />
                                         </li>
                                     ))}

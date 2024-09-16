@@ -3,10 +3,12 @@ import { OutstandingProducts, NewProduct, Slide, Banner } from '@/components/hom
 import { GalleryProducts } from '@/components/home'
 import styles from './Home.module.scss'
 import gridStyles from '@/assets/styles/grid.module.scss'
+import { wait } from '@/lib/wait'
 const gx = classNames.bind(gridStyles)
 const cx = classNames.bind(styles)
 
-function Home() {
+async function Home() {
+    await wait(2000)
     return (
         <>
             <Slide />
