@@ -7,9 +7,9 @@ import classNames from 'classnames/bind'
 import { ToastSuccess, Button } from '@/components/ui'
 import { clearCart } from '@/redux/slices/cartslice'
 import { Input } from '@/components/ui'
+import { CartList, CartSummary } from '@/components/shared'
 import styles from './CheckOut.module.scss'
 import gridStyles from '@/assets/styles/grid.module.scss'
-import { CartList, CartSummary } from '@/components/shared'
 
 const cx = classNames.bind(styles)
 const gx = classNames.bind(gridStyles)

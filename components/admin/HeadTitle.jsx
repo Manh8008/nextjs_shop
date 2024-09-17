@@ -21,7 +21,7 @@ function HeadTitle() {
                 <span className="text">Download PDF</span>
             </a>
         </div>
-    );
+    )
 }
 
-export default HeadTitle;
+export default HeadTitle
