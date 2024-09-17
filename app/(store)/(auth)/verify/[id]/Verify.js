@@ -6,6 +6,7 @@ import classNames from 'classnames/bind'
 
 import { Input, Button } from '@/components/ui'
 import styles from './Verify.module.scss'
+import gridStyles from '@/assets/styles/grid.module.scss'
 
 const cx = classNames.bind(styles)
 const gx = classNames.bind(gridStyles)
