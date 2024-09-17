@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
-        BACKEND_URL:
-            process.env.NODE_ENV === 'development'
-                ? 'http://localhost:5000'
-                : 'http://manhxanh.id.vn' || 'https://ivy-api.vercel.app'
+        BACKEND_URL: process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://ivy-api.vercel.app'
     },
     images: {
         remotePatterns: [
@@ -21,7 +18,7 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
-                hostname: 'https://ivy-api.vercel.app',
+                hostname: 'ivy-api.vercel.app',
                 pathname: '/**'
             }
         ]
