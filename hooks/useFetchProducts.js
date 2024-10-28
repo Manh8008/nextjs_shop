@@ -67,9 +67,10 @@ export const useFetchProducts = (slugOrUrl, pageSize, isSearch = false) => {
     }
 
     const handleFilter = (minPrice, maxPrice) => {
-        const filtered = originalProducts.current.filter(
-            (product) => product.price >= minPrice && product.price <= maxPrice
-        )
+        const filtered = (
+            Array.isArray(originalProducts.current) ? originalProducts.current : originalProducts.current.products
+        ).filter((product) => product.price >= minPrice && product.price <= maxPrice)
+
         setProducts(filtered)
         setIsDataEmpty(filtered.length === 0)
     }
